@@ -1,0 +1,288 @@
+{
+  "fetchedAt": "2026-11-23",
+  "datasetUpdated": "2025-02-05",
+  "sources": [
+    {
+      "name": "StreetsLA: streets within 1 mile of LA28 venues",
+      "url": "https://www.arcgis.com/home/item.html?id=9973563018bf4dc08517a09f2f7a56c5",
+      "note": "Curb-ramp points and street segments near the city's LA28 venue list."
+    },
+    {
+      "name": "Sidewalk Repair Program LA28 map service",
+      "url": "https://maps.lacity.org/arcgis/rest/services/External/SRP_LA28/MapServer",
+      "note": "Access barrier sites flagged for LA28 (layer 23)."
+    }
+  ],
+  "summary": {
+    "cornersWithRamp": 3555,
+    "cornersMissingRamp": 149,
+    "cornersTotal": 3704,
+    "streetMilesCovered": 126.1,
+    "venuesWithStreetData": 9,
+    "venuesListed": 20,
+    "barrierSites": 19
+  },
+  "venues": [
+    {
+      "name": "Gloria Molina Grand Park",
+      "streetSegments": 298,
+      "centerlineMiles": 29.2,
+      "hasRamps": 771,
+      "missingRamps": 51,
+      "totalRamps": 822,
+      "missingPct": 6.2
+    },
+    {
+      "name": "LA Live",
+      "streetSegments": 472,
+      "centerlineMiles": 37,
+      "hasRamps": 1186,
+      "missingRamps": 34,
+      "totalRamps": 1220,
+      "missingPct": 2.8
+    },
+    {
+      "name": "Riviera Country Club",
+      "streetSegments": 48,
+      "centerlineMiles": 5.4,
+      "hasRamps": 53,
+      "missingRamps": 19,
+      "totalRamps": 72,
+      "missingPct": 26.4
+    },
+    {
+      "name": "Dodger Stadium",
+      "streetSegments": 84,
+      "centerlineMiles": 8.1,
+      "hasRamps": 196,
+      "missingRamps": 15,
+      "totalRamps": 211,
+      "missingPct": 7.1
+    },
+    {
+      "name": "LA Memorial Coliseum",
+      "streetSegments": 204,
+      "centerlineMiles": 15,
+      "hasRamps": 535,
+      "missingRamps": 15,
+      "totalRamps": 550,
+      "missingPct": 2.7
+    },
+    {
+      "name": "Galen Center",
+      "streetSegments": 124,
+      "centerlineMiles": 9.6,
+      "hasRamps": 328,
+      "missingRamps": 5,
+      "totalRamps": 333,
+      "missingPct": 1.5
+    },
+    {
+      "name": "Sepulveda Basin Sports Complex",
+      "streetSegments": 93,
+      "centerlineMiles": 14.5,
+      "hasRamps": 235,
+      "missingRamps": 5,
+      "totalRamps": 240,
+      "missingPct": 2.1
+    },
+    {
+      "name": "USC Dedeaux Stadium",
+      "streetSegments": 94,
+      "centerlineMiles": 7.2,
+      "hasRamps": 249,
+      "missingRamps": 4,
+      "totalRamps": 253,
+      "missingPct": 1.6
+    },
+    {
+      "name": "LA Stadium & Entertainment District",
+      "streetSegments": 1,
+      "centerlineMiles": 0.1,
+      "hasRamps": 2,
+      "missingRamps": 1,
+      "totalRamps": 3,
+      "missingPct": 33.3
+    }
+  ],
+  "barriers": [
+    {
+      "name": "10985 Le Conte Ave",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 5,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-01-13",
+      "requests": 1
+    },
+    {
+      "name": "Burbank Blvd and Hayvenhurst Ave",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 6,
+      "curbRampsNoted": 3,
+      "loggedOn": "2026-02-06",
+      "requests": 1
+    },
+    {
+      "name": "Expo Park: W 30th St and Hope St",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 9,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-05-01",
+      "requests": 1
+    },
+    {
+      "name": "LA Live: 11th St and Figueroa St",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 14,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-05-29",
+      "requests": 1
+    },
+    {
+      "name": "LA Live: Flower St and Olympic Blvd",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 14,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-05-29",
+      "requests": 1
+    },
+    {
+      "name": "LA Live: L.A. Live Way and W Pico Blvd",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 9,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-05-29",
+      "requests": 1
+    },
+    {
+      "name": "North Hollywood Station at Cumpston St",
+      "kind": "la28-site",
+      "subtype": "LA28 PAI",
+      "councilDistrict": 2,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-02-22",
+      "requests": 1
+    },
+    {
+      "name": "255 W 5th St",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 15,
+      "curbRampsNoted": 1,
+      "loggedOn": "2026-05-15",
+      "requests": 1
+    },
+    {
+      "name": "3936 S Hill St",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 9,
+      "curbRampsNoted": 0,
+      "loggedOn": "2024-10-19",
+      "requests": 1
+    },
+    {
+      "name": "500 Landfair Ave",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 0,
+      "loggedOn": "2025-10-30",
+      "requests": 1
+    },
+    {
+      "name": "554 W 43rd Pl",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 9,
+      "curbRampsNoted": 0,
+      "loggedOn": "2026-07-28",
+      "requests": 1
+    },
+    {
+      "name": "628 S Mesa St",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 15,
+      "curbRampsNoted": 0,
+      "loggedOn": "2025-05-02",
+      "requests": 1
+    },
+    {
+      "name": "669 Levering Ave",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 0,
+      "loggedOn": "2025-07-23",
+      "requests": 1
+    },
+    {
+      "name": "715 Gayley Ave",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 0,
+      "loggedOn": "2026-06-09",
+      "requests": 1
+    },
+    {
+      "name": "754 S Hope St",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 14,
+      "curbRampsNoted": 0,
+      "loggedOn": "2026-08-14",
+      "requests": 1
+    },
+    {
+      "name": "900 Gayley Ave",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 0,
+      "loggedOn": "2025-11-08",
+      "requests": 2
+    },
+    {
+      "name": "Landfair Ave at Strathmore Dr",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 2,
+      "loggedOn": "2025-02-24",
+      "requests": 1
+    },
+    {
+      "name": "Midvale Ave at Strathmore Dr",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 5,
+      "curbRampsNoted": 0,
+      "loggedOn": "2025-02-10",
+      "requests": 1
+    },
+    {
+      "name": "Stadium Way at Scott Ave",
+      "kind": "access-request",
+      "subtype": "Access Request (myLA311)",
+      "councilDistrict": 1,
+      "curbRampsNoted": 0,
+      "loggedOn": "2017-11-07",
+      "requests": 1
+    }
+  ],
+  "caveats": [
+    "City of Los Angeles streets only. Venues in Inglewood, Long Beach, Pasadena, Carson, Anaheim, and other cities have little or no data here.",
+    "A corner marked as having a ramp is not a check of ADA compliance, slope, or condition.",
+    "Ramp points come from the city's 2017 sidewalk inventory, traced from 2014 aerial photos.",
+    "The venue list is the city's unofficial, subject-to-change LA28 list, not the current LA28 Games Plan.",
+    "The city is building a newer LiDAR sidewalk assessment for LA28 sites. It is not public yet."
+  ]
+}

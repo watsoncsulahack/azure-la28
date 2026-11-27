@@ -1,0 +1,31 @@
+{
+  "venues.csv": {
+    "name": "City unofficial venue name, not a verified Paralympic competition site",
+    "centerlineMiles": "Street centerline miles; already rounded by page",
+    "streetSegments": "Page-reported street segments",
+    "hasRamps": "Corners classified as ramp present",
+    "missingRamps": "Corners classified as missing ramp",
+    "totalRamps": "Corners inventoried, including missing ramps; not installed-ramp count",
+    "missingPct": "Percentage of inventoried corners missing a ramp"
+  },
+  "barrier_sites.csv": {
+    "curbRampsNoted": "Raw page value; zero means none noted, not proof of no ramp",
+    "requests": "Page-grouped request count",
+    "loggedOn": "Page-reported date, not repair completion date",
+    "subtype": "City category",
+    "kind": "Page grouping: la28-site or access-request"
+  },
+  "GIS": {
+    "geometry": "GeoJSON longitude/latitude WGS84; no geocoding or routing inferred",
+    "dates": "ArcGIS date attributes remain Unix epoch milliseconds, null remains null",
+    "domains": "Coded field meanings retained in raw/*_metadata.json",
+    "street_segments.csv": "Attributes only; full lines in street_segments.geojson",
+    "live_barrier_points": "Raw source records, not merged; can exceed page grouped-site count"
+  },
+  "provenance": {
+    "page_snapshot_date": "Date claimed by page, not collection date",
+    "page_dataset_updated_date": "StreetsLA venue dataset date claimed by page, not all-layer freshness",
+    "collected_at_utc": "Collector execution timestamp",
+    "verification": "Page claims remain unverified unless noted"
+  }
+}

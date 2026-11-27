@@ -1,0 +1,21 @@
+ID,Req.,Reason,Date,Status
+UR-01,Spectators should be able to follow directions in their forward view without interpreting a complex map.,Reduce map-reading effort. Supported by SR-09.,2026-11-27,Inferred
+UR-02,Spectators using mobility devices should be able to choose routes suited to their access needs.,Support confidence and independent travel. Supported by SR-05.,2026-11-27,Inferred
+UR-04,Spectators should be able to prefer quieter or shadier routes.,Support sensory comfort and reduced sun exposure. Supported by SR-04.,2026-11-27,Inferred
+UR-05,"Spectators should be able to receive guidance through visual, spoken or text-based information.","Support different communication needs. Supported by SR-09, SR-17 and SR-19.",2026-11-27,Inferred
+UR-06,Spectators should be able to adjust the display for their visual and motion-sensitivity needs.,Improve readability and comfort. Supported by SR-21 and SR-22.,2026-11-27,Inferred
+UR-07,Spectators should be able to preview a journey at a suitable pace and viewpoint.,Help users prepare for their visit. Supported by SR-12 and SR-14.,2026-11-27,Inferred
+UR-10,Spectators should be able to request appropriate human assistance.,Provide help when navigation alone is insufficient. SR-24 currently demonstrates this only.,2026-11-27,Inferred
+SR-03,The system shall offer three start locations and five destinations.,"Define the supported demo journeys. Source: L605, L614.",2026-11-27,Code reviewed
+SR-04,"The route calculation shall add 1.8 times segment length for modeled noise of at least 74 dB when quiet routing is selected, and 1.6 times length for unshaded segments when shade is selected.","Make routing preferences explicit and testable. Source: L1090, L1093.",2026-11-27,Code reviewed
+SR-05,"In step-free mode, the system shall exclude route segments with stairs or a modeled slope above 8.33%.",Respect the demo’s mobility constraints. Source: L1088.,2026-11-27,Graph verified
+SR-06,"The system shall display modeled route distance, ETA, maximum slope, stair-segment count, shade coverage, average noise and elevator-use count.","Let spectators compare route characteristics. Source: L1117, L2502.",2026-11-27,Code reviewed
+SR-09,The system shall display the selected route using first-person 3D arrows and waypoint labels.,"Support forward-view navigation. Source: L1948, L2091.",2026-11-27,Code reviewed
+SR-12,"The system shall provide play/pause, route scrubbing and waypoint jumps, with preview speeds of 0.9, 1.4 and 3.2 m/s.","Allow controlled route rehearsal. Source: L1152, L2907, L2938.",2026-11-27,Code reviewed
+SR-14,The system shall offer simulated eye heights of 1.20 m and 1.65 m.,Preview wheelchair and standing viewpoints. Source: L2969.,2026-11-27,Code reviewed
+SR-15,The system shall offer an optional camera-video background behind the virtual route arrows.,Demonstrate camera-overlay guidance; no real-world positioning is implemented. Source: L2566.,2026-11-27,Code reviewed
+SR-17,The system shall offer spoken route instructions and text announcements through an ARIA live region.,"Provide alternatives to visual arrows. Source: L1205, L3013.",2026-11-27,Code reviewed
+SR-19,The system shall cycle fixed English or Spanish caption text every 5.2 seconds.,"Demonstrate captions without a live event feed. Source: L2713, L2736.",2026-11-27,Demo only
+SR-21,"The system shall offer high-contrast colors, 1.6-times arrow sizing and a 1.18-times root font scale.","Support visual adjustment; WCAG conformance is unverified. Source: L43, L64, L1955, L3054.",2026-11-27,Code reviewed
+SR-22,The system shall offer a reduced-motion setting that suppresses decorative animation updates.,"Reduce motion-related discomfort; route playback can continue. Source: L3086, L3229.",2026-11-27,Code reviewed
+SR-24,The system shall show an assistance-type selector and a preset confirmation in a local request dialog.,"Demonstrate an assistance workflow; no request is sent. Source: L789, L3111, L3123.",2026-11-27,Demo only

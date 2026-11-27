@@ -1,0 +1,8 @@
+metric,value,page_url,collected_at_utc,page_snapshot_date,page_dataset_updated_date,verification
+cornersWithRamp,3555,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+cornersMissingRamp,149,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+cornersTotal,3704,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+streetMilesCovered,126.1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+venuesWithStreetData,9,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+venuesListed,20,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+barrierSites,19,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page

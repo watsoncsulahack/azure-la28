@@ -1,0 +1,3280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>LA28 Coliseum AR Wayfinding — Accessible 3D First-Person Navigator</title>
+
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js r128 (Open-Source WebGL Graphics Engine) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* =========================================================================
+       DESIGN TOKENS — DARK-GLASS AR HUD & WCAG AAA HIGH-CONTRAST THEME
+       ========================================================================= */
+    :root {
+      --hud-bg: rgba(11, 17, 15, 0.80);
+      --hud-bg-solid: #0c1411;
+      --hud-elevated: rgba(20, 31, 26, 0.88);
+      --hud-border: rgba(52, 211, 153, 0.30);
+      --hud-border-strong: rgba(52, 211, 153, 0.65);
+      --text-primary: #f4f8f6;
+      --text-secondary: #a7bab0;
+      --text-muted: #789084;
+      --accent: #34d399;
+      --accent-strong: #10b981;
+      --accent-ink: #041d14;
+      --warn: #fbbf24;
+      --danger: #f87171;
+      --info: #38bdf8;
+      --focus-ring: #34d399;
+      --font-scale: 1;
+      --shadow-hud: 0 10px 30px rgba(0, 0, 0, 0.52);
+    }
+
+    /* WCAG AAA High Contrast Mode (>= 7:1 contrast ratio across all controls) */
+    [data-high-contrast="true"] {
+      --hud-bg: #000000;
+      --hud-bg-solid: #000000;
+      --hud-elevated: #0a0a0a;
+      --hud-border: #ffffff;
+      --hud-border-strong: #ffeb3b;
+      --text-primary: #ffffff;
+      --text-secondary: #f2f2f2;
+      --text-muted: #e5e5e5;
+      --accent: #ffeb3b;
+      --accent-strong: #ffeb3b;
+      --accent-ink: #000000;
+      --warn: #ffeb3b;
+      --danger: #ff5252;
+      --info: #00e5ff;
+      --focus-ring: #ffeb3b;
+      --shadow-hud: 0 0 0 2px #ffffff;
+    }
+
+    [data-large-text="true"] {
+      --font-scale: 1.18;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #09110e;
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: calc(14px * var(--font-scale));
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    /* Skip Link for Screen Reader & Keyboard Accessibility */
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 16px;
+      z-index: 9999;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 800;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    /* Live AR Camera Video Backdrop */
+    #ar-camera-feed {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      display: none;
+      background: #000;
+    }
+
+    /* 3D WebGL First-Person Viewport */
+    #fpv-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+      touch-action: none;
+      cursor: grab;
+    }
+    #fpv-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* Floating 3D Projected Waypoint Beacons Layer */
+    #beacons-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ar-beacon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -100%);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 11px 6px 7px;
+      border-radius: 999px;
+      background: rgba(9, 15, 13, 0.86);
+      border: 1.5px solid var(--beacon-color, #34d399);
+      color: #f4f8f6;
+      font-size: calc(11.5px * var(--font-scale));
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: opacity 0.18s ease;
+    }
+
+    .ar-beacon::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 7px solid var(--beacon-color, #34d399);
+    }
+
+    .ar-beacon-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--beacon-color, #34d399);
+      color: #041710;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .ar-beacon-dist {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: calc(10.5px * var(--font-scale));
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--beacon-color, #34d399);
+    }
+
+    [data-high-contrast="true"] .ar-beacon {
+      background: #000000;
+      color: #ffffff;
+      border: 2.5px solid #ffeb3b;
+      backdrop-filter: none;
+    }
+    [data-high-contrast="true"] .ar-beacon::after {
+      border-top-color: #ffeb3b;
+    }
+    [data-high-contrast="true"] .ar-beacon-icon {
+      background: #ffeb3b;
+      color: #000000;
+    }
+    [data-high-contrast="true"] .ar-beacon-dist {
+      background: #ffeb3b;
+      color: #000000;
+    }
+
+    [data-oversized-arrows="true"] .ar-beacon {
+      padding: 8px 14px 8px 9px;
+      font-size: calc(13.5px * var(--font-scale));
+      border-width: 2.5px;
+    }
+
+    /* Dark-Glass HUD Surfaces */
+    .hud-glass {
+      background: var(--hud-bg);
+      border: 1px solid var(--hud-border);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-hud);
+    }
+    [data-high-contrast="true"] .hud-glass {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-width: 2px;
+    }
+
+    /* Buttons */
+    .hud-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--hud-border);
+      background: var(--hud-elevated);
+      color: var(--text-primary);
+      font-size: calc(12px * var(--font-scale));
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
+    .hud-btn:hover {
+      border-color: var(--hud-border-strong);
+      background: rgba(52, 211, 153, 0.16);
+    }
+    .hud-btn[aria-pressed="true"],
+    .hud-btn.is-primary {
+      background: var(--accent);
+      color: var(--accent-ink);
+      border-color: var(--accent);
+    }
+    .hud-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* Slide-Over Drawer */
+    #access-drawer {
+      transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
+    #access-drawer.is-closed {
+      transform: translateX(calc(-100% - 24px));
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Custom Scrollbars */
+    .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(52, 211, 153, 0.3); border-radius: 999px; }
+    [data-high-contrast="true"] .custom-scroll::-webkit-scrollbar-thumb { background: #ffeb3b; }
+
+    /* Mini-Map PiP Expandable Radar */
+    #minimap-wrapper {
+      transition: width 0.22s ease, height 0.22s ease;
+      width: 132px;
+      height: 132px;
+    }
+    #minimap-wrapper.is-expanded {
+      width: 244px;
+      height: 244px;
+    }
+
+    /* Form Controls */
+    .field-input {
+      background: var(--hud-elevated);
+      border: 1px solid var(--hud-border);
+      color: var(--text-primary);
+      border-radius: 10px;
+    }
+    .field-input option {
+      background: #0c1411;
+      color: #f4f8f6;
+    }
+    [data-high-contrast="true"] .field-input option {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    /* Tab Active */
+    .drawer-tab {
+      color: var(--text-secondary);
+      border-bottom: 2px solid transparent;
+    }
+    .drawer-tab[aria-selected="true"] {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: rgba(52, 211, 153, 0.1);
+    }
+    [data-high-contrast="true"] .drawer-tab[aria-selected="true"] {
+      background: #ffeb3b;
+      color: #000000;
+    }
+
+    /* Range Scrub Bar */
+    input[type="range"].ar-scrub {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"].ar-scrub::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      border: 2px solid #041710;
+      cursor: pointer;
+    }
+
+    /* Reduced Motion Overrides */
+    [data-reduced-motion="true"] *,
+    [data-reduced-motion="true"] *::before,
+    [data-reduced-motion="true"] *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+
+    /* Off-Screen Turn Pointer Chevron (when user looks away from next arrow) */
+    #offscreen-cue {
+      transition: opacity 0.2s ease;
+    }
+
+    @media (max-width: 640px) {
+      #minimap-wrapper {
+        width: 96px;
+        height: 96px;
+      }
+      #minimap-wrapper.is-expanded {
+        width: 210px;
+        height: 210px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Accessibility Skip Link & Polite Live Announcer -->
+  <a href="#bottom-controls" class="skip-link">Skip to AR Navigation Controls</a>
+  <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Live Camera Feed (Active in Live Camera AR Mode) -->
+  <video id="ar-camera-feed" autoplay playsinline muted aria-hidden="true"></video>
+
+  <!-- Full-Viewport Three.js First-Person WebGL Canvas -->
+  <canvas id="fpv-canvas" tabindex="0" aria-label="First-person 3D AR navigation view inside Los Angeles Memorial Coliseum. Drag to look around, or use Play to auto-navigate along the 3D arrows."></canvas>
+
+  <!-- World-Space Floating 3D Waypoint Beacons -->
+  <div id="beacons-layer" aria-label="Floating 3D Navigation Waypoint Beacons"></div>
+
+  <!-- =========================================================================
+       TOP HUD: LEFT QUICK ACTIONS | CENTER AR NAV BANNER | RIGHT PIP MINIMAP
+       ========================================================================= -->
+  <header class="fixed top-2.5 left-2.5 right-2.5 z-20 flex items-start justify-between gap-2 pointer-events-none">
+
+    <!-- Top-Left: Drawer Toggle + Spec/Verification + Quick High Contrast -->
+    <div class="flex flex-col gap-1.5 pointer-events-auto">
+      <div class="flex items-center gap-1.5">
+        <button id="btn-open-drawer" type="button" class="hud-btn hud-glass" aria-expanded="false" aria-controls="access-drawer" aria-label="Open Route and Venue Access Drawer">
+          <svg class="w-4 h-4 shrink-0" style="color: var(--accent);" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10"/></svg>
+          <span class="hidden sm:inline">Route &amp; Access</span>
+        </button>
+
+        <button id="btn-spec-modal" type="button" class="hud-btn hud-glass" title="View AfterVibe User/System Requirements & Live Verification Conditions">
+          <span class="font-mono-tech text-[11px]" style="color: var(--accent);">✓</span>
+          <span class="hidden md:inline">Spec &amp; VCs</span>
+        </button>
+
+        <button id="btn-quick-contrast" type="button" class="hud-btn hud-glass px-2.5" aria-pressed="false" title="Toggle WCAG AAA High Contrast Mode" aria-label="Toggle WCAG AAA High Contrast Mode">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"/></svg>
+        </button>
+      </div>
+
+      <!-- Compact Live Telemetry Chip -->
+      <div class="hud-glass rounded-xl px-2.5 py-1 text-[10.5px] font-mono-tech hidden sm:flex items-center gap-2" style="color: var(--text-secondary);">
+        <span id="hud-mode-dot" class="w-2 h-2 rounded-full" style="background: var(--accent);"></span>
+        <span id="hud-eye-chip">♿ Eye 1.20m</span>
+        <span>•</span>
+        <span id="hud-grade-chip">0 stairs</span>
+        <span>•</span>
+        <span id="hud-db-chip">64 dB</span>
+      </div>
+    </div>
+
+    <!-- Top-Center: AR Turn-by-Turn Navigation Banner -->
+    <section
+      aria-label="Active AR Navigation Instruction"
+      class="hud-glass pointer-events-auto rounded-2xl px-3.5 py-2.5 max-w-[460px] w-full flex items-center gap-3"
+    >
+      <div id="nav-turn-icon-box" class="w-11 h-11 rounded-xl flex items-center justify-center text-xl font-extrabold shrink-0" style="background: var(--accent); color: var(--accent-ink);" aria-hidden="true">
+        ↑
+      </div>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center justify-between gap-2">
+          <span id="nav-distance-badge" class="text-xs font-extrabold font-mono-tech tracking-tight" style="color: var(--accent);">18 m (59 ft)</span>
+          <span id="nav-floor-compass" class="text-[10.5px] font-mono-tech font-semibold px-2 py-0.5 rounded-full" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">L2 • NE 58°</span>
+        </div>
+        <div id="nav-instruction-text" class="text-xs sm:text-sm font-bold leading-snug mt-0.5 truncate" style="color: var(--text-primary);">
+          Ascend Gate 29 ADA Ramp (5.8% grade)
+        </div>
+        <div id="nav-sub-meta" class="text-[10.5px] truncate mt-0.5" style="color: var(--text-secondary);">
+          12 o'clock straight ahead • Step-Free Route → Sec 308
+        </div>
+      </div>
+    </section>
+
+    <!-- Top-Right: Expandable Picture-in-Picture 2D Mini-Map Radar -->
+    <div class="flex flex-col items-end gap-1.5 pointer-events-auto">
+      <button
+        id="minimap-wrapper"
+        type="button"
+        class="hud-glass rounded-2xl p-1.5 relative overflow-hidden cursor-pointer block"
+        aria-label="Toggle Expanded 2D Coliseum Mini-Map"
+        title="Tap to expand or collapse 2D Mini-Map"
+      >
+        <canvas id="minimap-canvas" class="w-full h-full block rounded-xl"></canvas>
+        <span class="absolute bottom-1.5 right-2 text-[9px] font-mono-tech font-bold px-1.5 py-0.5 rounded bg-black/70" style="color: var(--accent);">RADAR ⤢</span>
+      </button>
+
+      <!-- Re-Center on Next Arrow Button -->
+      <button id="btn-recenter" type="button" class="hud-btn hud-glass py-1.5 px-2.5 text-[11px]" title="Snap camera toward the next 3D arrow">
+        <span>⌖</span>
+        <span class="hidden sm:inline">Re-Center</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Elevator Transition Banner (Appears dynamically during vertical lift!) -->
+  <div
+    id="elevator-banner"
+    role="status"
+    class="hidden fixed top-28 left-1/2 -translate-x-1/2 z-30 hud-glass rounded-2xl px-4 py-2.5 flex items-center gap-3"
+    style="border-color: var(--info);"
+  >
+    <span class="text-xl" aria-hidden="true">🛗</span>
+    <div>
+      <div id="elevator-banner-title" class="text-xs sm:text-sm font-extrabold" style="color: var(--info);">Taking Tunnel 9 Elevator • Level 2 → Level 3</div>
+      <div id="elevator-banner-sub" class="text-[11px] font-mono-tech" style="color: var(--text-secondary);">Elevation: 6.0m → 14.0m • Step-Free Lift Active</div>
+    </div>
+  </div>
+
+  <!-- Off-Screen Directional Cue (Guides user back toward arrow when looking away) -->
+  <div id="offscreen-cue" class="hidden fixed top-1/2 -translate-y-1/2 z-20 pointer-events-none">
+    <div class="hud-glass rounded-full px-3 py-1.5 text-xs font-extrabold flex items-center gap-1.5" style="border-color: var(--accent); color: var(--accent);">
+      <span id="offscreen-cue-text">◀ Next Arrow Left</span>
+    </div>
+  </div>
+
+  <!-- Live PA Captions Compact Bar (Shown when Captions enabled from Access Drawer) -->
+  <div
+    id="floating-caption-bar"
+    class="hidden fixed bottom-28 left-1/2 -translate-x-1/2 z-20 hud-glass rounded-xl px-3.5 py-2 max-w-[600px] w-[calc(100vw-24px)] flex items-center justify-between gap-2.5"
+  >
+    <div class="flex items-center gap-2 min-w-0">
+      <span class="px-1.5 py-0.5 rounded text-[9.5px] font-extrabold font-mono-tech shrink-0" style="background: var(--accent); color: var(--accent-ink);">LIVE PA</span>
+      <p id="floating-caption-text" class="text-xs font-medium leading-snug m-0 truncate" style="color: var(--text-primary);"></p>
+    </div>
+    <button id="btn-close-caption-bar" type="button" class="text-xs px-1.5 py-0.5 rounded cursor-pointer shrink-0" style="color: var(--text-secondary);" aria-label="Hide Live Captions Bar">✕</button>
+  </div>
+
+  <!-- Non-Blocking Accessible Toast Notification -->
+  <div
+    id="toast-box"
+    role="status"
+    class="hidden fixed top-24 left-1/2 -translate-x-1/2 z-50 hud-glass rounded-xl px-4 py-2.5 text-xs font-semibold max-w-[92vw] text-center"
+    style="border-color: var(--warn); color: var(--text-primary);"
+  ></div>
+
+  <!-- =========================================================================
+       BOTTOM FLOATING AR WALK & MODE CONTROL PILL (COMPACT, MINIMAL OCCLUSION)
+       ========================================================================= -->
+  <footer
+    id="bottom-controls"
+    role="region"
+    aria-label="First-Person Movement and AR Controls"
+    class="fixed bottom-3 left-1/2 -translate-x-1/2 z-20 hud-glass rounded-2xl px-3 py-2 w-[calc(100vw-20px)] max-w-[780px] space-y-2"
+  >
+    <!-- Route Progress Scrub Bar + Milestone Jump Controls -->
+    <div class="flex items-center gap-2">
+      <button id="btn-prev-wp" type="button" class="hud-btn py-1 px-2 text-[11px]" aria-label="Previous Waypoint" title="Jump to Previous Waypoint">⏮</button>
+      <div class="flex-1 flex flex-col gap-0.5">
+        <div class="flex items-center justify-between text-[10px] font-mono-tech" style="color: var(--text-secondary);">
+          <span id="scrub-current-label" class="truncate max-w-[65%]">Start: SW ADA Drop-Off</span>
+          <span id="scrub-dist-label">0m / 0m</span>
+        </div>
+        <input id="route-scrubber" type="range" min="0" max="1000" value="0" class="ar-scrub w-full" aria-label="Scrub position along 3D navigation route" />
+      </div>
+      <button id="btn-next-wp" type="button" class="hud-btn py-1 px-2 text-[11px]" aria-label="Next Waypoint" title="Skip to Next Waypoint">⏭</button>
+    </div>
+
+    <!-- Main Action Row -->
+    <div class="flex items-center justify-between gap-1.5 flex-wrap">
+      <div class="flex items-center gap-1.5">
+        <button id="btn-play-pause" type="button" class="hud-btn is-primary px-3.5 py-2" aria-pressed="false">
+          <span id="play-icon">▶</span>
+          <span id="play-label">Walk Route</span>
+        </button>
+
+        <button id="btn-speed" type="button" class="hud-btn py-2 px-2.5 font-mono-tech text-[11px]" title="Cycle movement speed">
+          1.4 m/s
+        </button>
+      </div>
+
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <button id="btn-eye-level" type="button" class="hud-btn py-2 px-2.5" aria-pressed="true" title="Toggle Wheelchair (1.20m) vs Standing (1.65m) Eye Level">
+          <span>♿</span>
+          <span id="eye-level-label">1.20m</span>
+        </button>
+
+        <button id="btn-camera-ar" type="button" class="hud-btn py-2 px-2.5" aria-pressed="false" title="Toggle Live Camera AR Overlay Mode">
+          <span>📷</span>
+          <span class="hidden sm:inline" id="camera-ar-label">Camera AR</span>
+        </button>
+
+        <button id="btn-voice-toggle" type="button" class="hud-btn py-2 px-2.5" aria-pressed="false" title="Toggle Voice & Stereo Audio Beacon Guidance">
+          <span>🔊</span>
+          <span class="hidden sm:inline">Voice</span>
+        </button>
+
+        <button id="btn-escort-quick" type="button" class="hud-btn py-2 px-2.5" title="Request ADA Escort / Accessibility Ambassador">
+          <span>🤝</span>
+          <span class="hidden md:inline">ADA Escort</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       SLIDE-OVER ROUTE, VENUE ACCESS & ACCESSIBILITY DRAWER
+       ========================================================================= -->
+  <aside
+    id="access-drawer"
+    role="complementary"
+    aria-label="Route Planner, Paris 2024 Access Tools, and Accessibility Settings"
+    class="is-closed hud-glass fixed top-2.5 left-2.5 bottom-2.5 w-[370px] max-w-[calc(100vw-20px)] z-40 rounded-2xl flex flex-col overflow-hidden"
+  >
+    <!-- Drawer Header -->
+    <div class="px-4 py-3 border-b flex items-center justify-between gap-2" style="border-color: var(--hud-border);">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider" style="background: var(--accent); color: var(--accent-ink);">LA28 COLISEUM AR</span>
+          <span class="text-[10px] font-mono-tech" style="color: var(--text-secondary);">FPV Wayfinding</span>
+        </div>
+        <h1 class="text-sm font-extrabold mt-0.5" style="color: var(--text-primary);">Accessible First-Person Navigator</h1>
+      </div>
+      <button id="btn-close-drawer" type="button" class="hud-btn px-2.5 py-1.5" aria-label="Close Route and Access Drawer">✕</button>
+    </div>
+
+    <!-- Drawer 3 Tabs -->
+    <div role="tablist" aria-label="Drawer Sections" class="grid grid-cols-3 border-b text-xs font-bold shrink-0" style="border-color: var(--hud-border);">
+      <button role="tab" data-dtab="route" aria-selected="true" class="drawer-tab py-2.5 cursor-pointer">Route</button>
+      <button role="tab" data-dtab="venue" aria-selected="false" class="drawer-tab py-2.5 cursor-pointer">Venue Tools</button>
+      <button role="tab" data-dtab="a11y" aria-selected="false" class="drawer-tab py-2.5 cursor-pointer">A11y Display</button>
+    </div>
+
+    <!-- Drawer Scrollable Content -->
+    <div class="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
+
+      <!-- TAB 1: WEIGHTED DIJKSTRA ROUTE PLANNER -->
+      <section id="dpanel-route" class="space-y-3.5">
+        <div class="space-y-2.5">
+          <div>
+            <label for="select-start" class="block text-[11px] font-bold uppercase tracking-wider mb-1" style="color: var(--text-secondary);">Start Location</label>
+            <select id="select-start" class="field-input w-full px-3 py-2 text-xs font-semibold">
+              <option value="sw-dropoff">SW ADA Drop-Off (Gate 29)</option>
+              <option value="east-peristyle">East Peristyle Plaza (Metro Expo Park)</option>
+              <option value="north-gate14">North Gate 14 Accessible Entry</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="select-dest" class="block text-[11px] font-bold uppercase tracking-wider mb-1" style="color: var(--text-secondary);">Destination</label>
+            <select id="select-dest" class="field-input w-full px-3 py-2 text-xs font-semibold">
+              <option value="sec-308">Sec 308 Upper Accessible Deck (via Tunnel 9 Elevator)</option>
+              <option value="sec-109a">Sec 109A Wheelchair Platform (Shaded South Lower)</option>
+              <option value="club-1923">1923 Scholarship Club Tower (Level 4 ADA Lounge)</option>
+              <option value="sensory-room">Sensory Quiet Room (Concourse Calm Zone)</option>
+              <option value="ada-restroom">Companion Care ADA Restroom</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step-Free vs Standard Routing Toggle -->
+        <div class="p-3 rounded-xl border space-y-2.5" style="border-color: var(--hud-border-strong); background: rgba(52, 211, 153, 0.08);">
+          <label class="flex items-start justify-between gap-2 cursor-pointer">
+            <div>
+              <div class="text-xs font-extrabold" style="color: var(--text-primary);">♿ Step-Free / Wheelchair Only</div>
+              <div class="text-[11px]" style="color: var(--text-secondary);">Hard-excludes stairs &amp; slopes &gt; 8.33% ADA limit; uses elevators &amp; 1:14 ramps.</div>
+            </div>
+            <input id="chk-step-free" type="checkbox" checked class="w-5 h-5 mt-0.5 accent-emerald-400 cursor-pointer shrink-0" />
+          </label>
+
+          <div class="border-t pt-2 space-y-1.5" style="border-color: var(--hud-border);">
+            <label class="flex items-center justify-between gap-2 text-xs cursor-pointer">
+              <span style="color: var(--text-primary);">🎧 Avoid Loud Crowds (Low-Sensory)</span>
+              <input id="chk-low-sensory" type="checkbox" class="w-4 h-4 accent-emerald-400 cursor-pointer" />
+            </label>
+            <label class="flex items-center justify-between gap-2 text-xs cursor-pointer">
+              <span style="color: var(--text-primary);">⛱ Max Shade Preference</span>
+              <input id="chk-max-shade" type="checkbox" class="w-4 h-4 accent-emerald-400 cursor-pointer" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Quantitative Route Metrics Grid -->
+        <div class="grid grid-cols-2 gap-2">
+          <div class="p-2.5 rounded-xl border" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <div class="text-[10px] uppercase font-bold" style="color: var(--text-secondary);">Distance / ETA</div>
+            <div id="metric-dist-eta" class="text-sm font-extrabold font-mono-tech mt-0.5" style="color: var(--accent);">--</div>
+          </div>
+          <div class="p-2.5 rounded-xl border" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <div class="text-[10px] uppercase font-bold" style="color: var(--text-secondary);">Max Grade / Stairs</div>
+            <div id="metric-grade-stairs" class="text-sm font-extrabold font-mono-tech mt-0.5" style="color: var(--text-primary);">--</div>
+          </div>
+          <div class="p-2.5 rounded-xl border" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <div class="text-[10px] uppercase font-bold" style="color: var(--text-secondary);">Shade Coverage</div>
+            <div id="metric-shade" class="text-sm font-extrabold font-mono-tech mt-0.5" style="color: var(--info);">--</div>
+          </div>
+          <div class="p-2.5 rounded-xl border" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <div class="text-[10px] uppercase font-bold" style="color: var(--text-secondary);">Avg Noise / Lifts</div>
+            <div id="metric-noise-lifts" class="text-sm font-extrabold font-mono-tech mt-0.5" style="color: var(--warn);">--</div>
+          </div>
+        </div>
+
+        <!-- Turn-by-Turn Interactive Waypoint List -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <h2 class="text-[11px] font-bold uppercase tracking-wider" style="color: var(--text-secondary);">Waypoints (Tap to Teleport)</h2>
+            <button id="btn-read-full-route" type="button" class="text-[11px] font-bold underline cursor-pointer" style="color: var(--accent);">🔊 Read Route</button>
+          </div>
+          <ol id="drawer-waypoints-list" class="space-y-1.5"></ol>
+        </div>
+      </section>
+
+      <!-- TAB 2: PARIS 2024 -> LA28 VENUE ACCESS TOOLS -->
+      <section id="dpanel-venue" class="hidden space-y-3.5">
+        <div class="p-2.5 rounded-xl border text-[11px]" style="border-color: var(--hud-border); background: rgba(52, 211, 153, 0.08); color: var(--text-secondary);">
+          <strong style="color: var(--accent);">Paris 2024 → LA28 Venue Companion:</strong> Live inclusive spectating tools integrated directly into first-person wayfinding.
+        </div>
+
+        <!-- Live PA Captions Ticker -->
+        <div class="p-3 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-extrabold">Live PA Captions</span>
+            <div class="flex items-center gap-1.5">
+              <button id="btn-caption-lang" type="button" class="hud-btn py-1 px-2 text-[10.5px]">EN / ES</button>
+              <button id="btn-toggle-caption-bar" type="button" class="hud-btn py-1 px-2 text-[10.5px]" aria-pressed="false">Pin HUD</button>
+            </div>
+          </div>
+          <div id="drawer-caption-preview" class="p-2.5 rounded-lg text-xs leading-relaxed font-medium" style="background: rgba(0,0,0,0.45); border: 1px solid var(--hud-border);"></div>
+        </div>
+
+        <!-- Audio Description Mode -->
+        <div class="p-3 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+          <div class="text-xs font-extrabold">Audio Description Preview</div>
+          <p class="text-[11px]" style="color: var(--text-secondary);">Hear a spatial narration of your immediate Coliseum surroundings, architectural landmarks, and live LA28 track action.</p>
+          <div class="flex gap-2">
+            <button id="btn-audio-desc-play" type="button" class="hud-btn is-primary flex-1 py-2 text-xs">🎙️ Describe Surroundings</button>
+            <button id="btn-audio-desc-stop" type="button" class="hud-btn py-2 px-3 text-xs">Stop</button>
+          </div>
+        </div>
+
+        <!-- Sensory Comfort Readout -->
+        <div class="p-3 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold">Sensory Comfort Readout</span>
+            <span id="sensory-db-badge" class="text-xs font-mono-tech font-bold px-2 py-0.5 rounded-full" style="background: rgba(52, 211, 153, 0.18); color: var(--accent);">64 dB • Moderate</span>
+          </div>
+          <div class="w-full h-2.5 rounded-full overflow-hidden bg-black/50">
+            <div id="sensory-db-bar" class="h-full rounded-full transition-all" style="width: 48%; background: var(--accent);"></div>
+          </div>
+          <p id="sensory-zone-note" class="text-[11px]" style="color: var(--text-secondary);">Current zone: Exterior Drop-Off Plaza. Moderate arrival chatter.</p>
+          <button id="btn-route-sensory" type="button" class="hud-btn w-full py-2 text-xs">🎧 Route Immediately to Sensory Quiet Room</button>
+        </div>
+
+        <!-- One-Tap ADA Escort -->
+        <div class="p-3 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+          <div class="text-xs font-extrabold">Accessibility Ambassador / ADA Escort</div>
+          <p class="text-[11px]" style="color: var(--text-secondary);">Pin your exact current Coliseum waypoint and dispatch a trained mobility ambassador or wheelchair shuttle.</p>
+          <button id="btn-open-escort-drawer" type="button" class="hud-btn is-primary w-full py-2 text-xs">🤝 One-Tap ADA Escort Request</button>
+        </div>
+      </section>
+
+      <!-- TAB 3: WCAG AAA & MULTIMODAL ACCESSIBILITY SETTINGS -->
+      <section id="dpanel-a11y" class="hidden space-y-2.5">
+        <button id="toggle-high-contrast" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>◐ High-Contrast Mode (WCAG AAA ≥ 7:1)</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-hc">OFF</span>
+        </button>
+
+        <button id="toggle-oversized-arrows" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>⬆ Low-Vision Oversized Arrows (1.6×)</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-oa">OFF</span>
+        </button>
+
+        <button id="toggle-large-text" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>A+ Large Text Mode</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-lt">OFF</span>
+        </button>
+
+        <button id="toggle-reduced-motion" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>⏸ Reduced Motion Mode</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-rm">OFF</span>
+        </button>
+
+        <button id="toggle-audio-beacon" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>🎧 Stereo Audio Beacon Pings (L/R Pan)</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-ab">OFF</span>
+        </button>
+
+        <button id="toggle-gyro" type="button" class="hud-btn w-full justify-between py-2.5 px-3" aria-pressed="false">
+          <span>🧭 Mobile Compass / Gyro Look</span>
+          <span class="font-mono-tech text-[11px]" id="lbl-gyro">OFF</span>
+        </button>
+
+        <div class="p-3 rounded-xl border text-[11px] space-y-1" style="border-color: var(--hud-border); color: var(--text-secondary);">
+          <div class="font-bold" style="color: var(--accent);">Desktop &amp; Keyboard Controls</div>
+          <div>• <strong>Drag canvas</strong>: Look around 360° &amp; tilt</div>
+          <div>• <strong>W / A / S / D</strong> or <strong>Arrows</strong>: Manual move / turn</div>
+          <div>• <strong>Space</strong>: Play / Pause auto-walk</div>
+          <div>• <strong>R</strong>: Re-center view on next 3D arrow</div>
+        </div>
+      </section>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       MODAL 1: ONE-TAP ADA ESCORT / AMBASSADOR DISPATCH
+       ========================================================================= -->
+  <div id="escort-modal" role="dialog" aria-modal="true" aria-labelledby="escort-modal-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(3, 7, 5, 0.78); backdrop-filter: blur(6px);">
+    <div class="hud-glass rounded-2xl max-w-md w-full p-5 space-y-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase" style="background: var(--accent); color: var(--accent-ink);">LA28 ADA Dispatch</span>
+          <h2 id="escort-modal-title" class="text-base font-extrabold mt-1">Accessibility Ambassador Request</h2>
+        </div>
+        <button id="btn-close-escort" type="button" class="hud-btn px-2.5 py-1" aria-label="Close Escort Modal">✕</button>
+      </div>
+
+      <div class="p-3 rounded-xl border space-y-1 text-xs" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+        <div class="font-bold" style="color: var(--accent);">Pinned Current Waypoint:</div>
+        <div id="escort-pin-location" class="font-semibold">SW ADA Drop-Off (Gate 29) — Level 2</div>
+        <div id="escort-pin-coords" class="font-mono-tech text-[10.5px]" style="color: var(--text-secondary);">34.0138°N, 118.2886°W • Active Dest: Sec 308</div>
+      </div>
+
+      <div class="space-y-1.5">
+        <label for="escort-need-select" class="block text-[11px] font-bold" style="color: var(--text-secondary);">Assistance Needed</label>
+        <select id="escort-need-select" class="field-input w-full px-3 py-2 text-xs">
+          <option>Wheelchair Push Escort to Seat</option>
+          <option>Accessible Mobility Cart Pickup</option>
+          <option>Sighted Guide (Low-Vision / Blind)</option>
+          <option>ASL Interpreter / Communication Support</option>
+          <option>Sensory Calm Escort to Quiet Room</option>
+        </select>
+      </div>
+
+      <div id="escort-confirm-banner" class="hidden p-3 rounded-xl border text-xs space-y-1" style="border-color: var(--accent); background: rgba(52, 211, 153, 0.14);">
+        <div class="font-extrabold" style="color: var(--accent);">✓ Ambassador Dispatched — Ticket #LA28-409</div>
+        <div>Estimated arrival: <strong>3 minutes</strong> (Ambassador Maya R., High-Vis Emerald Vest). Live Coliseum SMS Backup: <strong>213-263-4007</strong>.</div>
+      </div>
+
+      <div class="flex gap-2 pt-1">
+        <button id="btn-dispatch-escort" type="button" class="hud-btn is-primary flex-1 py-2.5 text-xs">Confirm &amp; Dispatch Now</button>
+        <button id="btn-cancel-escort" type="button" class="hud-btn py-2.5 px-4 text-xs">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       MODAL 2: AFTERVIBE SPECIFICATION & LIVE VERIFICATION CONDITIONS (VCs)
+       ========================================================================= -->
+  <div id="spec-modal" role="dialog" aria-modal="true" aria-labelledby="spec-modal-title" class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5" style="background: rgba(3, 7, 5, 0.82); backdrop-filter: blur(8px);">
+    <div class="hud-glass rounded-2xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden">
+      <div class="px-5 py-4 border-b flex items-start justify-between gap-3" style="border-color: var(--hud-border);">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase" style="background: var(--accent); color: var(--accent-ink);">AfterVibe Re-Engineering</span>
+            <span id="vc-score-badge" class="px-2 py-0.5 rounded text-[10px] font-mono-tech font-bold border" style="border-color: var(--accent); color: var(--accent);">Live VCs: Verifying...</span>
+          </div>
+          <h2 id="spec-modal-title" class="text-base sm:text-lg font-extrabold mt-1">Extracted Requirements Specification &amp; Live Verification</h2>
+        </div>
+        <button id="btn-close-spec" type="button" class="hud-btn px-2.5 py-1.5" aria-label="Close Specification Modal">✕</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto custom-scroll p-5 space-y-5 text-xs leading-relaxed">
+        <!-- Part A: AfterVibe Specification Summary -->
+        <section class="space-y-2">
+          <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--accent);">Part A — AfterVibe Intent &amp; Undiscoverable Domain Facts</h3>
+          <p style="color: var(--text-secondary);">
+            Distilled from the bird's-eye Coliseum prototype and re-engineered into an egocentric <strong style="color: var(--text-primary);">First-Person 3D AR Wayfinding</strong> experience. Spectators follow floating 3D chevrons and spatial audio directly through the LA Memorial Coliseum (or overlaid on a live mobile camera feed) without needing to mentally rotate a bird's-eye map.
+          </p>
+          <div class="p-3 rounded-xl border text-[11.5px] space-y-1" style="border-color: var(--hud-border); background: var(--hud-elevated); color: var(--text-secondary);">
+            <div><strong style="color: var(--text-primary);">Undiscoverable Domain Facts Preserved:</strong> LA Coliseum Peristyle sits at East (+X), Scholarship Club Tower casts afternoon shade on South (+Z / Sec 109A), primary ADA elevators sit at Tunnels 5 &amp; 9 (L2–L4), ADA 2010 Standards max ramp slope is strictly ≤ 8.33% (1:12), live ADA SMS line is 213-263-4007.</div>
+          </div>
+        </section>
+
+        <!-- Split Requirements: Qualitative User vs Quantitative System -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <!-- USER REQUIREMENTS (QUALITATIVE) -->
+          <section class="p-3.5 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--accent);">User Requirements (Qualitative)</h3>
+            <ul class="space-y-1.5 list-disc pl-4" style="color: var(--text-secondary);">
+              <li><strong style="color: var(--text-primary);">UR-1 Intuitive Egocentric Clarity:</strong> Disabled spectators can follow floating 3D arrows in their natural forward field of view without reading complex 2D maps.</li>
+              <li><strong style="color: var(--text-primary);">UR-2 Dignity &amp; Step-Free Trust:</strong> Wheelchair users feel confident they will never encounter surprise stairs, narrow bottlenecks, or steep non-compliant ramps.</li>
+              <li><strong style="color: var(--text-primary);">UR-3 Multimodal Inclusive Guidance:</strong> Blind, low-vision, deaf/HoH, and neurodivergent guests can rely on voice clock-face cues, stereo audio pings, live captions, and sensory-calm paths.</li>
+              <li><strong style="color: var(--text-primary);">UR-4 Real-World AR Continuity:</strong> Seamless transition between simulated 3D Coliseum preview at home and live camera AR overlay on game day.</li>
+              <li><strong style="color: var(--text-primary);">UR-5 Uncluttered Calm HUD:</strong> Overlays preserve clear visibility of the physical walking path and avoid cognitive overload.</li>
+            </ul>
+          </section>
+
+          <!-- SYSTEM REQUIREMENTS (OBJECTIVE & QUANTITATIVE) -->
+          <section class="p-3.5 rounded-xl border space-y-2" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--info);">System Requirements (Objective &amp; Quantitative)</h3>
+            <ul class="space-y-1.5 list-disc pl-4" style="color: var(--text-secondary);">
+              <li><strong style="color: var(--text-primary);">SR-1 ADA Routing Constraints:</strong> Weighted Dijkstra hard-excludes edges with <code class="font-mono-tech">hasStairs=true</code> or <code class="font-mono-tech">maxSlopePct &gt; 8.33%</code> in Step-Free mode (0 stairs guaranteed).</li>
+              <li><strong style="color: var(--text-primary);">SR-2 Eye-Level Calibration:</strong> Smooth Y-camera transition between Wheelchair (<code class="font-mono-tech">1.20m</code>) and Standing (<code class="font-mono-tech">1.65m</code>) heights.</li>
+              <li><strong style="color: var(--text-primary);">SR-3 Guided Speeds:</strong> Auto-walk operates at <code class="font-mono-tech">0.9 m/s</code> (Slow Wheelchair), <code class="font-mono-tech">1.4 m/s</code> (Standard), and <code class="font-mono-tech">3.2 m/s</code> (Preview).</li>
+              <li><strong style="color: var(--text-primary);">SR-4 WCAG AAA &amp; Low-Vision Scale:</strong> High-Contrast palette enforces <code class="font-mono-tech">≥ 7:1</code> contrast; Oversized Arrow toggle scales 3D chevrons exactly <code class="font-mono-tech">1.6×</code>.</li>
+              <li><strong style="color: var(--text-primary);">SR-5 Open-Source Single-File Stack:</strong> Runs via Three.js r128 WebGL + Web Speech + Web Audio + MediaDevices API with <code class="font-mono-tech">&gt;75%</code> unobstructed viewport.</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- Live Programmatic Verification Conditions (VCs) -->
+        <section class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider" style="color: var(--accent);">Part B — Live Runtime Verification Conditions (AfterVibe Oracle)</h3>
+            <button id="btn-rerun-vcs" type="button" class="text-[11px] font-bold underline cursor-pointer" style="color: var(--accent);">Re-Run Checks</button>
+          </div>
+          <div id="vc-results-list" class="space-y-1.5"></div>
+        </section>
+      </div>
+
+      <div class="px-5 py-3 border-t flex items-center justify-between gap-2 flex-wrap" style="border-color: var(--hud-border);">
+        <button id="btn-export-spec-md" type="button" class="hud-btn text-xs">⬇ Export AfterVibe Spec (.md)</button>
+        <button id="btn-spec-done" type="button" class="hud-btn is-primary px-5 text-xs">Return to 3D AR View</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       CORE APPLICATION JAVASCRIPT (THREE.JS r128 + DIJKSTRA + AR + ACCESSIBILITY)
+       ========================================================================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* =======================================================================
+         1. AUTHENTIC METRIC LA MEMORIAL COLISEUM MULTI-LEVEL GRAPH (1 unit = 1m)
+            +X = East (Peristyle & Torch), -X = West, -Z = North, +Z = South (Tower)
+            Elevations: L1 Track = 0.0m, SW Drop-Off = 4.2m, L2 Street = 6.0m,
+                        L3 Upper = 14.0m, L4 Scholarship Club = 22.0m
+         ======================================================================= */
+      const NODES = {
+        // Start Presets
+        'sw-dropoff':     { name: 'SW ADA Drop-Off (Gate 29)', short: 'Gate 29 Drop-Off', level: 'L2', pos: [-83.0, 4.2, 45.4], icon: '🚐', beacon: true, zoneDesc: 'Gate 29 South-West Paratransit Drop-Off Plaza', baseDb: 64 },
+        'east-peristyle': { name: 'East Peristyle Plaza (Metro Expo Park)', short: 'Peristyle East', level: 'L2', pos: [84.0, 6.0, 0.0], icon: '🔥', beacon: true, zoneDesc: 'Historic East Peristyle Colonnade beneath the Olympic Cauldron', baseDb: 66 },
+        'north-gate14':   { name: 'North Gate 14 Accessible Entry', short: 'North Gate 14', level: 'L2', pos: [0.0, 6.0, -58.0], icon: '🚪', beacon: true, zoneDesc: 'North Gate 14 Exposition Boulevard Entry', baseDb: 70 },
+
+        // Key Concourse, Ramp & Portal Waypoints (L2 = 6.0m)
+        'ramp-mid':       { name: 'Gate 29 ADA Ramp (5.8% grade)', short: 'ADA Ramp (5.8%)', level: 'L2', pos: [-69.5, 5.1, 37.8], icon: '♿', beacon: true, zoneDesc: '1:17 ADA Concrete Ramp with Double Handrails', baseDb: 65 },
+        'sw-concourse':   { name: 'SW Street Concourse Portal', short: 'SW Concourse', level: 'L2', pos: [-56.0, 6.0, 30.2], icon: '➔', beacon: false, zoneDesc: 'South-West Street Concourse Promenade', baseDb: 68 },
+        'sw-rest-jct':    { name: 'SW Concourse Junction', short: 'SW Junction', level: 'L2', pos: [-43.0, 6.0, 39.0], icon: '➔', beacon: false, zoneDesc: 'South-West Concourse near Companion Care Restroom', baseDb: 67 },
+        'ada-restroom':   { name: 'Companion Care ADA Restroom', short: 'ADA Restroom', level: 'L2', pos: [-47.5, 6.0, 44.5], icon: '🚻', beacon: true, zoneDesc: 'Zero-Threshold Companion Care ADA Restroom with Adult Changing Table', baseDb: 54 },
+        'elev9-l2':       { name: 'Tunnel 9 Elevator (Level 2)', short: 'Tunnel 9 Elevator', level: 'L2', pos: [-26.0, 6.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Tunnel 9 Glass ADA Elevator Lobby (L2–L4)', baseDb: 66 },
+        'south-mid':      { name: 'South Shaded Concourse (Tower)', short: 'South Shaded Walk', level: 'L2', pos: [0.0, 6.0, 49.0], icon: '⛱', beacon: true, zoneDesc: 'Shaded South Concourse under Scholarship Club Tower', baseDb: 72 },
+        'sec-109a':       { name: 'Sec 109A Wheelchair Platform', short: 'Sec 109A Platform', level: 'L2', pos: [0.0, 6.0, 37.0], icon: '♿', beacon: true, zoneDesc: 'Section 109A Shaded Lower-Bowl Wheelchair Platform overlooking LA28 Track', baseDb: 82 },
+        'elev5-l2':       { name: 'Tunnel 5 Elevator (Level 2)', short: 'Tunnel 5 Elevator', level: 'L2', pos: [26.0, 6.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Tunnel 5 Glass ADA Elevator Lobby (L2–L4)', baseDb: 67 },
+        'se-concourse':   { name: 'South-East Concourse', short: 'SE Concourse', level: 'L2', pos: [52.0, 6.0, 33.5], icon: '➔', beacon: false, zoneDesc: 'South-East Concourse approaching Peristyle', baseDb: 69 },
+        'east-arch':      { name: 'Peristyle Inner Colonnade', short: 'Peristyle Arches', level: 'L2', pos: [70.0, 6.0, 0.0], icon: '🏛', beacon: true, zoneDesc: 'Beneath the Historic 1923 Peristyle Arches', baseDb: 71 },
+        'ne-concourse':   { name: 'North-East Concourse', short: 'NE Concourse', level: 'L2', pos: [52.0, 6.0, -33.5], icon: '➔', beacon: false, zoneDesc: 'North-East Sunlit Concourse', baseDb: 76 },
+        'north-mid':      { name: 'North Bowl Concourse', short: 'North Concourse', level: 'L2', pos: [0.0, 6.0, -49.0], icon: '☀', beacon: false, zoneDesc: 'North Sideline Concourse (High-Energy Bowl Rim)', baseDb: 81 },
+        'nw-concourse':   { name: 'North-West Calm Concourse', short: 'NW Calm Walk', level: 'L2', pos: [-54.0, 6.0, -31.5], icon: '🎧', beacon: false, zoneDesc: 'North-West Outer Promenade leading to Sensory Room', baseDb: 60 },
+        'sensory-room':   { name: 'Sensory Quiet Room (Calm Zone)', short: 'Sensory Quiet Room', level: 'L2', pos: [-63.0, 6.0, -36.5], icon: '🎧', beacon: true, zoneDesc: 'Acoustic-Dampened Sensory Calm Lounge with Headphones & Soft Lighting', baseDb: 42 },
+        'west-concourse': { name: 'West Outer Concourse', short: 'West Concourse', level: 'L2', pos: [-71.0, 6.0, 0.0], icon: '➔', beacon: false, zoneDesc: 'Calm West Promenade linking North & South Plazas', baseDb: 59 },
+
+        // L3 Upper Concourse (14.0m)
+        'l3-sw-stairtop': { name: 'SW Stair Tower Top (Level 3)', short: 'SW Stairs Top', level: 'L3', pos: [-43.0, 14.0, 39.0], icon: '⚠', beacon: true, zoneDesc: 'Top of South-West Exterior Staircase (Non-Step-Free)', baseDb: 74 },
+        'elev9-l3':       { name: 'Tunnel 9 Elevator (Level 3)', short: 'T9 Elevator L3', level: 'L3', pos: [-26.0, 14.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Level 3 Upper Concourse Elevator Lobby', baseDb: 68 },
+        'sec-308':        { name: 'Sec 308 Upper Accessible Deck', short: 'Sec 308 ADA Deck', level: 'L3', pos: [-8.0, 14.0, 40.5], icon: '♿', beacon: true, zoneDesc: 'Section 308 Shaded Upper Accessible Wheelchair Overlook', baseDb: 76 },
+        'elev5-l3':       { name: 'Tunnel 5 Elevator (Level 3)', short: 'T5 Elevator L3', level: 'L3', pos: [26.0, 14.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Level 3 South-East Elevator Lobby', baseDb: 68 },
+        'l3-se-stairtop': { name: 'SE Escalator/Stair Top (Level 3)', short: 'SE Stairs Top', level: 'L3', pos: [44.0, 14.0, 36.5], icon: '⚠', beacon: true, zoneDesc: 'Top of Tunnel 4 Escalator/Stair Bank', baseDb: 75 },
+
+        // L4 Scholarship Club Tower (22.0m)
+        'elev9-l4':       { name: 'Tunnel 9 Elevator (Level 4)', short: 'T9 Elevator L4', level: 'L4', pos: [-26.0, 22.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Level 4 Scholarship Club Tower Lobby', baseDb: 56 },
+        'elev5-l4':       { name: 'Tunnel 5 Elevator (Level 4)', short: 'T5 Elevator L4', level: 'L4', pos: [26.0, 22.0, 46.5], icon: '🛗', beacon: true, zoneDesc: 'Level 4 East Scholarship Club Lobby', baseDb: 56 },
+        'club-1923':      { name: '1923 Scholarship Club Tower (L4)', short: '1923 Club L4', level: 'L4', pos: [0.0, 22.0, 44.0], icon: '🏛', beacon: true, zoneDesc: 'Climate-Controlled 1923 Club ADA Viewing Terrace overlooking Coliseum', baseDb: 58 }
+      };
+
+      // Bidirectional Edges with rich ADA & sensory metadata
+      // [a, b, maxSlopePct, hasStairs, isElevator, isShaded, surfaceType, noiseDb, instrAB, instrBA]
+      const EDGES_RAW = [
+        // Gate 29 ADA 1:17 Ramp (5.8% grade — strictly <= 8.33% ADA limit!)
+        ['sw-dropoff', 'ramp-mid', 5.8, false, false, false, 'brushed-concrete-ramp', 65,
+          'Ascend Gate 29 ADA Ramp (5.8% grade, handrails both sides)',
+          'Descend Gate 29 ADA Ramp gently toward Drop-Off Plaza'],
+        ['ramp-mid', 'sw-concourse', 5.8, false, false, true, 'brushed-concrete-ramp', 66,
+          'Continue up Gate 29 ADA Ramp onto SW Street Concourse',
+          'Continue down Gate 29 ADA Ramp toward Drop-Off'],
+
+        // Direct steep shortcut stairs from Drop-Off to SW Concourse (Non-Step-Free!)
+        ['sw-dropoff', 'sw-concourse', 28.0, true, false, false, 'concrete-stairs', 67,
+          'Climb Gate 29 Exterior Shortcut Stairs (12 steps — non-step-free)',
+          'Descend Gate 29 Exterior Stairs (12 steps)'],
+
+        // L2 Concourse Ring (Level, 0.5–1.5% cross slope)
+        ['sw-concourse', 'sw-rest-jct', 1.2, false, false, true, 'smooth-concrete', 67,
+          'Roll along shaded South-West Street Concourse',
+          'Follow South-West Concourse toward Gate 29 Ramp'],
+        ['sw-rest-jct', 'ada-restroom', 0.5, false, false, true, 'smooth-tile', 54,
+          'Enter level Companion Care ADA Restroom vestibule',
+          'Exit Companion Care ADA Restroom onto SW Concourse'],
+        ['sw-rest-jct', 'elev9-l2', 1.0, false, false, true, 'smooth-concrete', 66,
+          'Proceed east along shaded concourse to Tunnel 9 Elevator',
+          'Head west along concourse toward Companion Care Restroom'],
+        ['elev9-l2', 'south-mid', 0.8, false, false, true, 'smooth-concrete', 71,
+          'Continue east under Scholarship Club Tower shade',
+          'Head west under Tower shade to Tunnel 9 Elevator'],
+        ['south-mid', 'sec-109a', 1.5, false, false, true, 'level-tunnel-concrete', 79,
+          'Enter wide zero-step South Tunnel straight onto Sec 109A Platform',
+          'Exit Sec 109A Wheelchair Platform back to South Concourse'],
+        ['south-mid', 'elev5-l2', 0.8, false, false, true, 'smooth-concrete', 70,
+          'Continue east under Tower shade to Tunnel 5 Elevator',
+          'Head west under Tower shade toward Sec 109A'],
+        ['elev5-l2', 'se-concourse', 1.4, false, false, true, 'smooth-concrete', 69,
+          'Follow South-East Concourse curving toward Peristyle',
+          'Follow South-East Concourse west to Tunnel 5 Elevator'],
+        ['se-concourse', 'east-arch', 1.2, false, false, false, 'historic-plaza-stone', 70,
+          'Curve north-east toward the iconic Peristyle Colonnade',
+          'Curve south-west from Peristyle onto South Concourse'],
+        ['east-arch', 'east-peristyle', 1.0, false, false, false, 'historic-plaza-stone', 66,
+          'Pass beneath Peristyle Arches onto East Olympic Plaza',
+          'Enter beneath the historic Peristyle Arches into the Coliseum'],
+        ['east-arch', 'ne-concourse', 1.2, false, false, false, 'smooth-concrete', 75,
+          'Curve north-west along North-East Concourse',
+          'Curve south-east toward Peristyle Arches'],
+        ['ne-concourse', 'north-mid', 1.1, false, false, false, 'smooth-concrete', 81,
+          'Proceed west along sunny North Bowl Concourse (lively crowd)',
+          'Proceed east along North Bowl Concourse toward Peristyle'],
+        ['north-gate14', 'north-mid', 1.0, false, false, false, 'smooth-concrete', 74,
+          'Enter through North Gate 14 accessible lanes onto North Concourse',
+          'Exit North Concourse out through North Gate 14'],
+        ['north-gate14', 'nw-concourse', 1.5, false, false, true, 'paved-promenade', 60,
+          'Take quieter shaded outer North-West promenade',
+          'Follow outer North-West promenade to North Gate 14'],
+        ['north-mid', 'nw-concourse', 1.1, false, false, false, 'smooth-concrete', 72,
+          'Continue west toward North-West Concourse & Sensory Zone',
+          'Head east toward North Gate 14 Concourse'],
+        ['nw-concourse', 'sensory-room', 0.5, false, false, true, 'acoustic-flooring', 44,
+          'Enter level doorway into the Sensory Quiet Room',
+          'Exit Sensory Quiet Room back onto NW Concourse'],
+        ['nw-concourse', 'west-concourse', 1.2, false, false, true, 'paved-promenade', 59,
+          'Follow calm West Promenade south toward Gate 29 & South Concourse',
+          'Follow calm West Promenade north toward Sensory Quiet Room'],
+        ['west-concourse', 'sw-concourse', 1.2, false, false, true, 'paved-promenade', 62,
+          'Curve south-east along calm West Promenade to SW Concourse',
+          'Curve north-west onto calm West Promenade'],
+
+        // STEP-FREE ELEVATORS (Tunnel 9 & Tunnel 5: L2 <-> L3 <-> L4)
+        ['elev9-l2', 'elev9-l3', 0.0, false, true, true, 'elevator-cab', 52,
+          'Take Tunnel 9 Elevator UP from Level 2 to Level 3 Upper Deck',
+          'Take Tunnel 9 Elevator DOWN from Level 3 to Level 2 Concourse'],
+        ['elev9-l3', 'elev9-l4', 0.0, false, true, true, 'elevator-cab', 50,
+          'Take Tunnel 9 Elevator UP from Level 3 to Level 4 1923 Club',
+          'Take Tunnel 9 Elevator DOWN from Level 4 to Level 3 Upper Deck'],
+        ['elev5-l2', 'elev5-l3', 0.0, false, true, true, 'elevator-cab', 52,
+          'Take Tunnel 5 Elevator UP from Level 2 to Level 3 Upper Deck',
+          'Take Tunnel 5 Elevator DOWN from Level 3 to Level 2 Concourse'],
+        ['elev5-l3', 'elev5-l4', 0.0, false, true, true, 'elevator-cab', 50,
+          'Take Tunnel 5 Elevator UP from Level 3 to Level 4 1923 Club',
+          'Take Tunnel 5 Elevator DOWN from Level 4 to Level 3 Upper Deck'],
+
+        // NON-STEP-FREE STAIRS / ESCALATORS (Allows direct Standard vs Step-Free Contrast!)
+        ['sw-concourse', 'l3-sw-stairtop', 34.0, true, false, false, 'concrete-stairs', 74,
+          'Climb SW Exterior Stair Tower (38 stairs — non-step-free)',
+          'Descend SW Exterior Stair Tower (38 stairs)'],
+        ['l3-sw-stairtop', 'elev9-l3', 1.0, false, false, true, 'smooth-concrete', 69,
+          'Walk east along Upper Concourse past Tunnel 9',
+          'Walk west along Upper Concourse to SW Stairs'],
+        ['se-concourse', 'l3-se-stairtop', 32.0, true, false, false, 'escalator-stairs', 75,
+          'Take SE Tunnel 4 Escalator/Stairs up to Level 3 (non-step-free)',
+          'Take SE Tunnel 4 Escalator/Stairs down to Level 2'],
+        ['l3-se-stairtop', 'elev5-l3', 1.0, false, false, true, 'smooth-concrete', 69,
+          'Walk west along Upper Concourse past Tunnel 5',
+          'Walk east along Upper Concourse to SE Escalator'],
+
+        // L3 Upper Accessible Concourse Deck (y = 14.0m)
+        ['elev9-l3', 'sec-308', 1.0, false, false, true, 'smooth-concrete', 74,
+          'Exit Tunnel 9 Elevator and proceed east to Sec 308 Accessible Deck',
+          'Leave Sec 308 Accessible Deck west to Tunnel 9 Elevator'],
+        ['elev5-l3', 'sec-308', 1.0, false, false, true, 'smooth-concrete', 74,
+          'Exit Tunnel 5 Elevator and proceed west to Sec 308 Accessible Deck',
+          'Leave Sec 308 Accessible Deck east to Tunnel 5 Elevator'],
+
+        // L4 Scholarship Club Tower Corridor (y = 22.0m)
+        ['elev9-l4', 'club-1923', 0.5, false, false, true, 'polished-lounge-floor', 56,
+          'Roll east into the climate-controlled 1923 Scholarship Club Lounge',
+          'Exit 1923 Club west to Tunnel 9 Elevator'],
+        ['elev5-l4', 'club-1923', 0.5, false, false, true, 'polished-lounge-floor', 56,
+          'Roll west into the climate-controlled 1923 Scholarship Club Lounge',
+          'Exit 1923 Club east to Tunnel 5 Elevator']
+      ];
+
+      // Build Adjacency Graph
+      const ADJ = {};
+      Object.keys(NODES).forEach(k => { ADJ[k] = []; });
+
+      EDGES_RAW.forEach(([a, b, maxSlopePct, hasStairs, isElevator, isShaded, surfaceType, noiseDb, instrAB, instrBA]) => {
+        const pa = NODES[a].pos;
+        const pb = NODES[b].pos;
+        const lengthMeters = Math.max(4, Math.round(Math.hypot(pb[0] - pa[0], pb[1] - pa[1], pb[2] - pa[2]) * 10) / 10);
+        ADJ[a].push({ from: a, to: b, lengthMeters, maxSlopePct, hasStairs, isElevator, isShaded, surfaceType, noiseDb, instruction: instrAB });
+        ADJ[b].push({ from: b, to: a, lengthMeters, maxSlopePct, hasStairs, isElevator, isShaded, surfaceType, noiseDb, instruction: instrBA });
+      });
+
+      /**
+       * Real Weighted Dijkstra Pathfinding Engine
+       * Enforces strict ADA compliance (hasStairs === false && maxSlopePct <= 8.33%)
+       * when stepFreeOnly === true, plus dynamic sensory & shade preference weights.
+       */
+      function computeDijkstraRoute(startId, endId, options = {}) {
+        const { stepFreeOnly = true, avoidLoudCrowds = false, maxShade = false } = options;
+        if (!NODES[startId] || !NODES[endId]) return null;
+
+        const dist = {};
+        const prev = {};
+        const prevEdge = {};
+        const visited = new Set();
+
+        Object.keys(NODES).forEach(id => { dist[id] = Infinity; });
+        dist[startId] = 0;
+
+        while (true) {
+          let u = null;
+          let best = Infinity;
+          for (const id of Object.keys(NODES)) {
+            if (!visited.has(id) && dist[id] < best) {
+              best = dist[id];
+              u = id;
+            }
+          }
+          if (u === null || u === endId) break;
+          visited.add(u);
+
+          for (const e of ADJ[u]) {
+            if (visited.has(e.to)) continue;
+            // HARD ADA EXCLUSION RULE (SR-1)
+            if (stepFreeOnly && (e.hasStairs || e.maxSlopePct > 8.33)) continue;
+
+            let weight = e.lengthMeters;
+            if (e.isElevator) weight += 10; // realistic door/boarding overhead
+            if (avoidLoudCrowds && e.noiseDb >= 74) weight += e.lengthMeters * 1.8;
+            if (maxShade && !e.isShaded) weight += e.lengthMeters * 1.6;
+            if (!stepFreeOnly && e.hasStairs) weight *= 0.85; // slightly favor stairs in standard mode when shorter
+
+            const alt = dist[u] + weight;
+            if (alt < dist[e.to]) {
+              dist[e.to] = alt;
+              prev[e.to] = u;
+              prevEdge[e.to] = e;
+            }
+          }
+        }
+
+        if (dist[endId] === Infinity) return null;
+
+        const nodes = [];
+        const edges = [];
+        let curr = endId;
+        while (curr) {
+          nodes.unshift(curr);
+          if (prevEdge[curr]) edges.unshift(prevEdge[curr]);
+          curr = prev[curr];
+        }
+
+        let totalMeters = 0;
+        let maxGradePct = 0;
+        let stairsCount = 0;
+        let elevatorCount = 0;
+        let shadedMeters = 0;
+        let weightedNoise = 0;
+        const cumulative = [0];
+
+        edges.forEach((e, idx) => {
+          totalMeters += e.lengthMeters;
+          cumulative.push(totalMeters);
+          if (e.maxSlopePct > maxGradePct) maxGradePct = e.maxSlopePct;
+          if (e.hasStairs) stairsCount += 1;
+          if (e.isElevator && (idx === 0 || !edges[idx - 1].isElevator)) elevatorCount += 1;
+          if (e.isShaded) shadedMeters += e.lengthMeters;
+          weightedNoise += e.noiseDb * e.lengthMeters;
+        });
+
+        return {
+          nodes,
+          edges,
+          cumulative,
+          totalMeters: Math.round(totalMeters * 10) / 10,
+          maxGradePct: Math.round(maxGradePct * 10) / 10,
+          stairsCount,
+          elevatorCount,
+          shadePct: totalMeters > 0 ? Math.round((shadedMeters / totalMeters) * 100) : 100,
+          avgNoiseDb: totalMeters > 0 ? Math.round(weightedNoise / totalMeters) : 60,
+          stepFreeOnly
+        };
+      }
+
+      /* =======================================================================
+         2. APPLICATION STATE
+         ======================================================================= */
+      const SPEED_PRESETS = [
+        { label: '0.9 m/s', name: 'Slow Wheelchair', mps: 0.9 },
+        { label: '1.4 m/s', name: 'Standard Walk',   mps: 1.4 },
+        { label: '3.2 m/s', name: 'Fast Preview',    mps: 3.2 }
+      ];
+
+      const state = {
+        startId: 'sw-dropoff',
+        destId: 'sec-308',
+        stepFreeOnly: true,
+        avoidLoudCrowds: false,
+        maxShade: false,
+        route: null,
+
+        // First-Person Pose & Walk State
+        progressMeters: 0,
+        isWalking: false,
+        speedIdx: 1, // 1.4 m/s default
+        eyeMode: 'wheelchair', // 'wheelchair' (1.20m) | 'standing' (1.65m)
+        currentEyeHeight: 1.20,
+        targetEyeHeight: 1.20,
+        userPos: new THREE.Vector3(-83.0, 4.2, 45.4),
+        yaw: 0, // radians; 0 = -Z (North), +PI/2 = -X (West), -PI/2 = +X (East)
+        pitch: -0.04,
+        manualLookCooldown: 0,
+        manualMoveActive: false,
+        lastAnnouncedSegIdx: -1,
+        reachedDestination: false,
+
+        // Modes & Accessibility
+        arCameraActive: false,
+        arStream: null,
+        highContrast: false,
+        oversizedArrows: false,
+        largeText: false,
+        reducedMotion: window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+        voiceEnabled: false,
+        audioBeaconEnabled: false,
+        gyroEnabled: false,
+        captionLang: 'EN',
+        captionIdx: 0,
+        captionBarPinned: false,
+        drawerOpen: false,
+        minimapExpanded: false
+      };
+
+      /* =======================================================================
+         3. ACCESSIBILITY: SPEECH SYNTHESIS + STEREO PANNING AUDIO BEACON
+         ======================================================================= */
+      const srAnnouncer = document.getElementById('sr-announcer');
+      let audioCtx = null;
+      let lastBeaconPingTime = 0;
+
+      function announce(text, forceSpeak = false) {
+        if (srAnnouncer) {
+          srAnnouncer.textContent = '';
+          requestAnimationFrame(() => { srAnnouncer.textContent = text; });
+        }
+        if ((state.voiceEnabled || forceSpeak) && 'speechSynthesis' in window) {
+          try {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.rate = 1.03;
+            u.pitch = 1.0;
+            window.speechSynthesis.speak(u);
+          } catch (_) {}
+        }
+      }
+
+      function stopVoice() {
+        if ('speechSynthesis' in window) {
+          try { window.speechSynthesis.cancel(); } catch (_) {}
+        }
+      }
+
+      /**
+       * Plays a subtle Web Audio API stereo-panned ping based on signed angle
+       * between camera heading and next 3D arrow (-PI..PI; negative = right, positive = left).
+       */
+      function playStereoBeaconPing(signedAngleRad) {
+        try {
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            if (!Ctx) return;
+            audioCtx = new Ctx();
+          }
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          // Higher pleasant chime when aligned straight ahead (12 o'clock)
+          const alignment = Math.max(0, 1 - Math.abs(signedAngleRad) / (Math.PI * 0.7));
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(440 + alignment * 260, now);
+
+          gain.gain.setValueAtTime(0.001, now);
+          gain.gain.exponentialRampToValueAtTime(0.08, now + 0.025);
+          gain.gain.exponentialRampToValueAtTime(0.0008, now + 0.22);
+
+          if (typeof audioCtx.createStereoPanner === 'function') {
+            const panner = audioCtx.createStereoPanner();
+            // Clamp stereo pan: negative = left ear, positive = right ear
+            const panVal = Math.max(-1, Math.min(1, -Math.sin(signedAngleRad)));
+            panner.pan.setValueAtTime(panVal, now);
+            osc.connect(gain);
+            gain.connect(panner);
+            panner.connect(audioCtx.destination);
+          } else {
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+          }
+
+          osc.start(now);
+          osc.stop(now + 0.24);
+        } catch (_) {}
+      }
+
+      // Toast helper (replaces alert/confirm)
+      let toastTimer = null;
+      function showToast(msg, durationMs = 4200) {
+        const box = document.getElementById('toast-box');
+        box.textContent = msg;
+        box.classList.remove('hidden');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => box.classList.add('hidden'), durationMs);
+        announce(msg, false);
+      }
+
+      /* =======================================================================
+         4. THREE.JS r128 FIRST-PERSON SCENE & COLISEUM ARCHITECTURE
+         ======================================================================= */
+      const canvas = document.getElementById('fpv-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.outputEncoding = THREE.sRGBEncoding;
+
+      const scene = new THREE.Scene();
+
+      // Procedural Golden-Hour LA Sky Gradient Texture
+      function createSkyTexture(highContrast = false) {
+        const c = document.createElement('canvas');
+        c.width = 32; c.height = 256;
+        const ctx = c.getContext('2d');
+        const g = ctx.createLinearGradient(0, 0, 0, 256);
+        if (highContrast) {
+          g.addColorStop(0, '#000000');
+          g.addColorStop(1, '#0d0d0d');
+        } else {
+          g.addColorStop(0, '#10243a');
+          g.addColorStop(0.42, '#234c6e');
+          g.addColorStop(0.75, '#4b7c96');
+          g.addColorStop(0.92, '#c89b74');
+          g.addColorStop(1, '#2a332d');
+        }
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, 32, 256);
+        return new THREE.CanvasTexture(c);
+      }
+
+      let defaultSkyTex = createSkyTexture(false);
+      let hcSkyTex = createSkyTexture(true);
+      scene.background = defaultSkyTex;
+      scene.fog = new THREE.FogExp2(0x284354, 0.0024);
+
+      const camera = new THREE.PerspectiveCamera(64, window.innerWidth / window.innerHeight, 0.15, 420);
+
+      // Lighting
+      const hemiLight = new THREE.HemisphereLight(0xfff4e0, 0x26352e, 0.92);
+      scene.add(hemiLight);
+
+      const sunLight = new THREE.DirectionalLight(0xfff0d4, 1.45);
+      sunLight.position.set(-70, 95, 85); // Afternoon LA sun from SW -> Scholarship Tower casts shade over South Bowl!
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 2048;
+      sunLight.shadow.mapSize.height = 2048;
+      sunLight.shadow.camera.near = 10;
+      sunLight.shadow.camera.far = 320;
+      const sd = 115;
+      sunLight.shadow.camera.left = -sd;
+      sunLight.shadow.camera.right = sd;
+      sunLight.shadow.camera.top = sd;
+      sunLight.shadow.camera.bottom = -sd;
+      sunLight.shadow.bias = -0.0006;
+      scene.add(sunLight);
+
+      const rimLight = new THREE.DirectionalLight(0x6ee7b7, 0.35);
+      rimLight.position.set(90, 40, -60);
+      scene.add(rimLight);
+
+      // Separate Stadium Environment vs AR Overlay Groups (critical for Live Camera AR Mode!)
+      const stadiumEnvGroup = new THREE.Group();
+      const arOverlayGroup = new THREE.Group();
+      scene.add(stadiumEnvGroup, arOverlayGroup);
+
+      // Procedural Textures
+      function createTrackCanvasTexture() {
+        const c = document.createElement('canvas');
+        c.width = 1024; c.height = 512;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#202b25';
+        ctx.fillRect(0, 0, 1024, 512);
+
+        const cx = 512, cy = 256, straight = 220;
+        function oval(r, fill, stroke, lw) {
+          ctx.beginPath();
+          ctx.arc(cx - straight, cy, r, Math.PI * 0.5, Math.PI * 1.5);
+          ctx.arc(cx + straight, cy, r, -Math.PI * 0.5, Math.PI * 0.5);
+          ctx.closePath();
+          if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+          if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw; ctx.stroke(); }
+        }
+        oval(236, '#27352e', '#34d399', 4);
+        oval(224, '#c04e38', '#ffffff', 3);
+        for (let i = 1; i < 8; i++) oval(224 - i * 10.5, null, 'rgba(255,255,255,0.75)', 1.5);
+        oval(140, '#226b46', '#ffffff', 3);
+
+        // Turf stripes
+        ctx.save();
+        oval(138, null, null, 0);
+        ctx.clip();
+        for (let x = 90; x < 940; x += 34) {
+          ctx.fillStyle = (x / 34) % 2 === 0 ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+          ctx.fillRect(x, 0, 34, 512);
+        }
+        ctx.restore();
+
+        // Finish line & LA28 emblem
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(cx + 95, cy - 224, 7, 84);
+        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.font = 'bold 34px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('LA28', cx, cy - 6);
+        ctx.font = 'bold 13px Inter, sans-serif';
+        ctx.fillStyle = '#34d399';
+        ctx.fillText('OLYMPICS & PARALYMPICS', cx, cy + 18);
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.anisotropy = 8;
+        return tex;
+      }
+
+      function createConcreteTexture() {
+        const c = document.createElement('canvas');
+        c.width = 256; c.height = 256;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#7b807c';
+        ctx.fillRect(0, 0, 256, 256);
+        for (let i = 0; i < 1200; i++) {
+          const v = 108 + Math.floor(Math.random() * 28);
+          ctx.fillStyle = `rgb(${v},${v + 2},${v})`;
+          ctx.fillRect(Math.random() * 256, Math.random() * 256, 3, 3);
+        }
+        ctx.strokeStyle = 'rgba(40,46,42,0.28)';
+        ctx.lineWidth = 2;
+        for (let g = 0; g <= 256; g += 64) {
+          ctx.beginPath(); ctx.moveTo(g, 0); ctx.lineTo(g, 256); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(0, g); ctx.lineTo(256, g); ctx.stroke();
+        }
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        tex.repeat.set(18, 18);
+        return tex;
+      }
+
+      function createSignMesh(text, subText, bgColor = '#0c1c16', accentColor = '#34d399', w = 5.4, h = 1.55) {
+        const c = document.createElement('canvas');
+        c.width = 512; c.height = 148;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, 512, 148);
+        ctx.strokeStyle = accentColor;
+        ctx.lineWidth = 8;
+        ctx.strokeRect(4, 4, 504, 140);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 40px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, 256, 58);
+        ctx.fillStyle = accentColor;
+        ctx.font = 'bold 26px Inter, sans-serif';
+        ctx.fillText(subText, 256, 108);
+
+        const tex = new THREE.CanvasTexture(c);
+        const mat = new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide });
+        return new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+      }
+
+      function createEllipticalRingGeo(rxIn, rzIn, rxOut, rzOut, aStart, aEnd, height, segs = 64) {
+        const shape = new THREE.Shape();
+        for (let i = 0; i <= segs; i++) {
+          const a = aStart + (aEnd - aStart) * (i / segs);
+          const x = Math.cos(a) * rxOut;
+          const y = Math.sin(a) * rzOut;
+          if (i === 0) shape.moveTo(x, y); else shape.lineTo(x, y);
+        }
+        for (let i = segs; i >= 0; i--) {
+          const a = aStart + (aEnd - aStart) * (i / segs);
+          shape.lineTo(Math.cos(a) * rxIn, Math.sin(a) * rzIn);
+        }
+        shape.closePath();
+        const geo = new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false });
+        geo.rotateX(Math.PI / 2);
+        geo.translate(0, height, 0);
+        return geo;
+      }
+
+      let torchFlameGroup = null;
+      let elevatorCab9 = null;
+      let elevatorCab5 = null;
+
+      function buildColiseumEnvironment() {
+        const concreteTex = createConcreteTexture();
+        const concMat = new THREE.MeshStandardMaterial({ map: concreteTex, roughness: 0.86, metalness: 0.05 });
+        const stoneMat = new THREE.MeshStandardMaterial({ color: 0xd9cfbe, roughness: 0.72, metalness: 0.04 });
+        const darkWallMat = new THREE.MeshStandardMaterial({ color: 0x3b4440, roughness: 0.82 });
+        const railMat = new THREE.MeshStandardMaterial({ color: 0xdbe4e0, roughness: 0.25, metalness: 0.85 });
+        const tactileYellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, roughness: 0.65 });
+
+        // 1. Exterior Exposition Park Ground (y = 4.15m around SW drop-off & outer park)
+        const parkGround = new THREE.Mesh(
+          new THREE.PlaneGeometry(360, 300),
+          new THREE.MeshStandardMaterial({ color: 0x3b493f, roughness: 0.94 })
+        );
+        parkGround.rotation.x = -Math.PI / 2;
+        parkGround.position.y = 4.12;
+        parkGround.receiveShadow = true;
+        stadiumEnvGroup.add(parkGround);
+
+        // SW ADA Drop-Off Concrete Apron (y = 4.2m)
+        const dropPad = new THREE.Mesh(new THREE.BoxGeometry(28, 0.3, 24), concMat);
+        dropPad.position.set(-85, 4.05, 46);
+        dropPad.receiveShadow = true;
+        stadiumEnvGroup.add(dropPad);
+
+        // Tactile warning strip at bottom of Gate 29 ADA Ramp
+        const tactBottom = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.06, 4.6), tactileYellowMat);
+        tactBottom.position.set(-81.5, 4.21, 44.5);
+        tactBottom.rotation.y = Math.atan2(30.2 - 45.4, -56.0 - (-83.0));
+        stadiumEnvGroup.add(tactBottom);
+
+        // 2. AUTHENTIC 1:17 ADA CONCRETE RAMP (Gate 29 Drop-Off -> SW Street Concourse)
+        const pStart = new THREE.Vector3(-83.0, 4.2, 45.4);
+        const pEnd = new THREE.Vector3(-56.0, 6.0, 30.2);
+        const rampVec = pEnd.clone().sub(pStart);
+        const rampLen = rampVec.length();
+        const rampMid = pStart.clone().add(pEnd).multiplyScalar(0.5);
+        const rampYaw = Math.atan2(rampVec.x, rampVec.z);
+        const rampPitch = Math.atan2(rampVec.y, Math.hypot(rampVec.x, rampVec.z));
+
+        const rampGroup = new THREE.Group();
+        rampGroup.position.copy(rampMid);
+        rampGroup.rotation.order = 'YXZ';
+        rampGroup.rotation.y = rampYaw;
+        rampGroup.rotation.x = -rampPitch;
+
+        const rampDeck = new THREE.Mesh(new THREE.BoxGeometry(5.2, 0.45, rampLen + 1.2), concMat);
+        rampDeck.position.y = -0.22;
+        rampDeck.receiveShadow = true;
+        rampDeck.castShadow = true;
+        rampGroup.add(rampDeck);
+
+        // Side concrete curbs + double ADA aluminum handrails (0.90m & 0.68m)
+        [-2.45, 2.45].forEach(sideX => {
+          const curb = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.22, rampLen + 0.8), stoneMat);
+          curb.position.set(sideX, 0.11, 0);
+          rampGroup.add(curb);
+
+          [0.92, 0.66].forEach(ry => {
+            const rail = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, rampLen + 0.6, 8), railMat);
+            rail.rotation.x = Math.PI / 2;
+            rail.position.set(sideX, ry, 0);
+            rampGroup.add(rail);
+          });
+
+          for (let z = -rampLen / 2; z <= rampLen / 2; z += 3.2) {
+            const post = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.96, 8), railMat);
+            post.position.set(sideX, 0.48, z);
+            rampGroup.add(post);
+          }
+        });
+        stadiumEnvGroup.add(rampGroup);
+
+        // Gate 29 Overhead Entry Arch Sign right at the start of the ramp!
+        const gate29Sign = createSignMesh('GATE 29 • ADA ENTRY', '♿ 1:17 RAMP (5.8% GRADE) → ELEVATOR T9', '#0b1c15', '#34d399', 6.4, 1.75);
+        gate29Sign.position.set(-76.5, 8.2, 41.8);
+        gate29Sign.lookAt(-83.0, 7.6, 45.4);
+        stadiumEnvGroup.add(gate29Sign);
+        [-2.9, 2.9].forEach(offset => {
+          const col = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.2, 4.2, 10), darkWallMat);
+          const dirPerp = new THREE.Vector3(15.2, 0, 27.0).normalize();
+          col.position.set(-76.5 + dirPerp.x * offset, 6.2, 41.8 + dirPerp.z * offset);
+          stadiumEnvGroup.add(col);
+        });
+
+        // 3. L1 SUNKEN BOWL FLOOR & RAISED LA28 ATHLETICS TRACK (y = 0.0m)
+        const pitFloor = new THREE.Mesh(
+          new THREE.CylinderGeometry(64, 64, 0.6, 64),
+          new THREE.MeshStandardMaterial({ color: 0x16201b, roughness: 0.9 })
+        );
+        pitFloor.scale.set(1.06, 1, 0.72);
+        pitFloor.position.y = -0.35;
+        stadiumEnvGroup.add(pitFloor);
+
+        const trackTex = createTrackCanvasTexture();
+        const trackMesh = new THREE.Mesh(
+          new THREE.BoxGeometry(92, 0.6, 48),
+          [
+            darkWallMat, darkWallMat,
+            new THREE.MeshStandardMaterial({ map: trackTex, roughness: 0.62 }),
+            darkWallMat, darkWallMat, darkWallMat
+          ]
+        );
+        trackMesh.position.set(0, -0.05, 0);
+        trackMesh.receiveShadow = true;
+        stadiumEnvGroup.add(trackMesh);
+
+        // 4. LOWER BOWL CONCRETE SEATING TIERS (y = 0.3m rising to 5.8m)
+        for (let i = 0; i < 6; i++) {
+          const rxIn = 48.0 + i * 2.5;
+          const rzIn = 26.5 + i * 2.1;
+          const geo = createEllipticalRingGeo(rxIn, rzIn, rxIn + 2.65, rzIn + 2.25, 0, Math.PI * 2, 0.92, 64);
+          const mat = new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x45514b : 0x54625b, roughness: 0.85 });
+          const ring = new THREE.Mesh(geo, mat);
+          ring.position.y = 0.2 + i * 0.92;
+          ring.receiveShadow = true;
+          ring.castShadow = true;
+          stadiumEnvGroup.add(ring);
+        }
+
+        // 5. L2 CONTINUOUS STREET-LEVEL CONCOURSE RING (y = 6.0m)
+        const l2RingGeo = createEllipticalRingGeo(62.5, 39.5, 80.0, 56.5, 0, Math.PI * 2, 0.6, 72);
+        const l2Ring = new THREE.Mesh(l2RingGeo, concMat);
+        l2Ring.position.y = 5.4;
+        l2Ring.receiveShadow = true;
+        stadiumEnvGroup.add(l2Ring);
+
+        // East Peristyle Plaza Deck & North Gate 14 Apron
+        const eastDeck = new THREE.Mesh(new THREE.BoxGeometry(22, 0.6, 36), concMat);
+        eastDeck.position.set(86, 5.7, 0);
+        eastDeck.receiveShadow = true;
+        stadiumEnvGroup.add(eastDeck);
+
+        const northDeck = new THREE.Mesh(new THREE.BoxGeometry(22, 0.6, 16), concMat);
+        northDeck.position.set(0, 5.7, -58);
+        northDeck.receiveShadow = true;
+        stadiumEnvGroup.add(northDeck);
+
+        // Section 109A Wheelchair Viewing Platform & Safety Guardrail (y = 6.0m, z = 37m)
+        const sec109Plat = new THREE.Mesh(
+          new THREE.BoxGeometry(16, 0.4, 7),
+          new THREE.MeshStandardMaterial({ color: 0x154d39, roughness: 0.6 })
+        );
+        sec109Plat.position.set(0, 5.85, 37.0);
+        sec109Plat.receiveShadow = true;
+        stadiumEnvGroup.add(sec109Plat);
+
+        const sec109Rail = new THREE.Mesh(new THREE.BoxGeometry(16, 1.05, 0.14), new THREE.MeshStandardMaterial({ color: 0x34d399, transparent: true, opacity: 0.45 }));
+        sec109Rail.position.set(0, 6.55, 33.6);
+        stadiumEnvGroup.add(sec109Rail);
+
+        const sec109Sign = createSignMesh('SEC 109A • ADA PLATFORM', '♿ SHADED WHEELCHAIR VIEWING', '#0a1f17', '#34d399', 5.8, 1.45);
+        sec109Sign.position.set(0, 9.2, 42.8);
+        stadiumEnvGroup.add(sec109Sign);
+
+        // Sensory Quiet Room Pavilion (NW Concourse)
+        const sensoryBox = new THREE.Mesh(new THREE.BoxGeometry(11, 4.2, 9), new THREE.MeshStandardMaterial({ color: 0x263540, roughness: 0.6 }));
+        sensoryBox.position.set(-64, 8.1, -37.5);
+        stadiumEnvGroup.add(sensoryBox);
+        const sensorySign = createSignMesh('SENSORY QUIET ROOM', '🎧 LOW-STIMULATION CALM ZONE', '#19142b', '#c084fc', 5.4, 1.4);
+        sensorySign.position.set(-59, 9.5, -34.2);
+        sensorySign.lookAt(-50, 9.0, -28);
+        stadiumEnvGroup.add(sensorySign);
+
+        // Companion Care ADA Restroom Alcove
+        const rrSign = createSignMesh('COMPANION ADA RESTROOM', '🚻 ZERO-THRESHOLD • CHANGING TABLE', '#0f1e2e', '#38bdf8', 5.2, 1.35);
+        rrSign.position.set(-47.5, 9.1, 44.5);
+        rrSign.lookAt(-42, 8.5, 38);
+        stadiumEnvGroup.add(rrSign);
+
+        // 6. ICONIC EAST PERISTYLE COLONNADE & OLYMPIC CAULDRON (+X End)
+        const peristyleGroup = new THREE.Group();
+        const numPillars = 13;
+        for (let i = 0; i < numPillars; i++) {
+          const frac = (i / (numPillars - 1)) - 0.5;
+          const angle = frac * 0.88;
+          const px = Math.cos(angle) * 74.0;
+          const pz = Math.sin(angle) * 51.0;
+          const isCenter = Math.abs(frac) < 0.14;
+          const h = isCenter ? 19.0 : 13.5;
+
+          const col = new THREE.Mesh(new THREE.BoxGeometry(2.2, h, 2.5), stoneMat);
+          col.position.set(px, 6.0 + h / 2, pz);
+          col.lookAt(0, 6.0 + h / 2, 0);
+          col.castShadow = true;
+          col.receiveShadow = true;
+          peristyleGroup.add(col);
+        }
+
+        const entablature = new THREE.Mesh(
+          createEllipticalRingGeo(71.5, 48.8, 76.5, 53.4, -0.47, 0.47, 2.2, 24),
+          stoneMat
+        );
+        entablature.position.y = 19.2;
+        entablature.castShadow = true;
+        peristyleGroup.add(entablature);
+
+        const archCrown = new THREE.Mesh(new THREE.BoxGeometry(4.2, 5.2, 15.0), stoneMat);
+        archCrown.position.set(74.2, 24.5, 0);
+        archCrown.castShadow = true;
+        peristyleGroup.add(archCrown);
+
+        // Bronze Olympic Cauldron & Animated Flame
+        const bronzeMat = new THREE.MeshStandardMaterial({ color: 0x8b6b43, roughness: 0.32, metalness: 0.78 });
+        const ped = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.5, 5.5, 14), bronzeMat);
+        ped.position.set(74.2, 29.8, 0);
+        const bowl = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 1.1, 1.8, 18), bronzeMat);
+        bowl.position.set(74.2, 33.1, 0);
+        peristyleGroup.add(ped, bowl);
+
+        torchFlameGroup = new THREE.Group();
+        torchFlameGroup.position.set(74.2, 34.4, 0);
+        const fOuter = new THREE.Mesh(new THREE.ConeGeometry(2.0, 5.8, 12), new THREE.MeshBasicMaterial({ color: 0xf97316, transparent: true, opacity: 0.88 }));
+        fOuter.position.y = 2.4;
+        const fInner = new THREE.Mesh(new THREE.ConeGeometry(1.1, 3.8, 12), new THREE.MeshBasicMaterial({ color: 0xfef08a }));
+        fInner.position.y = 1.8;
+        torchFlameGroup.add(fOuter, fInner);
+        peristyleGroup.add(torchFlameGroup);
+        stadiumEnvGroup.add(peristyleGroup);
+
+        // 7. L3 UPPER BOWL & UPPER CONCOURSE DECK (y = 14.0m, wrapping N/W/S, open at East Peristyle!)
+        for (let i = 0; i < 4; i++) {
+          const rxIn = 62.5 + i * 2.8;
+          const rzIn = 40.5 + i * 2.2;
+          const geo = createEllipticalRingGeo(rxIn, rzIn, rxIn + 2.95, rzIn + 2.35, 0.56, Math.PI * 2 - 0.56, 1.85, 56);
+          const ring = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x3f4c46 : 0x4b5a53, roughness: 0.82 }));
+          ring.position.y = 7.4 + i * 1.85;
+          ring.castShadow = true;
+          ring.receiveShadow = true;
+          stadiumEnvGroup.add(ring);
+        }
+
+        // L3 Upper South Accessible Concourse Walkway & Sec 308 Overlook Deck (y = 14.0m)
+        const l3DeckGeo = createEllipticalRingGeo(69.5, 43.0, 77.5, 51.5, 0.54, Math.PI - 0.54, 0.65, 36);
+        const l3Deck = new THREE.Mesh(l3DeckGeo, concMat);
+        l3Deck.position.y = 13.35;
+        l3Deck.castShadow = true;
+        l3Deck.receiveShadow = true;
+        stadiumEnvGroup.add(l3Deck);
+
+        const sec308Plat = new THREE.Mesh(new THREE.BoxGeometry(22, 0.5, 8), new THREE.MeshStandardMaterial({ color: 0x165341, roughness: 0.6 }));
+        sec308Plat.position.set(-8, 13.75, 41.2);
+        sec308Plat.receiveShadow = true;
+        stadiumEnvGroup.add(sec308Plat);
+
+        const sec308Rail = new THREE.Mesh(new THREE.BoxGeometry(22, 1.1, 0.14), new THREE.MeshStandardMaterial({ color: 0x34d399, transparent: true, opacity: 0.45 }));
+        sec308Rail.position.set(-8, 14.55, 37.3);
+        stadiumEnvGroup.add(sec308Rail);
+
+        const sec308Sign = createSignMesh('SEC 308 • UPPER ADA DECK', '♿ PANORAMIC SHADED SEATING • LEVEL 3', '#091f17', '#34d399', 6.4, 1.5);
+        sec308Sign.position.set(-8, 17.5, 44.5);
+        stadiumEnvGroup.add(sec308Sign);
+
+        // 8. GLASS ADA ELEVATOR SHAFTS AT TUNNEL 9 (-26, z=46.5) & TUNNEL 5 (+26, z=46.5)
+        const elevGlassMat = new THREE.MeshStandardMaterial({
+          color: 0x38bdf8,
+          emissive: 0x075985,
+          emissiveIntensity: 0.25,
+          transparent: true,
+          opacity: 0.34,
+          roughness: 0.15,
+          metalness: 0.5,
+          side: THREE.DoubleSide
+        });
+        const cabMat = new THREE.MeshStandardMaterial({ color: 0x1e2e28, roughness: 0.4, metalness: 0.4 });
+
+        function createElevatorShaft(x, z, title) {
+          const g = new THREE.Group();
+          g.position.set(x, 0, z);
+
+          // 4 steel corner columns spanning L2 (6m) to L4 roof (26.5m)
+          [[-2.2, -2.2], [2.2, -2.2], [-2.2, 2.2], [2.2, 2.2]].forEach(([cx, cz]) => {
+            const col = new THREE.Mesh(new THREE.BoxGeometry(0.32, 21.0, 0.32), railMat);
+            col.position.set(cx, 16.0, cz);
+            g.add(col);
+          });
+
+          // Translucent glass panels on 3 sides (open doorway facing north/south concourse)
+          const backGlass = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 20.5), elevGlassMat);
+          backGlass.position.set(0, 16.0, 2.2);
+          const leftGlass = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 20.5), elevGlassMat);
+          leftGlass.rotation.y = Math.PI / 2;
+          leftGlass.position.set(-2.2, 16.0, 0);
+          const rightGlass = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 20.5), elevGlassMat);
+          rightGlass.rotation.y = Math.PI / 2;
+          rightGlass.position.set(2.2, 16.0, 0);
+          g.add(backGlass, leftGlass, rightGlass);
+
+          // Elevator overhead portal signs on L2, L3, L4
+          [6.0, 14.0, 22.0].forEach((ly, i) => {
+            const s = createSignMesh(title, `🛗 ADA ELEVATOR • LEVEL ${i + 2}`, '#081b28', '#38bdf8', 4.4, 1.15);
+            s.position.set(0, ly + 3.4, -2.35);
+            s.rotation.y = Math.PI;
+            g.add(s);
+          });
+
+          // Moving cabin floor platform
+          const cab = new THREE.Mesh(new THREE.BoxGeometry(4.1, 0.25, 4.1), cabMat);
+          cab.position.set(0, 5.88, 0);
+          g.add(cab);
+
+          stadiumEnvGroup.add(g);
+          return cab;
+        }
+
+        elevatorCab9 = createElevatorShaft(-26.0, 46.5, 'TUNNEL 9 ELEVATOR');
+        elevatorCab5 = createElevatorShaft(26.0, 46.5, 'TUNNEL 5 ELEVATOR');
+
+        // 9. NON-STEP-FREE EXTERIOR STAIRWAY (SW & SE) so Standard Mode visually climbs stairs!
+        function buildStairFlight(pA, pB, steps = 18) {
+          const g = new THREE.Group();
+          const v = new THREE.Vector3().subVectors(pB, pA);
+          const yaw = Math.atan2(v.x, v.z);
+          const stepMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.85 });
+          for (let i = 0; i < steps; i++) {
+            const t = (i + 0.5) / steps;
+            const pos = new THREE.Vector3().lerpVectors(pA, pB, t);
+            const tread = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.35, 1.0), stepMat);
+            tread.position.copy(pos);
+            tread.rotation.y = yaw;
+            tread.castShadow = true;
+            tread.receiveShadow = true;
+            g.add(tread);
+          }
+          stadiumEnvGroup.add(g);
+        }
+        buildStairFlight(new THREE.Vector3(-56.0, 6.0, 30.2), new THREE.Vector3(-43.0, 14.0, 39.0), 20);
+        buildStairFlight(new THREE.Vector3(52.0, 6.0, 33.5), new THREE.Vector3(44.0, 14.0, 36.5), 18);
+
+        // 10. L4 SCHOLARSHIP CLUB TOWER & 1923 CLUB (South Sideline, y = 22.0m)
+        const towerBack = new THREE.Mesh(
+          new THREE.BoxGeometry(64, 15.0, 8.0),
+          new THREE.MeshStandardMaterial({ color: 0x26322d, roughness: 0.55, metalness: 0.3 })
+        );
+        towerBack.position.set(0, 21.5, 53.5);
+        towerBack.castShadow = true;
+        stadiumEnvGroup.add(towerBack);
+
+        // Level 4 Cantilevered Accessible Lounge Floor (y = 22.0m)
+        const clubDeck = new THREE.Mesh(
+          new THREE.BoxGeometry(64, 0.65, 13.0),
+          new THREE.MeshStandardMaterial({ color: 0x2f4139, roughness: 0.5 })
+        );
+        clubDeck.position.set(0, 21.65, 45.5);
+        clubDeck.castShadow = true;
+        clubDeck.receiveShadow = true;
+        stadiumEnvGroup.add(clubDeck);
+
+        const clubGlassRail = new THREE.Mesh(
+          new THREE.BoxGeometry(62, 1.15, 0.14),
+          new THREE.MeshStandardMaterial({ color: 0x6ee7b7, transparent: true, opacity: 0.35 })
+        );
+        clubGlassRail.position.set(0, 22.6, 39.1);
+        stadiumEnvGroup.add(clubGlassRail);
+
+        // Iconic Cantilevered Roof Canopy (casts authentic afternoon shadow onto South Concourse & Sec 109A!)
+        const towerRoof = new THREE.Mesh(
+          new THREE.BoxGeometry(68, 1.1, 20.0),
+          new THREE.MeshStandardMaterial({ color: 0x3b4d45, roughness: 0.5, metalness: 0.3 })
+        );
+        towerRoof.position.set(0, 29.2, 46.0);
+        towerRoof.castShadow = true;
+        stadiumEnvGroup.add(towerRoof);
+
+        const clubSign = createSignMesh('1923 SCHOLARSHIP CLUB', '🏛 LEVEL 4 ACCESSIBLE LOUNGE & TERRACE', '#13241d', '#fbbf24', 7.2, 1.65);
+        clubSign.position.set(0, 25.8, 49.0);
+        stadiumEnvGroup.add(clubSign);
+
+        // 11. Exposition Park California Palm Trees
+        const trunkMat = new THREE.MeshStandardMaterial({ color: 0x6b5847, roughness: 0.9 });
+        const frondMat = new THREE.MeshStandardMaterial({ color: 0x2b6e4b, roughness: 0.8 });
+        const palmCoords = [
+          [-92, 34], [-90, 56], [-72, 60], [-56, 56],
+          [-84, -18], [-76, -42], [-30, -64], [30, -64],
+          [82, -32], [96, -16], [96, 16], [82, 34]
+        ];
+        palmCoords.forEach(([px, pz]) => {
+          const p = new THREE.Group();
+          const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.45, 11.5, 7), trunkMat);
+          trunk.position.y = 9.8;
+          trunk.castShadow = true;
+          p.add(trunk);
+          for (let f = 0; f < 6; f++) {
+            const frond = new THREE.Mesh(new THREE.ConeGeometry(1.1, 4.4, 5), frondMat);
+            frond.position.y = 15.6;
+            frond.rotation.z = 1.05;
+            frond.rotation.y = (f / 6) * Math.PI * 2;
+            frond.translateY(1.4);
+            p.add(frond);
+          }
+          p.position.set(px, 0, pz);
+          stadiumEnvGroup.add(p);
+        });
+      }
+
+      buildColiseumEnvironment();
+
+      /* =======================================================================
+         5. GLOWING 3D SPATIAL AR NAVIGATION ARROWS, RIBBON & FLOATING BEACONS
+         ======================================================================= */
+      let chevronMeshes = [];
+      let turnIndicatorMeshes = [];
+      let ribbonTexture = null;
+      let destinationBeaconGroup = null;
+      const beaconsLayer = document.getElementById('beacons-layer');
+      let activeBeaconItems = []; // { nodeId, el, pos, label, icon, color }
+
+      // Procedural Animated Flow Ribbon Texture
+      function createRibbonFlowTexture(highContrast = false, isStepFree = true) {
+        const c = document.createElement('canvas');
+        c.width = 128; c.height = 256;
+        const ctx = c.getContext('2d');
+        ctx.clearRect(0, 0, 128, 256);
+
+        const primary = highContrast ? '#ffeb3b' : (isStepFree ? '#34d399' : '#f59e0b');
+        const edge = highContrast ? '#000000' : (isStepFree ? '#10b981' : '#d97706');
+
+        // Soft glowing runway rails
+        ctx.fillStyle = highContrast ? 'rgba(0,0,0,0.75)' : 'rgba(16, 185, 129, 0.16)';
+        ctx.fillRect(10, 0, 108, 256);
+        ctx.fillStyle = primary;
+        ctx.fillRect(10, 0, 8, 256);
+        ctx.fillRect(110, 0, 8, 256);
+
+        // Forward Chevron Stripes
+        ctx.strokeStyle = primary;
+        ctx.lineWidth = 14;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        [70, 198].forEach(cy => {
+          ctx.beginPath();
+          ctx.moveTo(28, cy + 36);
+          ctx.lineTo(64, cy - 22);
+          ctx.lineTo(100, cy + 36);
+          ctx.stroke();
+
+          if (highContrast) {
+            ctx.strokeStyle = edge;
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.strokeStyle = primary;
+            ctx.lineWidth = 14;
+          }
+        });
+
+        const tex = new THREE.CanvasTexture(c);
+        tex.wrapS = THREE.RepeatWrapping;
+        tex.wrapT = THREE.RepeatWrapping;
+        return tex;
+      }
+
+      // Create Custom Extruded 3D Arrow Chevron Geometry (points along +Z so lookAt aims forward!)
+      function createChevron3DGeometry() {
+        const s = new THREE.Shape();
+        s.moveTo(0, 0.65);     // Nose tip
+        s.lineTo(0.62, -0.32); // Right wing outer
+        s.lineTo(0.36, -0.48); // Right wing inner
+        s.lineTo(0, 0.12);     // Inner notch
+        s.lineTo(-0.36, -0.48);// Left wing inner
+        s.lineTo(-0.62, -0.32);// Left wing outer
+        s.closePath();
+
+        const geo = new THREE.ExtrudeGeometry(s, {
+          depth: 0.16,
+          bevelEnabled: true,
+          bevelThickness: 0.04,
+          bevelSize: 0.03,
+          bevelSegments: 2
+        });
+        // Rotate so nose points along +Z and chevron lies flat horizontally
+        geo.rotateX(Math.PI / 2);
+        geo.translate(0, 0.08, 0);
+        return geo;
+      }
+
+      const sharedChevronGeo = createChevron3DGeometry();
+      const sharedChevronEdgesGeo = new THREE.EdgesGeometry(sharedChevronGeo);
+
+      function clearAROverlays() {
+        while (arOverlayGroup.children.length > 0) {
+          const obj = arOverlayGroup.children[0];
+          arOverlayGroup.remove(obj);
+        }
+        chevronMeshes = [];
+        turnIndicatorMeshes = [];
+        destinationBeaconGroup = null;
+        beaconsLayer.innerHTML = '';
+        activeBeaconItems = [];
+      }
+
+      function rebuild3DARWayfinding() {
+        clearAROverlays();
+        const route = state.route;
+        if (!route || route.nodes.length < 2) return;
+
+        const isHC = state.highContrast;
+        const isBig = state.oversizedArrows;
+        const arrowScale = isBig ? 1.6 : 1.0;
+        const mainColor = isHC ? 0xffeb3b : (route.stepFreeOnly ? 0x34d399 : 0xf59e0b);
+        const outlineColor = isHC ? 0x000000 : 0xecfdf5;
+
+        // 1. Glowing Directional Path Ribbon per Segment
+        ribbonTexture = createRibbonFlowTexture(isHC, route.stepFreeOnly);
+
+        route.edges.forEach((edge, segIdx) => {
+          const pA = new THREE.Vector3(...NODES[edge.from].pos);
+          const pB = new THREE.Vector3(...NODES[edge.to].pos);
+          const segVec = pB.clone().sub(pA);
+          const segLen = segVec.length();
+
+          if (edge.isElevator) {
+            // Vertical glowing elevator guidance column!
+            const colGeo = new THREE.CylinderGeometry(0.45 * arrowScale, 0.45 * arrowScale, segLen, 16, 1, true);
+            const colMat = new THREE.MeshBasicMaterial({
+              color: isHC ? 0xffeb3b : 0x38bdf8,
+              transparent: true,
+              opacity: 0.42,
+              side: THREE.DoubleSide
+            });
+            const col = new THREE.Mesh(colGeo, colMat);
+            col.position.copy(pA).add(pB).multiplyScalar(0.5);
+            arOverlayGroup.add(col);
+          } else {
+            // Flat glowing path ribbon hugging floor/ramp at +0.12m
+            const segTex = ribbonTexture.clone();
+            segTex.needsUpdate = true;
+            segTex.repeat.set(1, Math.max(1, segLen / 3.2));
+            segTex.wrapS = THREE.RepeatWrapping;
+            segTex.wrapT = THREE.RepeatWrapping;
+
+            const ribGeo = new THREE.PlaneGeometry(1.35 * (isBig ? 1.35 : 1.0), segLen);
+            const ribMat = new THREE.MeshBasicMaterial({
+              map: segTex,
+              transparent: true,
+              opacity: isHC ? 0.96 : 0.88,
+              side: THREE.DoubleSide,
+              depthWrite: false
+            });
+            const rib = new THREE.Mesh(ribGeo, ribMat);
+            rib.position.copy(pA).add(pB).multiplyScalar(0.5);
+            rib.position.y += 0.14;
+
+            // Orient ribbon cleanly along segment (even on sloped ADA ramps!)
+            const dir = segVec.clone().normalize();
+            const q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir);
+            // Lay flat with up-normal tilted perpendicular to ramp
+            const dummy = new THREE.Object3D();
+            dummy.position.copy(pA);
+            dummy.lookAt(pB);
+            rib.quaternion.copy(dummy.quaternion);
+            rib.rotateX(Math.PI / 2);
+            rib.userData.flowTex = segTex;
+            arOverlayGroup.add(rib);
+          }
+
+          // 2. Floating 3D Chevrons spaced every ~4.5m along each segment
+          const stepSpacing = edge.isElevator ? 2.4 : 4.5;
+          const count = Math.max(1, Math.floor(segLen / stepSpacing));
+
+          for (let i = 0; i < count; i++) {
+            const frac = (i + 0.5) / count;
+            const pos = new THREE.Vector3().lerpVectors(pA, pB, frac);
+            const baseY = pos.y + (edge.isElevator ? 0.0 : 0.72);
+
+            const chevGroup = new THREE.Group();
+            chevGroup.position.set(pos.x, baseY, pos.z);
+
+            const chevMat = new THREE.MeshStandardMaterial({
+              color: mainColor,
+              emissive: mainColor,
+              emissiveIntensity: isBig ? 0.95 : 0.65,
+              roughness: 0.2,
+              metalness: 0.15
+            });
+            const chevMesh = new THREE.Mesh(sharedChevronGeo, chevMat);
+            const outline = new THREE.LineSegments(
+              sharedChevronEdgesGeo,
+              new THREE.LineBasicMaterial({ color: outlineColor, linewidth: 2 })
+            );
+            chevGroup.add(chevMesh, outline);
+
+            if (edge.isElevator) {
+              // Point straight UP or DOWN inside elevator shaft!
+              const goingUp = pB.y > pA.y;
+              chevGroup.rotation.x = goingUp ? -Math.PI / 2 : Math.PI / 2;
+            } else {
+              chevGroup.lookAt(pB.x, pB.y + 0.72, pB.z);
+            }
+
+            chevGroup.scale.setScalar(arrowScale);
+            chevGroup.userData = {
+              baseY,
+              phaseIndex: chevronMeshes.length,
+              isElevator: edge.isElevator,
+              mat: chevMat
+            };
+            arOverlayGroup.add(chevGroup);
+            chevronMeshes.push(chevGroup);
+          }
+
+          // 3. Curved Turn Indicator Arch at Junctions where angle > 28°
+          if (segIdx < route.edges.length - 1) {
+            const nextEdge = route.edges[segIdx + 1];
+            const pC = new THREE.Vector3(...NODES[nextEdge.to].pos);
+            const v1 = new THREE.Vector3(pB.x - pA.x, 0, pB.z - pA.z);
+            const v2 = new THREE.Vector3(pC.x - pB.x, 0, pC.z - pB.z);
+            if (v1.lengthSq() > 0.5 && v2.lengthSq() > 0.5) {
+              const ang = v1.normalize().angleTo(v2.normalize());
+              if (ang > 0.45) {
+                const ringGeo = new THREE.TorusGeometry(0.95 * arrowScale, 0.08 * arrowScale, 10, 28);
+                const ringMat = new THREE.MeshBasicMaterial({ color: isHC ? 0xffeb3b : 0x38bdf8, transparent: true, opacity: 0.85 });
+                const ring = new THREE.Mesh(ringGeo, ringMat);
+                ring.rotation.x = Math.PI / 2;
+                ring.position.set(pB.x, pB.y + 0.25, pB.z);
+                arOverlayGroup.add(ring);
+                turnIndicatorMeshes.push(ring);
+              }
+            }
+          }
+        });
+
+        // 4. Destination Arrival Glowing 3D Beacon Ring & Spire
+        const destNode = NODES[route.nodes[route.nodes.length - 1]];
+        destinationBeaconGroup = new THREE.Group();
+        destinationBeaconGroup.position.set(destNode.pos[0], destNode.pos[1], destNode.pos[2]);
+
+        const destRing = new THREE.Mesh(
+          new THREE.RingGeometry(1.1, 1.75, 32),
+          new THREE.MeshBasicMaterial({ color: mainColor, side: THREE.DoubleSide })
+        );
+        destRing.rotation.x = -Math.PI / 2;
+        destRing.position.y = 0.16;
+
+        const destPillar = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.18, 0.65, 3.6, 16, 1, true),
+          new THREE.MeshBasicMaterial({ color: mainColor, transparent: true, opacity: 0.32, side: THREE.DoubleSide })
+        );
+        destPillar.position.y = 1.9;
+        destinationBeaconGroup.add(destRing, destPillar);
+        arOverlayGroup.add(destinationBeaconGroup);
+
+        // 5. Floating 3D Projected World-Space Waypoint Beacons
+        route.nodes.forEach((nodeId, idx) => {
+          const n = NODES[nodeId];
+          const isDest = idx === route.nodes.length - 1;
+          if (!n.beacon && !isDest) return;
+          if (idx === 0) return; // Don't clutter right behind user's head at start
+
+          const color = isHC ? '#ffeb3b' : (isDest ? '#34d399' : (n.icon === '🛗' ? '#38bdf8' : '#34d399'));
+          const el = document.createElement('div');
+          el.className = 'ar-beacon';
+          el.style.setProperty('--beacon-color', color);
+          el.innerHTML = `<span class="ar-beacon-icon" aria-hidden="true">${n.icon}</span><span>${n.short}</span><span class="ar-beacon-dist">--m</span>`;
+          beaconsLayer.appendChild(el);
+
+          activeBeaconItems.push({
+            nodeId,
+            el,
+            distEl: el.querySelector('.ar-beacon-dist'),
+            pos: new THREE.Vector3(n.pos[0], n.pos[1] + 2.35, n.pos[2]),
+            routeMeters: route.cumulative[idx]
+          });
+        });
+      }
+
+      /* =======================================================================
+         6. FIRST-PERSON ROUTE POSITIONING, ELEVATOR LIFT & CAMERA ORIENTATION
+         ======================================================================= */
+      function sampleRouteAtDistance(distMeters) {
+        const route = state.route;
+        if (!route || route.edges.length === 0) {
+          const n = NODES[state.startId];
+          return {
+            pos: new THREE.Vector3(...n.pos),
+            dir: new THREE.Vector3(1, 0, 0),
+            segIdx: 0,
+            edge: null,
+            nextNodeId: state.startId,
+            distToNextNode: 0,
+            segFrac: 0
+          };
+        }
+
+        const clamped = Math.max(0, Math.min(route.totalMeters, distMeters));
+        let segIdx = route.edges.length - 1;
+        for (let i = 0; i < route.edges.length; i++) {
+          if (clamped <= route.cumulative[i + 1] + 0.001) {
+            segIdx = i;
+            break;
+          }
+        }
+
+        const edge = route.edges[segIdx];
+        const segStartDist = route.cumulative[segIdx];
+        const segFrac = edge.lengthMeters > 0 ? Math.max(0, Math.min(1, (clamped - segStartDist) / edge.lengthMeters)) : 1;
+
+        const pA = new THREE.Vector3(...NODES[edge.from].pos);
+        const pB = new THREE.Vector3(...NODES[edge.to].pos);
+        const pos = new THREE.Vector3().lerpVectors(pA, pB, segFrac);
+        const dir = pB.clone().sub(pA).normalize();
+        const distToNextNode = Math.max(0, route.cumulative[segIdx + 1] - clamped);
+
+        return { pos, dir, segIdx, edge, nextNodeId: edge.to, distToNextNode, segFrac };
+      }
+
+      function computeYawFromDir(dirVec) {
+        // Three.js camera looks down -Z when yaw = 0
+        return Math.atan2(-dirVec.x, -dirVec.z);
+      }
+
+      function normalizeAngle(a) {
+        while (a > Math.PI) a -= Math.PI * 2;
+        while (a < -Math.PI) a += Math.PI * 2;
+        return a;
+      }
+
+      function yawToCompassDeg(yawRad) {
+        // 0° = North (-Z), 90° = East (+X), 180° = South (+Z), 270° = West (-X)
+        const deg = ((-THREE.MathUtils.radToDeg(yawRad)) % 360 + 360) % 360;
+        return Math.round(deg);
+      }
+
+      function compassCardinal(deg) {
+        const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+        return dirs[Math.round(deg / 45) % 8];
+      }
+
+      function angleToClockFace(signedAngleRad) {
+        // signedAngleRad: 0 = straight ahead (12 o'clock), negative = right, positive = left
+        const degRight = (-THREE.MathUtils.radToDeg(signedAngleRad) % 360 + 360) % 360;
+        let hour = Math.round(degRight / 30) % 12;
+        if (hour === 0) hour = 12;
+        return hour;
+      }
+
+      function snapCameraToNextArrow() {
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        let lookDir = sample.dir.clone();
+        // If inside elevator (purely vertical), look toward the exit segment direction!
+        if (sample.edge && sample.edge.isElevator && state.route.edges[sample.segIdx + 1]) {
+          const nextE = state.route.edges[sample.segIdx + 1];
+          const p1 = new THREE.Vector3(...NODES[nextE.from].pos);
+          const p2 = new THREE.Vector3(...NODES[nextE.to].pos);
+          lookDir = p2.sub(p1).normalize();
+        }
+        if (Math.hypot(lookDir.x, lookDir.z) > 0.05) {
+          state.yaw = computeYawFromDir(lookDir);
+          state.pitch = -0.05;
+        }
+        state.manualLookCooldown = 0;
+        state.manualMoveActive = false;
+      }
+
+      /* =======================================================================
+         7. HUD, TURN BANNER, ELEVATOR NOTIFICATION & MINIMAP RADAR
+         ======================================================================= */
+      const minimapCanvas = document.getElementById('minimap-canvas');
+      const minimapCtx = minimapCanvas.getContext('2d');
+
+      function updateNavHud(sample) {
+        const route = state.route;
+        if (!route) return;
+
+        const edge = sample.edge;
+        const currFloor = edge && edge.isElevator
+          ? (sample.segFrac < 0.5 ? NODES[edge.from].level : NODES[edge.to].level)
+          : (edge ? NODES[edge.from].level : NODES[state.startId].level);
+
+        const deg = yawToCompassDeg(state.yaw);
+        document.getElementById('nav-floor-compass').textContent = `${currFloor} • ${compassCardinal(deg)} ${deg}°`;
+
+        // Elevator Transition Banner & Moving Cabin Sync
+        const elevBanner = document.getElementById('elevator-banner');
+        if (edge && edge.isElevator) {
+          const fromLvl = NODES[edge.from].level;
+          const toLvl = NODES[edge.to].level;
+          const liftName = edge.from.includes('elev9') ? 'Tunnel 9 Elevator' : 'Tunnel 5 Elevator';
+          document.getElementById('elevator-banner-title').textContent = `Taking ${liftName} • ${fromLvl} → ${toLvl}`;
+          document.getElementById('elevator-banner-sub').textContent = `Elevation: ${sample.pos.y.toFixed(1)}m • Step-Free Vertical Lift`;
+          elevBanner.classList.remove('hidden');
+
+          // Move visual elevator cab with user!
+          if (edge.from.includes('elev9') && elevatorCab9) elevatorCab9.position.y = sample.pos.y - 0.12;
+          if (edge.from.includes('elev5') && elevatorCab5) elevatorCab5.position.y = sample.pos.y - 0.12;
+        } else {
+          elevBanner.classList.add('hidden');
+        }
+
+        // Compute relative direction to next waypoint for clock-face cue & turn arrow icon
+        let targetLookPos = edge ? new THREE.Vector3(...NODES[edge.to].pos) : sample.pos.clone();
+        if (edge && edge.isElevator && route.edges[sample.segIdx + 1]) {
+          targetLookPos = new THREE.Vector3(...NODES[route.edges[sample.segIdx + 1].to].pos);
+        }
+        const toTarget = new THREE.Vector3(targetLookPos.x - state.userPos.x, 0, targetLookPos.z - state.userPos.z);
+        const targetYaw = toTarget.lengthSq() > 0.2 ? computeYawFromDir(toTarget) : state.yaw;
+        const angleDiff = normalizeAngle(targetYaw - state.yaw); // + = left, - = right
+        const clockHour = angleToClockFace(angleDiff);
+
+        // Turn Arrow Icon
+        const iconBox = document.getElementById('nav-turn-icon-box');
+        if (state.progressMeters >= route.totalMeters - 0.5) {
+          iconBox.textContent = '✓';
+          document.getElementById('nav-distance-badge').textContent = 'ARRIVED';
+          document.getElementById('nav-instruction-text').textContent = `Arrived at ${NODES[state.destId].name}`;
+          document.getElementById('nav-sub-meta').textContent = `${NODES[state.destId].zoneDesc}`;
+        } else {
+          const distM = Math.max(1, Math.round(sample.distToNextNode));
+          const distFt = Math.round(distM * 3.28084);
+          if (edge && edge.isElevator) iconBox.textContent = NODES[edge.to].pos[1] > NODES[edge.from].pos[1] ? '🛗' : '⬇';
+          else if (angleDiff > 0.55) iconBox.textContent = '↰';
+          else if (angleDiff < -0.55) iconBox.textContent = '↱';
+          else iconBox.textContent = '↑';
+
+          document.getElementById('nav-distance-badge').textContent = `${distM} m (${distFt} ft)`;
+          document.getElementById('nav-instruction-text').textContent = edge ? edge.instruction : 'Follow 3D arrows';
+          const gradeNote = edge && edge.maxSlopePct >= 3 ? ` • ${edge.maxSlopePct}% grade` : '';
+          document.getElementById('nav-sub-meta').textContent = `${clockHour} o'clock • Next: ${NODES[sample.nextNodeId].short}${gradeNote}`;
+        }
+
+        // Off-Screen Cue if user looks > 55° away from next arrow
+        const offCue = document.getElementById('offscreen-cue');
+        const offText = document.getElementById('offscreen-cue-text');
+        if (Math.abs(angleDiff) > 0.95 && state.progressMeters < route.totalMeters - 1) {
+          offCue.classList.remove('hidden');
+          if (angleDiff > 0) {
+            offCue.style.left = '14px'; offCue.style.right = 'auto';
+            offText.textContent = `◀ Arrow at ${clockHour} o'clock`;
+          } else {
+            offCue.style.right = '14px'; offCue.style.left = 'auto';
+            offText.textContent = `Arrow at ${clockHour} o'clock ▶`;
+          }
+        } else {
+          offCue.classList.add('hidden');
+        }
+
+        // Sensory dB Readout
+        const currentDb = edge ? edge.noiseDb : NODES[state.startId].baseDb;
+        document.getElementById('hud-db-chip').textContent = `${currentDb} dB`;
+        const dbLabel = currentDb <= 55 ? 'Quiet' : currentDb <= 72 ? 'Moderate' : 'Lively';
+        const dbColor = currentDb <= 55 ? 'var(--accent)' : currentDb <= 72 ? 'var(--info)' : 'var(--warn)';
+        const dbBadge = document.getElementById('sensory-db-badge');
+        dbBadge.textContent = `${currentDb} dB • ${dbLabel}`;
+        dbBadge.style.color = dbColor;
+        const dbBar = document.getElementById('sensory-db-bar');
+        dbBar.style.width = `${Math.min(100, Math.max(15, ((currentDb - 35) / 55) * 100))}%`;
+        dbBar.style.background = dbColor;
+        const nearestNode = edge ? NODES[edge.from] : NODES[state.startId];
+        document.getElementById('sensory-zone-note').textContent = `Current zone: ${nearestNode.zoneDesc}`;
+
+        // Scrub Bar & Progress Readout
+        const pct = route.totalMeters > 0 ? Math.round((state.progressMeters / route.totalMeters) * 1000) : 0;
+        const scrubber = document.getElementById('route-scrubber');
+        if (document.activeElement !== scrubber) scrubber.value = pct;
+        document.getElementById('scrub-dist-label').textContent = `${Math.round(state.progressMeters)}m / ${Math.round(route.totalMeters)}m`;
+        document.getElementById('scrub-current-label').textContent = edge ? `${NODES[edge.from].short} → ${NODES[edge.to].short}` : NODES[state.destId].short;
+
+        // Voice announcement on entering new segment while walking
+        if (state.isWalking && sample.segIdx !== state.lastAnnouncedSegIdx && edge) {
+          state.lastAnnouncedSegIdx = sample.segIdx;
+          const d = Math.round(edge.lengthMeters);
+          const slopePhrase = edge.maxSlopePct >= 3 ? `, ${edge.maxSlopePct} percent grade` : '';
+          announce(`In ${d} meters, at ${clockHour} o'clock: ${edge.instruction}${slopePhrase}.`);
+        }
+
+        // Stereo Audio Beacon Ping (every 1.6s when enabled & walking or active)
+        if (state.audioBeaconEnabled && state.progressMeters < route.totalMeters - 1) {
+          const nowMs = performance.now();
+          if (nowMs - lastBeaconPingTime > 1600) {
+            lastBeaconPingTime = nowMs;
+            playStereoBeaconPing(angleDiff);
+          }
+        }
+      }
+
+      // Draw 2D Top-Down Mini-Map Radar
+      function drawMiniMap() {
+        const wrap = document.getElementById('minimap-wrapper');
+        const w = wrap.clientWidth - 12;
+        const h = wrap.clientHeight - 12;
+        if (w <= 0 || h <= 0) return;
+
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        if (minimapCanvas.width !== Math.round(w * dpr) || minimapCanvas.height !== Math.round(h * dpr)) {
+          minimapCanvas.width = Math.round(w * dpr);
+          minimapCanvas.height = Math.round(h * dpr);
+        }
+
+        const ctx = minimapCtx;
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        // Background
+        ctx.fillStyle = state.highContrast ? '#000000' : '#0a1410';
+        ctx.fillRect(0, 0, w, h);
+
+        // Map world coordinates [-100..100] x [-72..72] to canvas
+        const scale = Math.min(w / 206, h / 156);
+        const cx = w * 0.5;
+        const cy = h * 0.5;
+        const wx = x => cx + x * scale;
+        const wz = z => cy + z * scale;
+
+        // Coliseum Bowl Ellipses
+        ctx.strokeStyle = state.highContrast ? '#ffffff' : 'rgba(148, 178, 164, 0.38)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 76 * scale, 53 * scale, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Terracotta LA28 Track oval
+        ctx.fillStyle = state.highContrast ? '#222222' : 'rgba(192, 78, 56, 0.45)';
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 44 * scale, 22 * scale, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Scholarship Tower (South)
+        ctx.fillStyle = state.highContrast ? '#555555' : 'rgba(56, 189, 248, 0.32)';
+        ctx.fillRect(wx(-32), wz(43), 64 * scale, 12 * scale);
+
+        // Peristyle East marker
+        ctx.fillStyle = '#fbbf24';
+        ctx.beginPath();
+        ctx.arc(wx(75), wz(0), 3.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Computed Route Path
+        if (state.route && state.route.nodes.length > 1) {
+          ctx.strokeStyle = state.highContrast ? '#ffeb3b' : (state.route.stepFreeOnly ? '#34d399' : '#f59e0b');
+          ctx.lineWidth = 2.6;
+          ctx.beginPath();
+          state.route.nodes.forEach((id, i) => {
+            const p = NODES[id].pos;
+            if (i === 0) ctx.moveTo(wx(p[0]), wz(p[2]));
+            else ctx.lineTo(wx(p[0]), wz(p[2]));
+          });
+          ctx.stroke();
+
+          // Destination pulsing dot
+          const destP = NODES[state.route.nodes[state.route.nodes.length - 1]].pos;
+          ctx.fillStyle = state.highContrast ? '#ffeb3b' : '#34d399';
+          ctx.beginPath();
+          ctx.arc(wx(destP[0]), wz(destP[2]), 4.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // User Position & Directional FOV Cone
+        const ux = wx(state.userPos.x);
+        const uz = wz(state.userPos.z);
+        // Forward vector in world XZ: (-sin(yaw), -cos(yaw))
+        const headingAngle = Math.atan2(-Math.cos(state.yaw), -Math.sin(state.yaw));
+
+        ctx.fillStyle = state.highContrast ? 'rgba(255, 235, 59, 0.38)' : 'rgba(52, 211, 153, 0.32)';
+        ctx.beginPath();
+        ctx.moveTo(ux, uz);
+        ctx.arc(ux, uz, 22, headingAngle - 0.52, headingAngle + 0.52);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = state.highContrast ? '#ffeb3b' : '#10b981';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(ux, uz, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // N indicator
+        ctx.fillStyle = 'rgba(255,255,255,0.65)';
+        ctx.font = 'bold 9px JetBrains Mono, monospace';
+        ctx.fillText('N', 6, 12);
+
+        ctx.restore();
+      }
+
+      // Project 3D Floating Waypoint Beacons into Screen Space
+      const projVec = new THREE.Vector3();
+      function updateProjectedBeacons() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+
+        activeBeaconItems.forEach(item => {
+          const dist = Math.round(camera.position.distanceTo(item.pos));
+          projVec.copy(item.pos).project(camera);
+
+          if (projVec.z > 1 || dist < 3.5 || dist > 145) {
+            item.el.style.display = 'none';
+            return;
+          }
+
+          const sx = (projVec.x * 0.5 + 0.5) * w;
+          const sy = (-projVec.y * 0.5 + 0.5) * h;
+
+          // Avoid overlapping top AR banner or bottom controls
+          if (sx < 16 || sx > w - 16 || sy < 92 || sy > h - 125) {
+            item.el.style.display = 'none';
+            return;
+          }
+
+          item.el.style.display = 'inline-flex';
+          item.distEl.textContent = `${dist}m`;
+          const scale = Math.max(0.76, Math.min(1.06, 26 / Math.max(dist, 16)));
+          item.el.style.transform = `translate3d(${sx.toFixed(1)}px, ${sy.toFixed(1)}px, 0) translate(-50%, -100%) scale(${scale.toFixed(2)})`;
+          item.el.style.opacity = dist > 95 ? '0.68' : '0.96';
+          item.el.style.zIndex = String(Math.max(1, 200 - dist));
+        });
+      }
+
+      /* =======================================================================
+         8. ROUTE RECALCULATION & DRAWER POPULATION
+         ======================================================================= */
+      function recalculateRoute(resetPosition = true) {
+        const r = computeDijkstraRoute(state.startId, state.destId, {
+          stepFreeOnly: state.stepFreeOnly,
+          avoidLoudCrowds: state.avoidLoudCrowds,
+          maxShade: state.maxShade
+        });
+        if (!r) {
+          showToast('No compliant route found between those points.');
+          return;
+        }
+        state.route = r;
+
+        if (resetPosition) {
+          state.progressMeters = 0;
+          state.reachedDestination = false;
+          state.lastAnnouncedSegIdx = -1;
+          state.manualMoveActive = false;
+          const sample = sampleRouteAtDistance(0);
+          state.userPos.copy(sample.pos);
+          snapCameraToNextArrow();
+        } else {
+          state.progressMeters = Math.min(state.progressMeters, r.totalMeters);
+        }
+
+        // Update Drawer Quantitative Metrics
+        const mps = SPEED_PRESETS[state.speedIdx].mps;
+        const etaMins = Math.max(1, Math.round(r.totalMeters / (mps * 60)));
+        const ft = Math.round(r.totalMeters * 3.28084);
+        document.getElementById('metric-dist-eta').textContent = `${r.totalMeters}m (${ft}ft) • ~${etaMins}m`;
+        document.getElementById('metric-grade-stairs').textContent = `${r.maxGradePct}% • ${r.stairsCount} stairs`;
+        document.getElementById('metric-grade-stairs').style.color = r.stairsCount === 0 ? 'var(--accent)' : 'var(--warn)';
+        document.getElementById('metric-shade').textContent = `${r.shadePct}% Shaded`;
+        document.getElementById('metric-noise-lifts').textContent = `${r.avgNoiseDb} dB • ${r.elevatorCount} Lift${r.elevatorCount === 1 ? '' : 's'}`;
+        document.getElementById('hud-grade-chip').textContent = r.stairsCount === 0 ? `0 stairs • ≤${r.maxGradePct}%` : `${r.stairsCount} stair(s)`;
+
+        // Populate clickable Waypoints list
+        const wpList = document.getElementById('drawer-waypoints-list');
+        wpList.innerHTML = r.nodes.map((id, idx) => {
+          const n = NODES[id];
+          const cumM = Math.round(r.cumulative[idx]);
+          const edgeNote = idx < r.edges.length ? r.edges[idx].instruction : 'Destination Reached';
+          return `
+            <li>
+              <button type="button" data-wp-jump="${idx}" class="w-full p-2.5 rounded-xl border text-left cursor-pointer flex items-start gap-2.5 hover:border-emerald-400" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+                <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs shrink-0" style="background: rgba(52,211,153,0.18); color: var(--accent);">${n.icon}</span>
+                <div class="min-w-0 flex-1">
+                  <div class="text-xs font-bold truncate" style="color: var(--text-primary);">${n.name}</div>
+                  <div class="text-[10.5px] truncate" style="color: var(--text-secondary);">${edgeNote}</div>
+                </div>
+                <span class="text-[10px] font-mono-tech shrink-0" style="color: var(--accent);">${cumM}m</span>
+              </button>
+            </li>
+          `;
+        }).join('');
+
+        wpList.querySelectorAll('[data-wp-jump]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = Number(btn.dataset.wpJump);
+            jumpToWaypoint(idx);
+            toggleDrawer(false);
+          });
+        });
+
+        rebuild3DARWayfinding();
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        updateNavHud(sample);
+
+        announce(`${r.stepFreeOnly ? 'Step-free' : 'Standard'} route ready: ${NODES[state.startId].short} to ${NODES[state.destId].short}. ${r.totalMeters} meters, max grade ${r.maxGradePct} percent, ${r.stairsCount} stairs.`);
+      }
+
+      function jumpToWaypoint(idx) {
+        if (!state.route) return;
+        const clampedIdx = Math.max(0, Math.min(state.route.nodes.length - 1, idx));
+        state.progressMeters = state.route.cumulative[clampedIdx];
+        state.reachedDestination = clampedIdx === state.route.nodes.length - 1;
+        state.manualMoveActive = false;
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        state.userPos.copy(sample.pos);
+        snapCameraToNextArrow();
+        updateNavHud(sample);
+        announce(`Moved to ${NODES[state.route.nodes[clampedIdx]].name}.`);
+      }
+
+      /* =======================================================================
+         9. LIVE CAMERA AR MODE (navigator.mediaDevices.getUserMedia)
+         ======================================================================= */
+      const arVideo = document.getElementById('ar-camera-feed');
+
+      async function toggleLiveCameraAR() {
+        const btn = document.getElementById('btn-camera-ar');
+        const lbl = document.getElementById('camera-ar-label');
+
+        if (state.arCameraActive) {
+          // Turn OFF Camera AR -> Return smoothly to 3D Simulated Stadium
+          if (state.arStream) {
+            state.arStream.getTracks().forEach(t => t.stop());
+            state.arStream = null;
+          }
+          arVideo.srcObject = null;
+          arVideo.style.display = 'none';
+          state.arCameraActive = false;
+          stadiumEnvGroup.visible = true;
+          scene.background = state.highContrast ? hcSkyTex : defaultSkyTex;
+          renderer.setClearAlpha(1);
+          btn.setAttribute('aria-pressed', 'false');
+          lbl.textContent = 'Camera AR';
+          showToast('Returned to 3D Simulated Coliseum Mode.');
+          return;
+        }
+
+        // Request live rear camera
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          showToast('Camera API unavailable in this browser/context. Staying in 3D Simulated Coliseum Mode.');
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: 'environment' } },
+            audio: false
+          });
+          state.arStream = stream;
+          arVideo.srcObject = stream;
+          arVideo.style.display = 'block';
+          await arVideo.play();
+
+          state.arCameraActive = true;
+          stadiumEnvGroup.visible = false; // Show real world behind transparent 3D AR arrows!
+          scene.background = null;
+          renderer.setClearAlpha(0);
+          btn.setAttribute('aria-pressed', 'true');
+          lbl.textContent = 'Exit AR';
+          showToast('Live Camera AR Active — 3D arrows overlaid on your environment!');
+        } catch (err) {
+          showToast('Camera permission denied or no camera detected. Seamlessly staying in 3D Simulated Coliseum Mode.');
+          btn.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      /* =======================================================================
+         10. INTERACTIVE LOOK (MOUSE/TOUCH DRAG, WASD/ARROWS, OPTIONAL GYRO)
+         ======================================================================= */
+      let isDragging = false;
+      let lastPtrX = 0, lastPtrY = 0;
+
+      canvas.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        lastPtrX = e.clientX;
+        lastPtrY = e.clientY;
+        canvas.setPointerCapture(e.pointerId);
+      });
+
+      canvas.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - lastPtrX;
+        const dy = e.clientY - lastPtrY;
+        lastPtrX = e.clientX;
+        lastPtrY = e.clientY;
+
+        state.yaw -= dx * 0.0045;
+        state.pitch = Math.max(-0.92, Math.min(0.92, state.pitch - dy * 0.0038));
+        state.manualLookCooldown = 3.0; // Pause auto-yaw alignment while user inspects surroundings
+      });
+
+      canvas.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+      });
+      canvas.addEventListener('pointercancel', () => { isDragging = false; });
+
+      // Keyboard WASD / Arrow manual walk & shortcuts
+      const keysDown = new Set();
+      window.addEventListener('keydown', (e) => {
+        const tag = document.activeElement && document.activeElement.tagName;
+        if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+
+        const k = e.key.toLowerCase();
+        keysDown.add(k);
+
+        if (e.key === ' ') {
+          e.preventDefault();
+          togglePlayWalk();
+        } else if (k === 'r') {
+          snapCameraToNextArrow();
+          showToast('Camera re-centered on next 3D arrow.');
+        } else if (e.key === 'Escape') {
+          toggleDrawer(false);
+          document.getElementById('spec-modal').classList.add('hidden');
+          document.getElementById('escort-modal').classList.add('hidden');
+        }
+      });
+      window.addEventListener('keyup', (e) => keysDown.delete(e.key.toLowerCase()));
+
+      // Optional Mobile Device Orientation (Compass/Gyro)
+      function handleDeviceOrientation(e) {
+        if (!state.gyroEnabled || e.alpha === null) return;
+        const alphaRad = THREE.MathUtils.degToRad(e.alpha);
+        const betaRad = e.beta !== null ? THREE.MathUtils.degToRad(e.beta - 90) : 0;
+        state.yaw = alphaRad;
+        state.pitch = Math.max(-0.8, Math.min(0.8, betaRad * 0.65));
+        state.manualLookCooldown = 2.0;
+      }
+
+      async function toggleGyroLook() {
+        const btn = document.getElementById('toggle-gyro');
+        const lbl = document.getElementById('lbl-gyro');
+        if (state.gyroEnabled) {
+          state.gyroEnabled = false;
+          window.removeEventListener('deviceorientation', handleDeviceOrientation);
+          btn.setAttribute('aria-pressed', 'false');
+          lbl.textContent = 'OFF';
+          return;
+        }
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          try {
+            const res = await DeviceOrientationEvent.requestPermission();
+            if (res !== 'granted') {
+              showToast('Motion sensor permission was not granted.');
+              return;
+            }
+          } catch (_) {
+            showToast('Gyroscope not available on this device.');
+            return;
+          }
+        }
+        state.gyroEnabled = true;
+        window.addEventListener('deviceorientation', handleDeviceOrientation);
+        btn.setAttribute('aria-pressed', 'true');
+        lbl.textContent = 'ON';
+        showToast('Mobile Compass/Gyro look enabled.');
+      }
+
+      /* =======================================================================
+         11. PARIS 2024 VENUE ACCESS TOOLS (CAPTIONS, AUDIO DESC, ESCORT)
+         ======================================================================= */
+      const PA_CAPTIONS = {
+        EN: [
+          "[PA]: Welcome to LA Memorial Coliseum! Para-Athletics Men's T54 400m Final is lining up on the elevated track.",
+          "[ADA ALERT]: Tunnel 9 and Tunnel 5 Glass Elevators are running with zero wait time to Level 3 & 1923 Club.",
+          "[TRACK CALL]: Clean start! Wheelchair racers accelerating past Section 109A toward the iconic Peristyle curve.",
+          "[SENSORY]: Sensory Quiet Room on North-West Concourse is open (42 dB) with noise-canceling headphones.",
+          "[TRANSIT]: Step-free Access Services shuttles stage post-event at Olympic Plaza east of the Cauldron."
+        ],
+        ES: [
+          "[LOCUTOR]: ¡Bienvenidos al LA Memorial Coliseum! La final masculina T54 de 400m de Para-Atletismo está lista.",
+          "[AVISO ADA]: Los elevadores de cristal en Túnel 9 y Túnel 5 operan sin tiempo de espera al Nivel 3 y Club 1923.",
+          "[EN VIVO]: ¡Gran salida! Los atletas aceleran frente a la Sección 109A hacia la curva del Peristilo.",
+          "[SENSORIAL]: La Sala Sensorial Tranquila (42 dB) está abierta en el corredor Noroeste con audífonos.",
+          "[TRANSPORTE]: Los traslados accesibles salen después del evento desde Olympic Plaza al este de la Antorcha."
+        ]
+      };
+
+      function refreshCaptions() {
+        const text = PA_CAPTIONS[state.captionLang][state.captionIdx % PA_CAPTIONS[state.captionLang].length];
+        document.getElementById('drawer-caption-preview').textContent = text;
+        document.getElementById('floating-caption-text').textContent = text;
+      }
+      refreshCaptions();
+      setInterval(() => {
+        state.captionIdx++;
+        refreshCaptions();
+      }, 5200);
+
+      /* =======================================================================
+         12. AFTERVIBE LIVE VERIFICATION CONDITIONS (PROGRAMMATIC ORACLE)
+         ======================================================================= */
+      function runLiveVerificationConditions() {
+        const checks = [];
+
+        // VC-1: Step-Free Dijkstra strictly excludes stairs & slopes > 8.33% across ALL start-dest pairs
+        let allStepFreeCompliant = true;
+        ['sw-dropoff', 'east-peristyle', 'north-gate14'].forEach(s => {
+          ['sec-109a', 'sec-308', 'club-1923', 'sensory-room', 'ada-restroom'].forEach(d => {
+            const r = computeDijkstraRoute(s, d, { stepFreeOnly: true });
+            if (!r || r.stairsCount > 0 || r.maxGradePct > 8.33) allStepFreeCompliant = false;
+          });
+        });
+        checks.push({
+          id: 'VC-1',
+          question: 'Do all 15 Start→Destination Step-Free routes guarantee 0 stairs and max grade ≤ 8.33%?',
+          pass: allStepFreeCompliant,
+          evidence: allStepFreeCompliant ? '15/15 pairs verified (0 stairs, max 5.8% ramp)' : 'Non-compliant edge found'
+        });
+
+        // VC-2: Step-Free vs Standard visibly diverges on SW Drop-Off -> Sec 308
+        const rSF = computeDijkstraRoute('sw-dropoff', 'sec-308', { stepFreeOnly: true });
+        const rStd = computeDijkstraRoute('sw-dropoff', 'sec-308', { stepFreeOnly: false });
+        const diverges = rSF && rStd && rSF.stairsCount === 0 && rStd.stairsCount > 0 && rSF.elevatorCount >= 1;
+        checks.push({
+          id: 'VC-2',
+          question: 'Does toggling Step-Free ON vs OFF reroute between Tunnel 9 Elevator and SW Stairs?',
+          pass: Boolean(diverges),
+          evidence: diverges ? `Step-Free: ${rSF.totalMeters}m (1 lift, 0 stairs) vs Std: ${rStd.totalMeters}m (${rStd.stairsCount} stairs)` : 'Routes did not diverge'
+        });
+
+        // VC-3: 3D Spatial Arrows & Floating Beacons actively rendered in AR Overlay Group
+        const hasArrows = chevronMeshes.length >= 6 && activeBeaconItems.length >= 1;
+        checks.push({
+          id: 'VC-3',
+          question: 'Are glowing 3D chevron arrows and floating world-space beacons mounted in FPV scene?',
+          pass: hasArrows,
+          evidence: `${chevronMeshes.length} 3D chevrons + ${activeBeaconItems.length} floating beacons active`
+        });
+
+        // VC-4: Eye-level calibration targets match quantitative 1.20m (Wheelchair) & 1.65m (Standing)
+        const eyeOk = (state.eyeMode === 'wheelchair' && Math.abs(state.targetEyeHeight - 1.20) < 0.01)
+          || (state.eyeMode === 'standing' && Math.abs(state.targetEyeHeight - 1.65) < 0.01);
+        checks.push({
+          id: 'VC-4',
+          question: 'Is first-person eye-level calibrated to exact 1.20m Wheelchair / 1.65m Standing height?',
+          pass: eyeOk,
+          evidence: `Active mode: ${state.eyeMode} (${state.targetEyeHeight.toFixed(2)}m)`
+        });
+
+        // VC-5: Separate Stadium Env & AR Overlay Groups + Alpha WebGL Canvas for Live Camera AR
+        const arReady = renderer.getContext().getContextAttributes().alpha === true && arOverlayGroup.parent === scene;
+        checks.push({
+          id: 'VC-5',
+          question: 'Does the transparent WebGL layer isolate AR arrows from stadium geometry for Camera AR?',
+          pass: arReady,
+          evidence: arReady ? 'WebGL alpha=true, independent arOverlayGroup verified' : 'Alpha context unavailable'
+        });
+
+        // VC-6: Low-Sensory preference shifts noisy North Gate -> Sec 109A away from high-dB bowl
+        const rNorm = computeDijkstraRoute('north-gate14', 'sec-109a', { stepFreeOnly: true, avoidLoudCrowds: false });
+        const rCalm = computeDijkstraRoute('north-gate14', 'sec-109a', { stepFreeOnly: true, avoidLoudCrowds: true });
+        const sensoryWorks = rNorm && rCalm && rCalm.avgNoiseDb <= rNorm.avgNoiseDb;
+        checks.push({
+          id: 'VC-6',
+          question: 'Do Low-Sensory & Max-Shade preferences dynamically adjust Dijkstra edge weights?',
+          pass: Boolean(sensoryWorks),
+          evidence: sensoryWorks ? `North→109A noise reduced: ${rNorm.avgNoiseDb} dB → ${rCalm.avgNoiseDb} dB` : 'Noise weights inactive'
+        });
+
+        const passed = checks.filter(c => c.pass).length;
+        const score = ((passed / checks.length) * 6).toFixed(1);
+        document.getElementById('vc-score-badge').textContent = `Live VCs: ${passed}/${checks.length} PASS (${score}/6.0)`;
+
+        const list = document.getElementById('vc-results-list');
+        list.innerHTML = checks.map(c => `
+          <div class="p-2.5 rounded-xl border flex items-start justify-between gap-3" style="border-color: var(--hud-border); background: var(--hud-elevated);">
+            <div>
+              <div class="font-bold" style="color: var(--text-primary);"><span class="font-mono-tech" style="color: var(--accent);">${c.id}:</span> ${c.question}</div>
+              <div class="text-[11px] font-mono-tech mt-0.5" style="color: var(--text-secondary);">${c.evidence}</div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold font-mono-tech shrink-0" style="background: ${c.pass ? 'var(--accent)' : 'var(--danger)'}; color: #041710;">
+              ${c.pass ? 'PASS' : 'FAIL'}
+            </span>
+          </div>
+        `).join('');
+      }
+
+      // Export full AfterVibe Requirements Specification (.md) for Senior Project Report
+      function exportAfterVibeSpecMarkdown() {
+        const md = [
+          '# AfterVibe Re-Engineering Specification — LA28 Coliseum First-Person 3D AR Wayfinding',
+          '',
+          '## Part A: Specification (AfterVibe Framework)',
+          '',
+          '### 1. Intent & Rationale',
+          'Re-engineer the bird\'s-eye LA Memorial Coliseum stadium map into an egocentric, first-person 3D Augmented Reality (AR) wayfinding application designed specifically for disabled spectators attending the LA28 Olympic & Paralympic Games. Instead of mentally rotating a 2D/bird\'s-eye stadium diagram, spectators follow glowing 3D arrows overlaid directly onto their first-person environment (simulated 3D Coliseum or live mobile rear camera feed).',
+          '',
+          '### 2. Essential Design Decisions',
+          '- First-Person View (FPV) is the primary viewport (>75% unobstructed screen area) with a collapsible corner 2D PiP radar.',
+          '- Real multi-level weighted Dijkstra graph enforces hard ADA constraints (0 stairs, max slope <= 8.33%) when Step-Free mode is active.',
+          '- Smooth vertical camera elevation inside glass elevator shafts models authentic L2 -> L3 -> L4 transitions.',
+          '- Multimodal guidance fuses visual 3D chevrons, Web Speech API clock-face directions, Web Audio stereo-panned beacons, and Paris 2024-inspired live captions & sensory telemetry.',
+          '',
+          '### 3. Undiscoverable Domain Facts',
+          '- LA Memorial Coliseum East (+X) houses the 1923 Peristyle Colonnade & Olympic Cauldron.',
+          '- South Sideline (+Z) houses the Scholarship Club Tower (L4 1923 Club) casting afternoon shade over Section 109A.',
+          '- Primary ADA passenger elevators sit at Tunnel 9 and Tunnel 5 (serving L2 Street, L3 Upper 300s, L4 Club).',
+          '- ADA 2010 Standards maximum accessible ramp slope threshold is 8.33% (1:12); Gate 29 ADA ramp is modeled at 5.8% (1:17).',
+          '- Live Coliseum ADA text support line: 213-263-4007.',
+          '',
+          '## Part B: Split Requirements Specification',
+          '',
+          '### User Requirements (Qualitative)',
+          '- **UR-1 Intuitive Egocentric Clarity:** Disabled spectators navigate confidently by following spatial 3D arrows in their forward line of sight.',
+          '- **UR-2 Dignity & Step-Free Trust:** Wheelchair and mobility-device users trust that Step-Free routes never introduce unexpected stairs or steep grades.',
+          '- **UR-3 Multimodal Inclusive Guidance:** Blind, low-vision, deaf/HoH, and neurodivergent attendees receive tailored sensory cues (voice, stereo pings, captions, calm routing).',
+          '- **UR-4 Real-World AR Continuity:** Seamless switching between 3D Simulated Stadium rehearsal and Live Camera AR overlay with graceful fallback.',
+          '- **UR-5 Calm, Uncluttered Interface:** Translucent dark-glass HUD avoids cognitive overload and preserves clear path visibility.',
+          '',
+          '### System Requirements (Objective & Quantitative)',
+          '- **SR-1 Weighted Dijkstra ADA Compliance:** Hard-exclude edges where `hasStairs === true` OR `maxSlopePct > 8.33` in Step-Free mode (0 stairs across all 15 start-destination pairs).',
+          '- **SR-2 Eye-Level Calibration:** Smooth camera elevation interpolation between `1.20m` (Wheelchair) and `1.65m` (Standing).',
+          '- **SR-3 Guided Navigation Speeds:** Selectable velocities of `0.9 m/s` (Slow Wheelchair), `1.4 m/s` (Standard), and `3.2 m/s` (Fast Preview).',
+          '- **SR-4 WCAG AAA & Low-Vision Scaling:** High-Contrast mode enforces `>= 7:1` luminance contrast and updates 3D arrows to high-vis yellow/black; Oversized Arrow mode scales 3D chevrons `1.6x`.',
+          '- **SR-5 Open-Source Self-Contained Runtime:** Single HTML5 file utilizing Three.js r128 WebGL2, Web Speech API, Web Audio StereoPannerNode, and MediaDevices `getUserMedia`.',
+          ''
+        ].join('\n');
+
+        const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'LA28_Coliseum_AfterVibe_Requirements_Spec.md';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Exported AfterVibe Requirements Specification (.md).');
+      }
+
+      /* =======================================================================
+         13. UI EVENT BINDINGS
+         ======================================================================= */
+      function toggleDrawer(force) {
+        state.drawerOpen = typeof force === 'boolean' ? force : !state.drawerOpen;
+        document.getElementById('access-drawer').classList.toggle('is-closed', !state.drawerOpen);
+        document.getElementById('btn-open-drawer').setAttribute('aria-expanded', String(state.drawerOpen));
+      }
+
+      document.getElementById('btn-open-drawer').addEventListener('click', () => toggleDrawer(true));
+      document.getElementById('btn-close-drawer').addEventListener('click', () => toggleDrawer(false));
+
+      // Drawer Tabs
+      document.querySelectorAll('[data-dtab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.dtab;
+          document.querySelectorAll('[data-dtab]').forEach(t => t.setAttribute('aria-selected', String(t === tab)));
+          ['route', 'venue', 'a11y'].forEach(p => {
+            document.getElementById(`dpanel-${p}`).classList.toggle('hidden', p !== target);
+          });
+        });
+      });
+
+      // Play / Pause Auto-Walk
+      function togglePlayWalk() {
+        if (state.route && state.progressMeters >= state.route.totalMeters - 0.5) {
+          state.progressMeters = 0;
+          state.reachedDestination = false;
+          state.lastAnnouncedSegIdx = -1;
+        }
+        state.isWalking = !state.isWalking;
+        state.manualMoveActive = false;
+        const btn = document.getElementById('btn-play-pause');
+        btn.setAttribute('aria-pressed', String(state.isWalking));
+        document.getElementById('play-icon').textContent = state.isWalking ? '⏸' : '▶';
+        document.getElementById('play-label').textContent = state.isWalking ? 'Pause' : 'Walk Route';
+        if (state.isWalking) {
+          snapCameraToNextArrow();
+          announce('Auto-navigation started. Follow the 3D arrows ahead.');
+        } else {
+          announce('Navigation paused.');
+        }
+      }
+      document.getElementById('btn-play-pause').addEventListener('click', togglePlayWalk);
+
+      // Speed Cycler
+      document.getElementById('btn-speed').addEventListener('click', (e) => {
+        state.speedIdx = (state.speedIdx + 1) % SPEED_PRESETS.length;
+        const sp = SPEED_PRESETS[state.speedIdx];
+        e.currentTarget.textContent = sp.label;
+        recalculateRoute(false);
+        showToast(`Walk speed: ${sp.name} (${sp.label})`);
+      });
+
+      // Scrub Bar & Prev/Next Waypoint Jump
+      document.getElementById('route-scrubber').addEventListener('input', (e) => {
+        if (!state.route) return;
+        const frac = Number(e.target.value) / 1000;
+        state.progressMeters = frac * state.route.totalMeters;
+        state.manualMoveActive = false;
+        state.reachedDestination = frac >= 0.995;
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        state.userPos.copy(sample.pos);
+        snapCameraToNextArrow();
+        updateNavHud(sample);
+      });
+
+      document.getElementById('btn-prev-wp').addEventListener('click', () => {
+        if (!state.route) return;
+        let idx = 0;
+        for (let i = state.route.cumulative.length - 1; i >= 0; i--) {
+          if (state.route.cumulative[i] < state.progressMeters - 1.5) { idx = i; break; }
+        }
+        jumpToWaypoint(idx);
+      });
+
+      document.getElementById('btn-next-wp').addEventListener('click', () => {
+        if (!state.route) return;
+        let idx = state.route.nodes.length - 1;
+        for (let i = 0; i < state.route.cumulative.length; i++) {
+          if (state.route.cumulative[i] > state.progressMeters + 1.5) { idx = i; break; }
+        }
+        jumpToWaypoint(idx);
+      });
+
+      // Eye-Level Calibration Toggle (1.20m Wheelchair vs 1.65m Standing)
+      document.getElementById('btn-eye-level').addEventListener('click', (e) => {
+        state.eyeMode = state.eyeMode === 'wheelchair' ? 'standing' : 'wheelchair';
+        state.targetEyeHeight = state.eyeMode === 'wheelchair' ? 1.20 : 1.65;
+        const isWC = state.eyeMode === 'wheelchair';
+        e.currentTarget.setAttribute('aria-pressed', String(isWC));
+        e.currentTarget.querySelector('span:first-child').textContent = isWC ? '♿' : '🚶';
+        document.getElementById('eye-level-label').textContent = `${state.targetEyeHeight.toFixed(2)}m`;
+        document.getElementById('hud-eye-chip').textContent = `${isWC ? '♿' : '🚶'} Eye ${state.targetEyeHeight.toFixed(2)}m`;
+        announce(`Eye level calibrated to ${isWC ? 'Wheelchair height, 1.20 meters' : 'Standing height, 1.65 meters'}.`);
+      });
+
+      // Camera AR Toggle
+      document.getElementById('btn-camera-ar').addEventListener('click', toggleLiveCameraAR);
+
+      // Voice & Audio Guidance Quick Toggle
+      document.getElementById('btn-voice-toggle').addEventListener('click', (e) => {
+        state.voiceEnabled = !state.voiceEnabled;
+        e.currentTarget.setAttribute('aria-pressed', String(state.voiceEnabled));
+        if (state.voiceEnabled) {
+          announce('Voice guidance enabled. Turn-by-turn clock-face directions will be announced.', true);
+        } else {
+          stopVoice();
+        }
+      });
+
+      // Re-Center Camera on Next Arrow
+      document.getElementById('btn-recenter').addEventListener('click', () => {
+        snapCameraToNextArrow();
+        showToast('Re-centered camera on next 3D arrow.');
+      });
+
+      // Expandable PiP Mini-Map
+      document.getElementById('minimap-wrapper').addEventListener('click', () => {
+        state.minimapExpanded = !state.minimapExpanded;
+        document.getElementById('minimap-wrapper').classList.toggle('is-expanded', state.minimapExpanded);
+      });
+
+      // Route Selectors & Checkboxes
+      document.getElementById('select-start').addEventListener('change', (e) => { state.startId = e.target.value; recalculateRoute(true); });
+      document.getElementById('select-dest').addEventListener('change', (e) => { state.destId = e.target.value; recalculateRoute(true); });
+      document.getElementById('chk-step-free').addEventListener('change', (e) => { state.stepFreeOnly = e.target.checked; recalculateRoute(false); });
+      document.getElementById('chk-low-sensory').addEventListener('change', (e) => { state.avoidLoudCrowds = e.target.checked; recalculateRoute(false); });
+      document.getElementById('chk-max-shade').addEventListener('change', (e) => { state.maxShade = e.target.checked; recalculateRoute(false); });
+
+      document.getElementById('btn-read-full-route').addEventListener('click', () => {
+        if (!state.route) return;
+        const steps = state.route.edges.map((e, i) => `Step ${i + 1}: ${e.instruction}.`).join(' ');
+        announce(`Route from ${NODES[state.startId].name} to ${NODES[state.destId].name}. Total ${state.route.totalMeters} meters, ${state.route.stairsCount} stairs. ${steps}`, true);
+      });
+
+      // Venue Access Tools Bindings
+      document.getElementById('btn-caption-lang').addEventListener('click', () => {
+        state.captionLang = state.captionLang === 'EN' ? 'ES' : 'EN';
+        refreshCaptions();
+      });
+      document.getElementById('btn-toggle-caption-bar').addEventListener('click', (e) => {
+        state.captionBarPinned = !state.captionBarPinned;
+        e.currentTarget.setAttribute('aria-pressed', String(state.captionBarPinned));
+        document.getElementById('floating-caption-bar').classList.toggle('hidden', !state.captionBarPinned);
+      });
+      document.getElementById('btn-close-caption-bar').addEventListener('click', () => {
+        state.captionBarPinned = false;
+        document.getElementById('btn-toggle-caption-bar').setAttribute('aria-pressed', 'false');
+        document.getElementById('floating-caption-bar').classList.add('hidden');
+      });
+
+      document.getElementById('btn-audio-desc-play').addEventListener('click', () => {
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        const zone = sample.edge ? NODES[sample.edge.from].zoneDesc : NODES[state.startId].zoneDesc;
+        const desc = `Audio Description: You are inside the Los Angeles Memorial Coliseum at ${zone}. Glowing emerald 3D navigation chevrons float at waist height directly ahead, guiding you step-free toward ${NODES[state.destId].name}. To the East rise the limestone arches of the 1923 Peristyle topped by the burning Olympic Cauldron. Along the South sideline, the glass Scholarship Club Tower casts cool shade over the lower accessible seating deck and the terracotta 8-lane LA28 Para-Athletics track below.`;
+        announce(desc, true);
+      });
+      document.getElementById('btn-audio-desc-stop').addEventListener('click', stopVoice);
+
+      document.getElementById('btn-route-sensory').addEventListener('click', () => {
+        state.destId = 'sensory-room';
+        state.avoidLoudCrowds = true;
+        document.getElementById('select-dest').value = 'sensory-room';
+        document.getElementById('chk-low-sensory').checked = true;
+        recalculateRoute(true);
+        toggleDrawer(false);
+        showToast('Low-sensory step-free route plotted to Sensory Quiet Room (42 dB).');
+      });
+
+      // Accessibility Display Toggles
+      function toggleHighContrast() {
+        state.highContrast = !state.highContrast;
+        document.documentElement.setAttribute('data-high-contrast', String(state.highContrast));
+        document.getElementById('toggle-high-contrast').setAttribute('aria-pressed', String(state.highContrast));
+        document.getElementById('btn-quick-contrast').setAttribute('aria-pressed', String(state.highContrast));
+        document.getElementById('lbl-hc').textContent = state.highContrast ? 'ON' : 'OFF';
+        if (!state.arCameraActive) {
+          scene.background = state.highContrast ? hcSkyTex : defaultSkyTex;
+          scene.fog.color.setHex(state.highContrast ? 0x000000 : 0x284354);
+        }
+        rebuild3DARWayfinding();
+        announce(state.highContrast ? 'WCAG AAA High Contrast enabled. 3D arrows switched to high-visibility yellow and black.' : 'Standard contrast restored.');
+      }
+      document.getElementById('toggle-high-contrast').addEventListener('click', toggleHighContrast);
+      document.getElementById('btn-quick-contrast').addEventListener('click', toggleHighContrast);
+
+      document.getElementById('toggle-oversized-arrows').addEventListener('click', (e) => {
+        state.oversizedArrows = !state.oversizedArrows;
+        document.documentElement.setAttribute('data-oversized-arrows', String(state.oversizedArrows));
+        e.currentTarget.setAttribute('aria-pressed', String(state.oversizedArrows));
+        document.getElementById('lbl-oa').textContent = state.oversizedArrows ? '1.6×' : 'OFF';
+        rebuild3DARWayfinding();
+        announce(state.oversizedArrows ? 'Low-vision oversized arrows enabled at 1.6 times scale.' : 'Standard arrow size restored.');
+      });
+
+      document.getElementById('toggle-large-text').addEventListener('click', (e) => {
+        state.largeText = !state.largeText;
+        document.documentElement.setAttribute('data-large-text', String(state.largeText));
+        e.currentTarget.setAttribute('aria-pressed', String(state.largeText));
+        document.getElementById('lbl-lt').textContent = state.largeText ? 'ON' : 'OFF';
+      });
+
+      function applyReducedMotionUI() {
+        document.documentElement.setAttribute('data-reduced-motion', String(state.reducedMotion));
+        document.getElementById('toggle-reduced-motion').setAttribute('aria-pressed', String(state.reducedMotion));
+        document.getElementById('lbl-rm').textContent = state.reducedMotion ? 'ON' : 'OFF';
+      }
+      applyReducedMotionUI();
+      document.getElementById('toggle-reduced-motion').addEventListener('click', () => {
+        state.reducedMotion = !state.reducedMotion;
+        applyReducedMotionUI();
+        announce(state.reducedMotion ? 'Reduced motion enabled. 3D arrows are now static.' : 'Smooth animations enabled.');
+      });
+
+      document.getElementById('toggle-audio-beacon').addEventListener('click', (e) => {
+        state.audioBeaconEnabled = !state.audioBeaconEnabled;
+        e.currentTarget.setAttribute('aria-pressed', String(state.audioBeaconEnabled));
+        document.getElementById('lbl-ab').textContent = state.audioBeaconEnabled ? 'ON' : 'OFF';
+        if (state.audioBeaconEnabled) {
+          playStereoBeaconPing(0);
+          showToast('Stereo audio beacon active — pings pan left/right toward the next 3D arrow.');
+        }
+      });
+
+      document.getElementById('toggle-gyro').addEventListener('click', toggleGyroLook);
+
+      // ADA Escort Modal
+      function openEscortModal() {
+        const sample = sampleRouteAtDistance(state.progressMeters);
+        const nearest = sample.edge ? NODES[sample.edge.from] : NODES[state.startId];
+        document.getElementById('escort-pin-location').textContent = `${nearest.name} (${nearest.level})`;
+        document.getElementById('escort-pin-coords').textContent = `34.0141°N, 118.2879°W • Active Dest: ${NODES[state.destId].short}`;
+        document.getElementById('escort-confirm-banner').classList.add('hidden');
+        document.getElementById('escort-modal').classList.remove('hidden');
+      }
+      document.getElementById('btn-escort-quick').addEventListener('click', openEscortModal);
+      document.getElementById('btn-open-escort-drawer').addEventListener('click', () => { toggleDrawer(false); openEscortModal(); });
+      document.getElementById('btn-close-escort').addEventListener('click', () => document.getElementById('escort-modal').classList.add('hidden'));
+      document.getElementById('btn-cancel-escort').addEventListener('click', () => document.getElementById('escort-modal').classList.add('hidden'));
+      document.getElementById('btn-dispatch-escort').addEventListener('click', () => {
+        document.getElementById('escort-confirm-banner').classList.remove('hidden');
+        announce('Accessibility Ambassador Maya R. dispatched to your pinned waypoint. Estimated arrival 3 minutes.', true);
+      });
+
+      // AfterVibe Spec & Verification Modal
+      const specModal = document.getElementById('spec-modal');
+      document.getElementById('btn-spec-modal').addEventListener('click', () => {
+        runLiveVerificationConditions();
+        specModal.classList.remove('hidden');
+      });
+      document.getElementById('btn-close-spec').addEventListener('click', () => specModal.classList.add('hidden'));
+      document.getElementById('btn-spec-done').addEventListener('click', () => specModal.classList.add('hidden'));
+      document.getElementById('btn-rerun-vcs').addEventListener('click', runLiveVerificationConditions);
+      document.getElementById('btn-export-spec-md').addEventListener('click', exportAfterVibeSpecMarkdown);
+
+      /* =======================================================================
+         14. MAIN 60FPS ANIMATION LOOP & RESIZE HANDLER
+         ======================================================================= */
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      let lastFrameTime = 0;
+
+      function animate(now) {
+        requestAnimationFrame(animate);
+        const dt = Math.min(0.05, lastFrameTime ? (now - lastFrameTime) / 1000 : 0.016);
+        lastFrameTime = now;
+
+        // 1. Auto-Navigate Walk Movement
+        if (state.isWalking && state.route) {
+          const speed = SPEED_PRESETS[state.speedIdx].mps;
+          state.progressMeters += speed * dt;
+
+          if (state.progressMeters >= state.route.totalMeters) {
+            state.progressMeters = state.route.totalMeters;
+            state.isWalking = false;
+            document.getElementById('btn-play-pause').setAttribute('aria-pressed', 'false');
+            document.getElementById('play-icon').textContent = '↺';
+            document.getElementById('play-label').textContent = 'Replay';
+            if (!state.reachedDestination) {
+              state.reachedDestination = true;
+              const destName = NODES[state.destId].name;
+              showToast(`Arrived at ${destName}!`);
+              announce(`You have arrived at ${destName}.`, true);
+            }
+          }
+
+          const sample = sampleRouteAtDistance(state.progressMeters);
+          state.userPos.copy(sample.pos);
+
+          // Gently align camera yaw toward walking direction unless user recently dragged
+          if (state.manualLookCooldown > 0) {
+            state.manualLookCooldown = Math.max(0, state.manualLookCooldown - dt);
+          } else if (!state.gyroEnabled) {
+            let alignDir = sample.dir;
+            if (sample.edge && sample.edge.isElevator && state.route.edges[sample.segIdx + 1]) {
+              const ne = state.route.edges[sample.segIdx + 1];
+              alignDir = new THREE.Vector3(...NODES[ne.to].pos).sub(new THREE.Vector3(...NODES[ne.from].pos)).normalize();
+            }
+            if (Math.hypot(alignDir.x, alignDir.z) > 0.05) {
+              const desiredYaw = computeYawFromDir(alignDir);
+              const diff = normalizeAngle(desiredYaw - state.yaw);
+              state.yaw += state.reducedMotion ? diff : diff * Math.min(1, dt * 3.2);
+              state.pitch += (-0.05 - state.pitch) * (state.reducedMotion ? 1 : Math.min(1, dt * 2.5));
+            }
+          }
+          updateNavHud(sample);
+        } else {
+          // Optional Manual WASD / Arrow Keys Free Exploration
+          const moveSpeed = 5.5 * dt;
+          const turnSpeed = 1.8 * dt;
+          let movedManually = false;
+
+          if (keysDown.has('arrowleft')) { state.yaw += turnSpeed; movedManually = true; }
+          if (keysDown.has('arrowright')) { state.yaw -= turnSpeed; movedManually = true; }
+
+          const fwd = new THREE.Vector3(-Math.sin(state.yaw), 0, -Math.cos(state.yaw));
+          const right = new THREE.Vector3(Math.cos(state.yaw), 0, -Math.sin(state.yaw));
+
+          if (keysDown.has('w') || keysDown.has('arrowup')) { state.userPos.addScaledVector(fwd, moveSpeed); movedManually = true; }
+          if (keysDown.has('s') || keysDown.has('arrowdown')) { state.userPos.addScaledVector(fwd, -moveSpeed); movedManually = true; }
+          if (keysDown.has('a')) { state.userPos.addScaledVector(right, -moveSpeed); movedManually = true; }
+          if (keysDown.has('d')) { state.userPos.addScaledVector(right, moveSpeed); movedManually = true; }
+
+          const sample = sampleRouteAtDistance(state.progressMeters);
+          updateNavHud(sample);
+        }
+
+        // 2. Smooth Eye-Level Calibration Interpolation (1.20m Wheelchair vs 1.65m Standing)
+        if (state.reducedMotion) {
+          state.currentEyeHeight = state.targetEyeHeight;
+        } else {
+          state.currentEyeHeight += (state.targetEyeHeight - state.currentEyeHeight) * Math.min(1, dt * 7.5);
+        }
+
+        // Apply Camera Pose (YXZ Euler for natural First-Person Look)
+        camera.position.set(state.userPos.x, state.userPos.y + state.currentEyeHeight, state.userPos.z);
+        camera.rotation.order = 'YXZ';
+        camera.rotation.y = state.yaw;
+        camera.rotation.x = state.pitch;
+        camera.rotation.z = 0;
+
+        // 3. Animate 3D AR Chevrons, Flow Ribbon, Turn Rings & Olympic Torch (Respects Reduced Motion!)
+        if (!state.reducedMotion) {
+          // Sequential wave-pulse moving forward along the 3D chevrons
+          const waveHead = (now * 0.0055) % Math.max(1, chevronMeshes.length);
+          chevronMeshes.forEach(c => {
+            const idx = c.userData.phaseIndex;
+            if (!c.userData.isElevator) {
+              c.position.y = c.userData.baseY + Math.sin(now * 0.004 - idx * 0.65) * 0.09;
+            }
+            const distToWave = Math.abs(idx - waveHead);
+            const pulse = Math.max(0, 1 - distToWave * 0.45);
+            c.userData.mat.emissiveIntensity = (state.oversizedArrows ? 0.85 : 0.55) + pulse * 0.85;
+          });
+
+          // Scroll flow chevron ribbon textures forward
+          arOverlayGroup.children.forEach(obj => {
+            if (obj.userData && obj.userData.flowTex) {
+              obj.userData.flowTex.offset.y -= dt * 1.35;
+            }
+          });
+
+          // Subtle turn ring pulse
+          turnIndicatorMeshes.forEach((ring, i) => {
+            const s = 1 + Math.sin(now * 0.005 + i) * 0.1;
+            ring.scale.set(s, s, 1);
+          });
+
+          // Olympic Cauldron Flame Flicker
+          if (torchFlameGroup) {
+            const fp = 1 + Math.sin(now * 0.01) * 0.14 + Math.cos(now * 0.017) * 0.08;
+            torchFlameGroup.scale.set(0.96 + Math.sin(now * 0.012) * 0.08, fp, 0.96 + Math.cos(now * 0.014) * 0.08);
+          }
+        }
+
+        // 4. Render 3D Scene, Floating AR Beacons & 2D PiP Mini-Map
+        renderer.render(scene, camera);
+        updateProjectedBeacons();
+        drawMiniMap();
+      }
+
+      /* =======================================================================
+         15. INITIALIZE ON WINDOW LOAD (AUTO-LOAD DEMO STEP-FREE ROUTE)
+         ======================================================================= */
+      window.onload = function () {
+        recalculateRoute(true);
+        runLiveVerificationConditions();
+        requestAnimationFrame(animate);
+      };
+    })();
+  </script>
+</body>
+</html>

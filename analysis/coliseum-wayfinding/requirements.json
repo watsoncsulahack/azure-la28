@@ -1,0 +1,146 @@
+{
+  "User requirements": [
+    {
+      "ID": "UR-01",
+      "Req.": "Spectators should be able to follow directions in their forward view without interpreting a complex map.",
+      "Reason": "Reduce map-reading effort. Supported by SR-09.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-02",
+      "Req.": "Spectators using mobility devices should be able to choose routes suited to their access needs.",
+      "Reason": "Support confidence and independent travel. Supported by SR-05.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-04",
+      "Req.": "Spectators should be able to prefer quieter or shadier routes.",
+      "Reason": "Support sensory comfort and reduced sun exposure. Supported by SR-04.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-05",
+      "Req.": "Spectators should be able to receive guidance through visual, spoken or text-based information.",
+      "Reason": "Support different communication needs. Supported by SR-09, SR-17 and SR-19.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-06",
+      "Req.": "Spectators should be able to adjust the display for their visual and motion-sensitivity needs.",
+      "Reason": "Improve readability and comfort. Supported by SR-21 and SR-22.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-07",
+      "Req.": "Spectators should be able to preview a journey at a suitable pace and viewpoint.",
+      "Reason": "Help users prepare for their visit. Supported by SR-12 and SR-14.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    },
+    {
+      "ID": "UR-10",
+      "Req.": "Spectators should be able to request appropriate human assistance.",
+      "Reason": "Provide help when navigation alone is insufficient. SR-24 currently demonstrates this only.",
+      "Date": "2026-11-27",
+      "Status": "Inferred"
+    }
+  ],
+  "System requirements": [
+    {
+      "ID": "SR-03",
+      "Req.": "The system shall offer three start locations and five destinations.",
+      "Reason": "Define the supported demo journeys. Source: L605, L614.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-04",
+      "Req.": "The route calculation shall add 1.8 times segment length for modeled noise of at least 74 dB when quiet routing is selected, and 1.6 times length for unshaded segments when shade is selected.",
+      "Reason": "Make routing preferences explicit and testable. Source: L1090, L1093.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-05",
+      "Req.": "In step-free mode, the system shall exclude route segments with stairs or a modeled slope above 8.33%.",
+      "Reason": "Respect the demo’s mobility constraints. Source: L1088.",
+      "Date": "2026-11-27",
+      "Status": "Graph verified"
+    },
+    {
+      "ID": "SR-06",
+      "Req.": "The system shall display modeled route distance, ETA, maximum slope, stair-segment count, shade coverage, average noise and elevator-use count.",
+      "Reason": "Let spectators compare route characteristics. Source: L1117, L2502.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-09",
+      "Req.": "The system shall display the selected route using first-person 3D arrows and waypoint labels.",
+      "Reason": "Support forward-view navigation. Source: L1948, L2091.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-12",
+      "Req.": "The system shall provide play/pause, route scrubbing and waypoint jumps, with preview speeds of 0.9, 1.4 and 3.2 m/s.",
+      "Reason": "Allow controlled route rehearsal. Source: L1152, L2907, L2938.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-14",
+      "Req.": "The system shall offer simulated eye heights of 1.20 m and 1.65 m.",
+      "Reason": "Preview wheelchair and standing viewpoints. Source: L2969.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-15",
+      "Req.": "The system shall offer an optional camera-video background behind the virtual route arrows.",
+      "Reason": "Demonstrate camera-overlay guidance; no real-world positioning is implemented. Source: L2566.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-17",
+      "Req.": "The system shall offer spoken route instructions and text announcements through an ARIA live region.",
+      "Reason": "Provide alternatives to visual arrows. Source: L1205, L3013.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-19",
+      "Req.": "The system shall cycle fixed English or Spanish caption text every 5.2 seconds.",
+      "Reason": "Demonstrate captions without a live event feed. Source: L2713, L2736.",
+      "Date": "2026-11-27",
+      "Status": "Demo only"
+    },
+    {
+      "ID": "SR-21",
+      "Req.": "The system shall offer high-contrast colors, 1.6-times arrow sizing and a 1.18-times root font scale.",
+      "Reason": "Support visual adjustment; WCAG conformance is unverified. Source: L43, L64, L1955, L3054.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-22",
+      "Req.": "The system shall offer a reduced-motion setting that suppresses decorative animation updates.",
+      "Reason": "Reduce motion-related discomfort; route playback can continue. Source: L3086, L3229.",
+      "Date": "2026-11-27",
+      "Status": "Code reviewed"
+    },
+    {
+      "ID": "SR-24",
+      "Req.": "The system shall show an assistance-type selector and a preset confirmation in a local request dialog.",
+      "Reason": "Demonstrate an assistance workflow; no request is sent. Source: L789, L3111, L3123.",
+      "Date": "2026-11-27",
+      "Status": "Demo only"
+    }
+  ]
+}

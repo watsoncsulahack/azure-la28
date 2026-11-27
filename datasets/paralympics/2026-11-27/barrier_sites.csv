@@ -1,0 +1,20 @@
+name,kind,subtype,councilDistrict,curbRampsNoted,loggedOn,requests,page_url,collected_at_utc,page_snapshot_date,page_dataset_updated_date,verification
+10985 Le Conte Ave,la28-site,LA28 PAI,5,1,2026-01-13,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+Burbank Blvd and Hayvenhurst Ave,la28-site,LA28 PAI,6,3,2026-02-06,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+Expo Park: W 30th St and Hope St,la28-site,LA28 PAI,9,1,2026-05-01,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+LA Live: 11th St and Figueroa St,la28-site,LA28 PAI,14,1,2026-05-29,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+LA Live: Flower St and Olympic Blvd,la28-site,LA28 PAI,14,1,2026-05-29,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+LA Live: L.A. Live Way and W Pico Blvd,la28-site,LA28 PAI,9,1,2026-05-29,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+North Hollywood Station at Cumpston St,la28-site,LA28 PAI,2,1,2026-02-22,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+255 W 5th St,access-request,Access Request (myLA311),15,1,2026-05-15,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+3936 S Hill St,access-request,Access Request (myLA311),9,0,2024-10-19,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+500 Landfair Ave,access-request,Access Request (myLA311),5,0,2025-10-30,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+554 W 43rd Pl,access-request,Access Request (myLA311),9,0,2026-07-28,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+628 S Mesa St,access-request,Access Request (myLA311),15,0,2025-05-02,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+669 Levering Ave,access-request,Access Request (myLA311),5,0,2025-07-23,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+715 Gayley Ave,access-request,Access Request (myLA311),5,0,2026-06-09,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+754 S Hope St,access-request,Access Request (myLA311),14,0,2026-08-14,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+900 Gayley Ave,access-request,Access Request (myLA311),5,0,2025-11-08,2,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+Landfair Ave at Strathmore Dr,access-request,Access Request (myLA311),5,2,2025-02-24,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+Midvale Ave at Strathmore Dr,access-request,Access Request (myLA311),5,0,2025-02-10,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page
+Stadium Way at Scott Ave,access-request,Access Request (myLA311),1,0,2017-11-07,1,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:30:03.273835+00:00,2026-11-23,2025-02-05,reported_by_page

@@ -1,0 +1,30 @@
+{
+  "venue_row_count": 9,
+  "barrier_site_count": 19,
+  "resource_count": 20,
+  "page_venue_totals_consistent": true,
+  "page_missing_percentages_consistent": true,
+  "page_summary_matches_venue_totals": {
+    "with_ramp": true,
+    "missing_ramp": true,
+    "total": true
+  },
+  "page_street_miles_sum": 126.1,
+  "page_street_miles_summary": 126.1,
+  "live_ramp_values": {
+    "Yes": 3555,
+    "No": 149
+  },
+  "live_barrier_raw_records": 20,
+  "live_barrier_unique_addresses": 20,
+  "live_barrier_unique_normalized_addresses": 19,
+  "live_barrier_repeated_normalized_addresses": {
+    "900 GAYLEY AVE": 2
+  },
+  "live_venue_point_records": 21,
+  "live_venue_unique_normalized_names": 20,
+  "live_street_segment_records": 1418,
+  "all_layer_id_sets_complete": true,
+  "external_articles_independently_verified": false,
+  "route_safety_or_ADA_compliance_verified": false
+}

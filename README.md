@@ -2,6 +2,15 @@
 
 Structured snapshot of [LA28 Planning Hub — Paralympics](https://la28-planning-hub.lovable.app/paralympics), an independent educational student project, not an official LA28 publication.
 
+## Latest deliverables
+
+- [Concise Coliseum requirements register](analysis/coliseum-wayfinding/requirements-analysis.md): 7 user and 13 system requirements using **ID, Req., Reason, Date, Status**. Editable copies: [Word](analysis/coliseum-wayfinding/requirements.docx), [Excel](analysis/coliseum-wayfinding/requirements.xlsx), and [CSV](analysis/coliseum-wayfinding/requirements.csv).
+- [Detailed requirements evidence](analysis/coliseum-wayfinding/requirements-analysis-detailed.md), the [original demo](analysis/coliseum-wayfinding/source-demo.html), and [routing verification results](analysis/coliseum-wayfinding/route-verification.json). The routing check covers 120 modeled configurations; camera, device and accessibility behavior have not been runtime-tested.
+- [Extended dataset and documentation](datasets/paralympics/2026-11-27/README.md): 3,704 curb-ramp records, 1,418 street segments, venue points and barrier locations, with CSV/GeoJSON, source snapshots and provenance. The [collector](datasets/paralympics/collect.py) requires Python 3 and `lxml`.
+- Download bundles: [trimmed requirements](analysis/coliseum-requirements-trimmed.zip) and [extended dataset](datasets/paralympics/paralympics-dataset-2026-11-27.zip).
+
+The original page-only extraction below is preserved in `data/paralympics/`. The extended collection in `datasets/paralympics/` additionally retrieves the cited municipal GIS layers. These are accessibility inventories and a navigation prototype, not verified safe routes or observed traffic-volume data. No Azure integration or live assistance service is implemented.
+
 ## Data
 
 All files are in [`data/paralympics/`](data/paralympics/).

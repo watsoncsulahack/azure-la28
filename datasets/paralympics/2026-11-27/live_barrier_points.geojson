@@ -1,0 +1,425 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 482,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.24889331733559,
+          34.07730424495003
+        ]
+      },
+      "properties": {
+        "OBJECTID": 482,
+        "Site_No": 2889,
+        "Address": "STADIUM WAY AT SCOTT AVE",
+        "Date_Logged": 1510012800000,
+        "Council_District": 1,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3544,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.27958507930038,
+          34.01201308947702
+        ]
+      },
+      "properties": {
+        "OBJECTID": 3544,
+        "Site_No": 8431,
+        "Address": "3936 S HILL ST",
+        "Date_Logged": 1729296000000,
+        "Council_District": 9,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3890,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.4518819246741,
+          34.064305409745025
+        ]
+      },
+      "properties": {
+        "OBJECTID": 3890,
+        "Site_No": 8876,
+        "Address": "MIDVALE AVE AT STRATHMORE DR",
+        "Date_Logged": 1739145600000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3900,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.44975175502113,
+          34.06728108240807
+        ]
+      },
+      "properties": {
+        "OBJECTID": 3900,
+        "Site_No": 8893,
+        "Address": "LANDFAIR AVE AT STRATHMORE DR",
+        "Date_Logged": 1740355200000,
+        "Council_District": 5,
+        "Number_CurbRamps": 2,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4657,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.45081649103287,
+          34.06878845248171
+        ]
+      },
+      "properties": {
+        "OBJECTID": 4657,
+        "Site_No": 9766,
+        "Address": "500 LANDFAIR AVE",
+        "Date_Logged": 1761782400000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4877,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.45103384511299,
+          34.066232102638644
+        ]
+      },
+      "properties": {
+        "OBJECTID": 4877,
+        "Site_No": 10015,
+        "Address": "669 LEVERING AVE",
+        "Date_Logged": 1753228800000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4898,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.44813542157124,
+          34.06329093436188
+        ]
+      },
+      "properties": {
+        "OBJECTID": 4898,
+        "Site_No": 10037,
+        "Address": "900 GAYLEY AVE",
+        "Date_Logged": 1762560000000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4912,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.44810882560587,
+          34.0650116944631
+        ]
+      },
+      "properties": {
+        "OBJECTID": 4912,
+        "Site_No": 10054,
+        "Address": "10985 Le Conte Ave ",
+        "Date_Logged": 1768262400000,
+        "Council_District": 5,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5031,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.50095676143349,
+          34.172098851486865
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5031,
+        "Site_No": 10178,
+        "Address": "Burbank Blvd and Hayvenhurst Ave",
+        "Date_Logged": 1770336000000,
+        "Council_District": 6,
+        "Number_CurbRamps": 3,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5054,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.28571123491012,
+          33.73801232726458
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5054,
+        "Site_No": 10197,
+        "Address": "628 S MESA ST",
+        "Date_Logged": 1746144000000,
+        "Council_District": 15,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5075,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.3762432990417,
+          34.170090743684355
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5075,
+        "Site_No": 10222,
+        "Address": "Cumpston St and Tujunga Ave",
+        "Date_Logged": 1771718400000,
+        "Council_District": 2,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5268,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.27411635654589,
+          34.02340014424099
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5268,
+        "Site_No": 10458,
+        "Address": "W 30th St and Hope St",
+        "Date_Logged": 1777593600000,
+        "Council_District": 9,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5345,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.26756430645622,
+          34.045150397985275
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5345,
+        "Site_No": 10540,
+        "Address": "11th St and Figueroa St",
+        "Date_Logged": 1780012800000,
+        "Council_District": 14,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5348,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.27097601281854,
+          34.044020849225035
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5348,
+        "Site_No": 10541,
+        "Address": "L.A. Live Way and W Pico Blvd",
+        "Date_Logged": 1780012800000,
+        "Council_District": 9,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5352,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.26299878749121,
+          34.044349902787744
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5352,
+        "Site_No": 10544,
+        "Address": "Flower St and Olympic Blvd",
+        "Date_Logged": 1780012800000,
+        "Council_District": 14,
+        "Number_CurbRamps": 1,
+        "Subtype": "LA28 PAI",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5401,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.44838592031279,
+          34.06503289077735
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5401,
+        "Site_No": 10602,
+        "Address": "715 GAYLEY AVE",
+        "Date_Logged": 1780963200000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5409,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.44812810525312,
+          34.063323686391435
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5409,
+        "Site_No": 10611,
+        "Address": "900 GAYLEY AVE ",
+        "Date_Logged": 1780963200000,
+        "Council_District": 5,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5417,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.28148399519822,
+          33.74009110139852
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5417,
+        "Site_No": 10619,
+        "Address": "255 W 5TH ST",
+        "Date_Logged": 1778803200000,
+        "Council_District": 15,
+        "Number_CurbRamps": 1,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5663,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.28411272096902,
+          34.00436345205334
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5663,
+        "Site_No": 10937,
+        "Address": "554 W 43RD PL LOS ANGELES CA",
+        "Date_Logged": 1785196800000,
+        "Council_District": 9,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5676,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.25841032070204,
+          34.0471230574933
+        ]
+      },
+      "properties": {
+        "OBJECTID": 5676,
+        "Site_No": 10952,
+        "Address": "754 S HOPE ST",
+        "Date_Logged": 1786665600000,
+        "Council_District": 14,
+        "Number_CurbRamps": 0,
+        "Subtype": "Access Request (myLA311)",
+        "isLA28": 1
+      }
+    }
+  ]
+}
