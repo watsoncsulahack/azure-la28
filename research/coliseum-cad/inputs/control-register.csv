@@ -1,0 +1,12 @@
+sheet,dimension_id,measurement_id,model_value_m,source_value_m,evidence,source_url
+A-101,D001,M158,316.3824,316.3824,historic-approximate,https://npgallery.nps.gov/NRHP/GetAsset/NHLS/84003866_text#page=2
+A-101,D002,M159,224.9424,224.9424,historic-approximate,https://npgallery.nps.gov/NRHP/GetAsset/NHLS/84003866_text#page=2
+A-101,D003,M017,170.688,170.688,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21
+A-101,D004,M018,76.2,76.2,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21
+A-101,D005,M020,109.728,109.728,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21
+A-101,D006,M021,48.768,48.768,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21
+A-201,D007,M012,35.2552,35.2552,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8
+A-201,D008,M011,12.4206,12.4206,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8
+A-201,D009,M013,22.834600000000002,22.8346,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8
+A-201,D010,M015,37.6428,37.6428,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8
+A-202,D011,M014,33.3248,33.3248,source-reported,https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8

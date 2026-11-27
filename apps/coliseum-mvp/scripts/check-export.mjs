@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {GLTFLoader} from '../dist/vendor/GLTFLoader.js';
+import * as THREE from '../dist/vendor/three.module.js';
+const spec=JSON.parse(await readFile(new URL('../dist/data/venue.json',import.meta.url)));
+const file=await readFile(new URL(`../dist/coliseum-${spec.revision}.glb`,import.meta.url));
+const gltf=await new GLTFLoader().parseAsync(file.buffer.slice(file.byteOffset,file.byteOffset+file.byteLength),'');
+gltf.scene.updateMatrixWorld(true);
+for(const c of spec.components){const node=gltf.scene.getObjectByName(c.id);assert(node,`Imported component ${c.id} exists`);assert.equal(node.userData.componentId,c.id,'Imported component identity retained');}
+const field=gltf.scene.getObjectByName('field-envelope');
+const b=new THREE.Box3().setFromObject(field);
+assert(Math.abs(b.max.x-b.min.x-spec.parameters.fieldLength)<.005,'GLB roundtrip field length retains meter scale');
+assert(Math.abs(b.max.z-b.min.z-spec.parameters.fieldWidth)<.005,'GLB roundtrip field width retains meter scale');
+let instances=0;gltf.scene.getObjectByName('seats').traverse(n=>{if(n.isInstancedMesh)instances+=n.count;});
+assert(instances>0,'Seating instances survive import');
+const path=new URL('../dist/data/validation.json',import.meta.url);
+const report=JSON.parse(await readFile(path));
+report.exportImportChecks={componentIdentity:true,meterScale:true,seatingInstances:true,importedSeatParts:instances};
+await writeFile(path,JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify(report.exportImportChecks,null,2));

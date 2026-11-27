@@ -1,0 +1,103 @@
+{
+  "revision": "R001",
+  "date": "2026-11-27",
+  "units": "meters; native FCStd storage millimeters",
+  "accuracyStatus": "source consistency checked; +/-0.30 m physical accuracy NOT verified",
+  "files": [
+    {
+      "path": "drawings/A-101.dxf",
+      "bytes": 83423,
+      "sha256": "a9ad3e4d79a1a4e03ec7bc9c612f2fdcc3f730b48311e8d1f0997511edd2291c"
+    },
+    {
+      "path": "drawings/A-101.pdf",
+      "bytes": 248803,
+      "sha256": "6cf13a92e089007911e83ce5e5d73e871c6de6f6513abae1ffcef11ca4cd0ad1"
+    },
+    {
+      "path": "drawings/A-201.dxf",
+      "bytes": 73679,
+      "sha256": "ca6df394bbe485c10b8669bd69aa8a2a0703a83ac6289df4fcd43df591c38f29"
+    },
+    {
+      "path": "drawings/A-201.pdf",
+      "bytes": 176094,
+      "sha256": "98ea024392a8d7af7ac22f2b670bc09d02bc8ab6defe0a2a4dd4ef72b4490c08"
+    },
+    {
+      "path": "drawings/A-202.dxf",
+      "bytes": 71425,
+      "sha256": "72a81d7cb8fd6c2a08a4a0ac669bdee1daa7470a9a571580916e6bdab32fe4d5"
+    },
+    {
+      "path": "drawings/A-202.pdf",
+      "bytes": 192088,
+      "sha256": "32bb6835456676ab1085e5c23b925911e64c359d34939ca5b8ae9cde3658a865"
+    },
+    {
+      "path": "drawings/G-001.pdf",
+      "bytes": 3172,
+      "sha256": "efcc68f3397b05f506fee4b934cb71c053cd63986532c3daac8f5273ebe15dc8"
+    },
+    {
+      "path": "drawings/coliseum-reference-drawings-R001.pdf",
+      "bytes": 618171,
+      "sha256": "f6a70ef403cf09f7df8a24f3032bafd7e4bafb3ab470174b480a6af6750577ea"
+    },
+    {
+      "path": "models/coliseum-reference-R001.FCStd",
+      "bytes": 277265,
+      "sha256": "32ebbc268e9567da2d819235205af7ace1ee031d44805e7442da41e3d72f0c94"
+    },
+    {
+      "path": "models/coliseum-reference-R001.glb",
+      "bytes": 2044288,
+      "sha256": "9f97d3b7e3dcfdc14d9f70d42907ba1d951fce60ee6f10a4e85342c7cf1b0684"
+    },
+    {
+      "path": "models/coliseum-reference-R001.ifc",
+      "bytes": 6846438,
+      "sha256": "1318a9f27a40895ad806d37428e0fc255c8282253ba82cc80f49e4dd5cc28628"
+    },
+    {
+      "path": "inputs/control-register.csv",
+      "bytes": 1628,
+      "sha256": "5b2cbb1c33b7f116b143e744d437e63cc40a02c8179bf723e94447fe1606cb0c"
+    },
+    {
+      "path": "inputs/venue.json",
+      "bytes": 14726,
+      "sha256": "bcefea0c371541d6a63127f9985653d21a2f85b1c50d50e7d3c3029cd4bd094e"
+    },
+    {
+      "path": "reports/A-101.png",
+      "bytes": 389227,
+      "sha256": "b8437a4b8f6448207fc4f4ff85408cbd027ca06bdb4e9b71104a0909f371d63a"
+    },
+    {
+      "path": "reports/A-201.png",
+      "bytes": 115915,
+      "sha256": "d5eec8bb1c7e8202b46a7b043f81f1b8fea2181d12b9aca7b7c61b7b4805dd1a"
+    },
+    {
+      "path": "reports/A-202.png",
+      "bytes": 158487,
+      "sha256": "2051bdc08e4373dadab181dd9d5bf925bff87067ad27b244ef3a8a379f14c526"
+    },
+    {
+      "path": "reports/dxf-validation.json",
+      "bytes": 503,
+      "sha256": "a8312d7b7c24564c3421959cb871f53403e3b1c6a009168ae10e595c34756d58"
+    },
+    {
+      "path": "reports/freecad-validation.json",
+      "bytes": 16858,
+      "sha256": "20c6bf8a11e5feebc08df544446c560d70352363b0d9e37aa53e32cfcb434f2f"
+    },
+    {
+      "path": "reports/validation.json",
+      "bytes": 4601,
+      "sha256": "bc8fcfc4eee31aa9063fe891c52b2b183e6f51d2888ce5093325a2127444b9b0"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+*.pdf binary
+*.FCStd binary
+*.glb binary
+*.zip binary
+*.png binary
+*.dxf -whitespace
+apps/coliseum-mvp/dist/vendor/* -whitespace

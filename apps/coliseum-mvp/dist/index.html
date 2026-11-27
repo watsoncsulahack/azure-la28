@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#15232c">
+  <title>Coliseum — Explorer 0.2</title>
+  <meta name="description" content="Explore the Coliseum with touch joystick navigation and an overhead map.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315232c'/%3E%3Cellipse cx='32' cy='32' rx='23' ry='16' fill='none' stroke='%23e5b763' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css?v=0.2.0">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+<main id="app" data-mode="first">
+  <div id="viewport" tabindex="0" aria-label="Coliseum explorer. Use the movement joystick and swipe to look. In overhead map, drag to pan and pinch to zoom."></div>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Coliseum home"><span class="brand-mark">C</span><span>COLISEUM<small>LOS ANGELES MEMORIAL</small></span></a>
+    <span class="version">MVP 0.2</span>
+    <button id="help-open" class="round-button" aria-label="Help and model information">?</button>
+  </header>
+  <nav class="mode-tabs" aria-label="View perspective">
+    <button data-mode="first" aria-pressed="true">First-person</button>
+    <button data-mode="map" aria-pressed="false" aria-label="Third-person: overhead orthographic map">Overhead map</button>
+  </nav>
+  <div class="location-caption"><span id="location-name">On the field</span><span id="location-detail">Explore the Coliseum</span></div>
+  <div class="compass" aria-label="North"><span>N</span><div id="compass-needle"></div></div>
+  <div id="map-hotspots" aria-label="Jump to a place"></div>
+  <div id="position-pin" hidden aria-label="Your exploration position"><span></span></div>
+  <div id="selected-pin" hidden aria-hidden="true"></div>
+  <div id="map-entry" hidden><button id="explore-point">Explore here</button><button id="cancel-point" aria-label="Cancel selected point">×</button></div>
+  <div class="quick-actions" aria-label="Exploration controls">
+    <button id="places-open">Places</button>
+    <button id="speed-button" aria-label="Movement speed. Switch to fast." aria-pressed="false"><span id="speed-label">Explore</span><small>Speed</small></button>
+    <div id="map-zoom" hidden><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button></div>
+    <button id="grounds-view" hidden>Grounds</button>
+    <button id="reset-view">Reset</button>
+  </div>
+  <div id="walk-controls">
+    <span class="control-label">MOVE</span>
+    <div id="joystick" role="group" aria-label="Movement joystick. Drag in any direction to move.">
+      <div class="joystick-ring"></div><div id="joystick-thumb"></div>
+    </div>
+  </div>
+  <div id="look-hint"><span class="swipe-mark" aria-hidden="true"></span>Swipe to look</div>
+  <div id="map-hint" hidden>Drag to pan · Pinch to zoom · Tap a place</div>
+  <div id="desktop-hint">WASD to move · Drag to look · Shift for fast</div>
+  <div id="crosshair" aria-hidden="true"></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div id="loading"><span class="loader-ring"></span><strong>Building the Coliseum</strong><span>Preparing your exploration</span></div>
+
+  <dialog id="places-dialog" class="sheet">
+    <div class="dialog-heading"><div><span class="eyebrow">EXPLORE THE VENUE</span><h1>Where to?</h1></div><button data-close="places-dialog" class="round-button" aria-label="Close places">×</button></div>
+    <div class="destinations">
+      <button data-place="field">On the field<small>Start at field level</small></button>
+      <button data-place="lower">Lower north bowl<small>Explore the lower stands</small></button>
+      <button data-place="upper">Upper north bowl<small>Walk down the seating aisles</small></button>
+      <button data-place="west">West bowl<small>A view toward the peristyle</small></button>
+      <button data-place="peristyle">Peristyle terrace<small>Historic arches and east plaza</small></button>
+      <button data-place="grounds">Surrounding grounds<small>Approaches, paths and exterior stairs</small></button>
+    </div>
+    <details class="tower-places"><summary>South tower terraces</summary><div id="tower-destinations" class="destinations"></div></details>
+  </dialog>
+  <dialog id="help-dialog" class="sheet">
+    <div class="dialog-heading"><div><span class="eyebrow">COLISEUM · MVP 0.2</span><h2>Find your way around.</h2></div><button data-close="help-dialog" class="round-button" aria-label="Close information">×</button></div>
+    <p><strong>First-person:</strong> move with your left thumb on the joystick. Swipe anywhere on the scene with your right thumb to look around. Choose Fast to cover more ground. Desktop also supports WASD and Shift.</p>
+    <p><strong>Overhead map:</strong> drag to pan and pinch to zoom. Tap a named place to jump there, or tap a walking surface and choose Explore here. The map is orthographic and north-up.</p>
+    <p>Use Places to jump between the field, stands, peristyle, grounds and tower terraces. Modeled stair connections link the east field and plaza, and exterior grounds with the upper rim.</p>
+    <details class="model-notes"><summary>About this model</summary><p>The model uses published dimensions and estimated details. New exterior paths, aisle steps and stair locations are schematic. Tower floor heights are estimates. These are exploration previews; physical routes and 0.30 m accuracy remain unverified. Temporary LA28 installations and detailed interiors are outside this version.</p></details>
+    <div class="dialog-links"><button id="export-model">Download GLB</button><a href="./coliseum-mvp-source.zip?v=0.2.0" download>Source package</a><a href="./data/venue.json?v=0.2.0" download>Model inputs</a><a href="./data/manifest.json?v=0.2.0" download>Evidence manifest</a><a href="./data/validation.json?v=0.2.0" download>Validation report</a></div>
+    <div class="settings"><label><input type="checkbox" id="seats-toggle" checked> Show seating</label><label><input type="checkbox" id="labels-toggle" checked> Show map places</label></div>
+  </dialog>
+</main>
+<script type="module" src="./app.js?v=0.2.0"></script>
+</body>
+</html>

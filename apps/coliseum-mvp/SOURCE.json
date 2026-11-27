@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "3adf2b353a29bb942588e8940b99083392d6c0ff",
+  "previousMvpCommit": "25713ce94391c363ac33c03116d2e085216f18e4",
+  "version": "0.2.0",
+  "hostedViewer": "https://coliseum-model-explorer.csulb-4544.chatgpt.site",
+  "excluded": "Site deployment identity, Git internals, credentials and ignored scratch files"
+}

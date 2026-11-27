@@ -1,0 +1,465 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "los-angeles-memorial-coliseum",
+  "revision": "0.2.0",
+  "createdDate": "2026-11-27",
+  "configuration": "Post-2019 permanent stadium; 2024 operational references; football configuration; later changes unverified",
+  "coordinates": {
+    "units": "meters",
+    "origin": "chosen center of field at field reference height zero",
+    "x": "east, schematic plan alignment",
+    "y": "up",
+    "z": "south, schematic plan alignment",
+    "georeferenced": false
+  },
+  "targetPhysicalToleranceM": 0.3,
+  "parameters": {
+    "bowlLength": 316.3824,
+    "bowlWidth": 224.9424,
+    "innerBowlLength": 184,
+    "innerBowlWidth": 88,
+    "streetHeight": 12.4206,
+    "rimHeight": 35.2552,
+    "towerAboveStreet": 33.3248,
+    "cauldronAboveStreet": 37.6428,
+    "fieldLength": 170.688,
+    "fieldWidth": 76.2,
+    "footballLength": 109.728,
+    "footballWidth": 48.768,
+    "visualRows": 80,
+    "visualSeatSpacing": 0.65,
+    "peristyleOpeningHalfAngle": 0.48,
+    "peristyleSpan": 105,
+    "centralArchBay": 11,
+    "centralArchHeight": 23,
+    "smallArchHeight": 15.3,
+    "archPierWidth": 1.3,
+    "archCrownThickness": 1.2,
+    "peristyleDepth": 5.5,
+    "peristyleX": 134,
+    "towerLength": 126,
+    "towerDepth": 26,
+    "towerZ": 84.5,
+    "westScreenWidth": 45.7962,
+    "westScreenHeight": 12.1666
+  },
+  "parameterEvidence": {
+    "bowlLength": {
+      "measurementId": "M158",
+      "sourceId": "S04",
+      "pdfPage": "2",
+      "configuration": "historic",
+      "originalMeasurement": "1038 ft",
+      "sourceUrl": "https://npgallery.nps.gov/NRHP/GetAsset/NHLS/84003866_text#page=2",
+      "notes": "NPS says about; the modern outer shell may be similar, but current extent is not surveyed here.",
+      "datumOrScope": ""
+    },
+    "bowlWidth": {
+      "measurementId": "M159",
+      "sourceId": "S04",
+      "pdfPage": "2",
+      "configuration": "historic",
+      "originalMeasurement": "738 ft",
+      "sourceUrl": "https://npgallery.nps.gov/NRHP/GetAsset/NHLS/84003866_text#page=2",
+      "notes": "A true ellipse is only a baseline: the eastern peristyle and south tower require separate geometry.",
+      "datumOrScope": ""
+    },
+    "streetHeight": {
+      "measurementId": "M011",
+      "sourceId": "S01",
+      "pdfPage": "8",
+      "configuration": "operational-reference",
+      "originalMeasurement": "40 ft 9 in",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8",
+      "notes": "",
+      "datumOrScope": "Field to street; generic street datum in guide, no surveyed benchmark"
+    },
+    "rimHeight": {
+      "measurementId": "M012",
+      "sourceId": "S01",
+      "pdfPage": "8",
+      "configuration": "operational-reference",
+      "originalMeasurement": "115 ft 8 in",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8",
+      "notes": "",
+      "datumOrScope": "Field to last seating row"
+    },
+    "towerAboveStreet": {
+      "measurementId": "M014",
+      "sourceId": "S01",
+      "pdfPage": "8",
+      "configuration": "operational-reference",
+      "originalMeasurement": "109 ft 4 in",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8",
+      "notes": "",
+      "datumOrScope": "Street to tower height; exact roof/parapet endpoint not defined"
+    },
+    "cauldronAboveStreet": {
+      "measurementId": "M015",
+      "sourceId": "S01",
+      "pdfPage": "8",
+      "configuration": "operational-reference",
+      "originalMeasurement": "123 ft 6 in",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=8",
+      "notes": "",
+      "datumOrScope": "Street to cauldron; endpoint differs or conflicts with older historic torch description"
+    },
+    "fieldLength": {
+      "measurementId": "M017",
+      "sourceId": "S01",
+      "pdfPage": "21",
+      "configuration": "operational-reference",
+      "originalMeasurement": "560 ft",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21",
+      "notes": "Guide states East to West; endpoints not dimensioned on this page.",
+      "datumOrScope": ""
+    },
+    "fieldWidth": {
+      "measurementId": "M018",
+      "sourceId": "S01",
+      "pdfPage": "21",
+      "configuration": "operational-reference",
+      "originalMeasurement": "250 ft",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21",
+      "notes": "Source presents 250 ft \u2013 222 ft; station locations are not supplied.",
+      "datumOrScope": ""
+    },
+    "footballLength": {
+      "measurementId": "M020",
+      "sourceId": "S01",
+      "pdfPage": "21",
+      "configuration": "operational-reference",
+      "originalMeasurement": "360 ft",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21",
+      "notes": "Includes the full football layout; distinct from complete field envelope.",
+      "datumOrScope": ""
+    },
+    "footballWidth": {
+      "measurementId": "M021",
+      "sourceId": "S01",
+      "pdfPage": "21",
+      "configuration": "operational-reference",
+      "originalMeasurement": "160 ft",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21",
+      "notes": "",
+      "datumOrScope": ""
+    },
+    "innerBowlLength": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "innerBowlWidth": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "visualRows": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "visualSeatSpacing": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "peristyleOpeningHalfAngle": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "peristyleSpan": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "centralArchBay": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "centralArchHeight": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "smallArchHeight": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "archPierWidth": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "archCrownThickness": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "peristyleDepth": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "peristyleX": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "towerLength": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "towerDepth": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "towerZ": {
+      "evidenceClass": "estimated",
+      "notes": "Adjustable MVP modeling choice; see component assumption records."
+    },
+    "westScreenWidth": {
+      "measurementId": "M072",
+      "sourceId": "S01",
+      "pdfPage": "43",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=43",
+      "configuration": "operational-reference"
+    },
+    "westScreenHeight": {
+      "measurementId": "M073",
+      "sourceId": "S01",
+      "pdfPage": "43",
+      "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=43",
+      "configuration": "operational-reference"
+    }
+  },
+  "components": [
+    {
+      "id": "field",
+      "label": "Field and football layout",
+      "evidenceClass": "source-anchored; interpolated outline",
+      "measurementIds": [
+        "M017",
+        "M018",
+        "M019",
+        "M020",
+        "M021"
+      ],
+      "assumptionIds": [
+        "A003",
+        "A008"
+      ]
+    },
+    {
+      "id": "bowl",
+      "label": "Seating bowl",
+      "evidenceClass": "historic envelope and source height; estimated profile",
+      "measurementIds": [
+        "M012",
+        "M013",
+        "M158",
+        "M159"
+      ],
+      "assumptionIds": [
+        "A001",
+        "A002"
+      ]
+    },
+    {
+      "id": "seats",
+      "label": "Visual seating instances",
+      "evidenceClass": "estimated",
+      "measurementIds": [],
+      "assumptionIds": [
+        "A002"
+      ]
+    },
+    {
+      "id": "circulation",
+      "label": "Simplified walking surfaces",
+      "evidenceClass": "estimated with street reference",
+      "measurementIds": [
+        "M011"
+      ],
+      "assumptionIds": [
+        "A002",
+        "A006",
+        "A009"
+      ]
+    },
+    {
+      "id": "tower",
+      "label": "Scholarship Club Tower",
+      "evidenceClass": "source overall height; estimated dimensions",
+      "measurementIds": [
+        "M014"
+      ],
+      "drawingIds": [
+        "D03",
+        "D04",
+        "D05",
+        "D06",
+        "D07",
+        "D08"
+      ],
+      "assumptionIds": [
+        "A004"
+      ]
+    },
+    {
+      "id": "peristyle",
+      "label": "Peristyle and cauldron",
+      "evidenceClass": "source count and height; estimated form",
+      "measurementIds": [
+        "M015",
+        "M016"
+      ],
+      "assumptionIds": [
+        "A005"
+      ]
+    },
+    {
+      "id": "context",
+      "label": "Estimated exterior and landscape",
+      "evidenceClass": "estimated",
+      "measurementIds": [],
+      "drawingIds": [
+        "D01"
+      ],
+      "assumptionIds": [
+        "A006",
+        "A009"
+      ]
+    },
+    {
+      "id": "displays",
+      "label": "West video display",
+      "evidenceClass": "source size; estimated placement",
+      "measurementIds": [
+        "M072",
+        "M073"
+      ],
+      "assumptionIds": [
+        "A007"
+      ]
+    }
+  ],
+  "towerLevels": [
+    {
+      "id": "tower-L1",
+      "label": "Heritage Concourse",
+      "aboveStreet": 0,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L2",
+      "label": "Founders Level 2",
+      "aboveStreet": 4.2,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L3",
+      "label": "Founders Level 3",
+      "aboveStreet": 8.4,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L4",
+      "label": "Club Level 4",
+      "aboveStreet": 12.9,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L5",
+      "label": "Suite Level 5",
+      "aboveStreet": 20,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L6",
+      "label": "Press Level 6",
+      "aboveStreet": 25,
+      "heightEvidence": "estimated"
+    },
+    {
+      "id": "tower-L7",
+      "label": "1923 Club / rooftop",
+      "aboveStreet": 29,
+      "heightEvidence": "estimated"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A001",
+      "components": [
+        "bowl",
+        "seats"
+      ],
+      "description": "Historic approximate bowl envelope is used provisionally for the post-renovation bowl; not a current survey."
+    },
+    {
+      "id": "A002",
+      "components": [
+        "bowl",
+        "seats",
+        "circulation"
+      ],
+      "description": "Eighty visual row bands, uniform interpolated bowl profiles, aisle gaps, seat spacing and the inner seating boundary are estimates. Instance count is not stadium capacity."
+    },
+    {
+      "id": "A003",
+      "components": [
+        "field"
+      ],
+      "description": "An ellipse interpolates the stated maximum field extents. The smaller reported width has no known station and is retained as context, not forced into an invented plan."
+    },
+    {
+      "id": "A004",
+      "components": [
+        "tower"
+      ],
+      "description": "Tower footprint, fa\u00e7ade, balcony depths and individual floor heights are estimates. Seven level identities come from the official layouts. Overall top uses the guide height with an ambiguous top endpoint."
+    },
+    {
+      "id": "A005",
+      "components": [
+        "peristyle"
+      ],
+      "description": "Arch count and cauldron reference height are source-reported; arch sizes, wall curvature, terrace, pedestal and cauldron form are estimates."
+    },
+    {
+      "id": "A006",
+      "components": [
+        "context",
+        "circulation"
+      ],
+      "description": "Surrounding street reference is modeled level. Landscape, circulation connections and structural shell are schematic; full under-stand interiors and surveyed walkways are absent."
+    },
+    {
+      "id": "A007",
+      "components": [
+        "displays"
+      ],
+      "description": "West display face dimensions are source-reported; screen position, frame and supports are estimates."
+    },
+    {
+      "id": "A008",
+      "components": [
+        "field"
+      ],
+      "description": "Football layout and decorative markings are simplified. No LA28 temporary athletics overlay is inferred."
+    },
+    {
+      "id": "A009",
+      "components": [
+        "circulation",
+        "context"
+      ],
+      "description": "MVP 0.2 adds schematic exterior approach paths, plazas, drives, bowl aisle treads and stair connections to improve exploration. Locations and stair details are unverified; these are not a real-world route inventory."
+    }
+  ],
+  "omissions": [
+    "LA28 temporary overlays",
+    "survey-grade control and independent physical validation",
+    "as-built individual row inventory and floor-to-floor heights",
+    "photo collection and photo-driven updates",
+    "complete as-built interiors, tunnels and access network"
+  ],
+  "navigation": {
+    "defaultSpeedMps": 8,
+    "fastSpeedMps": 16,
+    "movement": "touch joystick plus independent swipe look",
+    "thirdPerson": "north-up orthographic overhead map",
+    "connections": "schematic field-to-plaza and exterior-to-rim stairs; estimated bowl aisle steps"
+  }
+}

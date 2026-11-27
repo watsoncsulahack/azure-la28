@@ -1,0 +1,28 @@
+{
+  "drawings": [
+    {
+      "sheet": "A-101",
+      "auditErrors": 0,
+      "auditFixes": 0,
+      "nativeDimensions": 6,
+      "unitCode": 6
+    },
+    {
+      "sheet": "A-201",
+      "auditErrors": 0,
+      "auditFixes": 0,
+      "nativeDimensions": 4,
+      "unitCode": 6
+    },
+    {
+      "sheet": "A-202",
+      "auditErrors": 0,
+      "auditFixes": 0,
+      "nativeDimensions": 1,
+      "unitCode": 6
+    }
+  ],
+  "dimensionCount": 11,
+  "units": "meters",
+  "physicalAccuracy": "unverified"
+}

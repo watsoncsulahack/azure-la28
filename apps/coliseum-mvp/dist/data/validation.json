@@ -1,0 +1,322 @@
+{
+  "revision": "0.2.0",
+  "generatorVersion": "0.2.0",
+  "units": "meters",
+  "targetPhysicalToleranceM": 0.3,
+  "scope": "Generated geometry checked against chosen published controls. These are source-consistency checks, not independent measurements of the venue.",
+  "physicalAccuracy": "UNVERIFIED: the full model is not certified within 0.30 m of the physical venue.",
+  "checks": [
+    {
+      "id": "field-envelope-length",
+      "measurementId": "M017",
+      "actual": 170.68800354003906,
+      "expected": 170.688,
+      "error": 0.000003540039074323431,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "field-envelope-max-width",
+      "measurementId": "M018",
+      "actual": 76.19999694824219,
+      "expected": 76.2,
+      "error": 0.000003051757815342171,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "football-length",
+      "measurementId": "M020",
+      "actual": 109.72799682617188,
+      "expected": 109.728,
+      "error": 0.000003173828119429345,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "football-width",
+      "measurementId": "M021",
+      "actual": 48.768001556396484,
+      "expected": 48.768,
+      "error": 0.000001556396483692879,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "field-to-street",
+      "measurementId": "M011",
+      "actual": 12.4206,
+      "expected": 12.4206,
+      "error": 0,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "field-to-last-row",
+      "measurementId": "M012",
+      "actual": 35.25519943237305,
+      "expected": 35.2552,
+      "error": 5.676269552168378e-7,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "street-to-last-row",
+      "measurementId": "M013",
+      "actual": 22.834599432373047,
+      "expected": 22.8346,
+      "error": 5.676269516641241e-7,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "tower-above-street",
+      "measurementId": "M014",
+      "actual": 33.32480000596047,
+      "expected": 33.3248,
+      "error": 5.960465898624534e-9,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "cauldron-above-street",
+      "measurementId": "M015",
+      "actual": 37.6428,
+      "expected": 37.6428,
+      "error": 0,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "peristyle-arch-count",
+      "measurementId": "M016",
+      "actual": 15,
+      "expected": 15,
+      "error": 0,
+      "implementationTolerance": 0,
+      "pass": true
+    },
+    {
+      "id": "west-screen-width",
+      "measurementId": "M072",
+      "actual": 45.796199798583984,
+      "expected": 45.7962,
+      "error": 2.0141601453360636e-7,
+      "implementationTolerance": 0.005,
+      "pass": true
+    },
+    {
+      "id": "west-screen-height",
+      "measurementId": "M073",
+      "actual": 12.166600227355957,
+      "expected": 12.1666,
+      "error": 2.2735595628375904e-7,
+      "implementationTolerance": 0.005,
+      "pass": true
+    }
+  ],
+  "componentBounds": {
+    "context": {
+      "min": [
+        -420,
+        11.620599746704102,
+        -335
+      ],
+      "max": [
+        420,
+        34.15520095825195,
+        335
+      ]
+    },
+    "field": {
+      "min": [
+        -85.34400177001953,
+        -0.25,
+        -38.099998474121094
+      ],
+      "max": [
+        85.34400177001953,
+        8.55,
+        38.099998474121094
+      ]
+    },
+    "bowl": {
+      "min": [
+        -158.19119262695312,
+        -0.05000000074505806,
+        -112.47119903564453
+      ],
+      "max": [
+        139.51217651367188,
+        35.25519943237305,
+        112.47119903564453
+      ]
+    },
+    "seats": {
+      "min": [
+        -154.42271919029426,
+        0.510689988732338,
+        -108.69775892130544
+      ],
+      "max": [
+        136.9594706134934,
+        35.805200800299644,
+        91.4724242105943
+      ]
+    },
+    "circulation": {
+      "min": [
+        -245,
+        -0.2199999988079071,
+        -200.5
+      ],
+      "max": [
+        226.5,
+        35.270198822021484,
+        200.5
+      ]
+    },
+    "tower": {
+      "min": [
+        -67,
+        11.970600005960465,
+        65.7
+      ],
+      "max": [
+        67,
+        45.74540000596047,
+        99.7
+      ]
+    },
+    "peristyle": {
+      "min": [
+        123.98794285714285,
+        12.4206,
+        -52.540000029972624
+      ],
+      "max": [
+        137.40000009536743,
+        50.0634,
+        52.540000029972624
+      ]
+    },
+    "displays": {
+      "min": [
+        -143.75,
+        6,
+        -23.398099899291992
+      ],
+      "max": [
+        -142.00999999642372,
+        35.58330011367798,
+        23.398099899291992
+      ]
+    }
+  },
+  "estimatedGeometry": [
+    {
+      "id": "A001",
+      "components": [
+        "bowl",
+        "seats"
+      ],
+      "description": "Historic approximate bowl envelope is used provisionally for the post-renovation bowl; not a current survey."
+    },
+    {
+      "id": "A002",
+      "components": [
+        "bowl",
+        "seats",
+        "circulation"
+      ],
+      "description": "Eighty visual row bands, uniform interpolated bowl profiles, aisle gaps, seat spacing and the inner seating boundary are estimates. Instance count is not stadium capacity."
+    },
+    {
+      "id": "A003",
+      "components": [
+        "field"
+      ],
+      "description": "An ellipse interpolates the stated maximum field extents. The smaller reported width has no known station and is retained as context, not forced into an invented plan."
+    },
+    {
+      "id": "A004",
+      "components": [
+        "tower"
+      ],
+      "description": "Tower footprint, façade, balcony depths and individual floor heights are estimates. Seven level identities come from the official layouts. Overall top uses the guide height with an ambiguous top endpoint."
+    },
+    {
+      "id": "A005",
+      "components": [
+        "peristyle"
+      ],
+      "description": "Arch count and cauldron reference height are source-reported; arch sizes, wall curvature, terrace, pedestal and cauldron form are estimates."
+    },
+    {
+      "id": "A006",
+      "components": [
+        "context",
+        "circulation"
+      ],
+      "description": "Surrounding street reference is modeled level. Landscape, circulation connections and structural shell are schematic; full under-stand interiors and surveyed walkways are absent."
+    },
+    {
+      "id": "A007",
+      "components": [
+        "displays"
+      ],
+      "description": "West display face dimensions are source-reported; screen position, frame and supports are estimates."
+    },
+    {
+      "id": "A008",
+      "components": [
+        "field"
+      ],
+      "description": "Football layout and decorative markings are simplified. No LA28 temporary athletics overlay is inferred."
+    },
+    {
+      "id": "A009",
+      "components": [
+        "circulation",
+        "context"
+      ],
+      "description": "MVP 0.2 adds schematic exterior approach paths, plazas, drives, bowl aisle treads and stair connections to improve exploration. Locations and stair details are unverified; these are not a real-world route inventory."
+    }
+  ],
+  "independentPhysicalChecks": 0,
+  "geometryChecks": {
+    "finiteMeshes": true,
+    "uniqueComponentIds": true,
+    "sevenTowerLevels": true,
+    "openCentralArch": true,
+    "solidArchPier": true,
+    "fieldAndBowlSurfaces": true,
+    "triangles": 1277672,
+    "visualSeatInstances": 46338
+  },
+  "navigationChecks": {
+    "axisMovement": true,
+    "diagonalMovement": true,
+    "solidObstacle": true,
+    "unsupportedEdge": true
+  },
+  "browserVerification": "Touch input event handlers, navigation geometry and camera math tested in Node. Browser rendering and real phone gestures unverified: the managed browser tool is unavailable.",
+  "mobileNavigationChecks": {
+    "analogDeadZoneClampAndDiagonal": true,
+    "twoFingerMoveAndLook": true,
+    "releaseCancelAndReset": true,
+    "modeInputIsolation": true,
+    "fasterMovementAndNormalizedDiagonals": true,
+    "fieldPlazaGroundsRoundTrip": true,
+    "bowlRimExteriorStairsRoundTrip": true,
+    "fastCollisionSweeps": true,
+    "navigationMatchesRenderedSurfaces": true,
+    "orthographicNorthUpPortraitAndLandscape": true
+  },
+  "exportImportChecks": {
+    "componentIdentity": true,
+    "meterScale": true,
+    "seatingInstances": true,
+    "importedSeatParts": 92676
+  }
+}

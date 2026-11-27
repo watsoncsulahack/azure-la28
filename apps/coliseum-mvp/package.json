@@ -1,0 +1,9 @@
+{
+  "name": "coliseum-model-mvp",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node scripts/check-model.mjs && node scripts/check-navigation.mjs"
+  }
+}

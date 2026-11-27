@@ -1,0 +1,801 @@
+{
+  "freecadVersion": [
+    "1",
+    "0",
+    "0",
+    "",
+    "https://code.launchpad.net/~vcs-imports/freecad/trunk",
+    "2026/08/25 11:49:11"
+  ],
+  "reopenedSuccessfully": true,
+  "nativeUnit": "millimeter",
+  "projectUnit": "meter",
+  "nativeShapeChecks": [
+    {
+      "id": "FieldEnvelope",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 652,
+      "exportedMesh": true
+    },
+    {
+      "id": "FootballLayout",
+      "shapeValid": true,
+      "solidCount": 0,
+      "triangleCount": 2,
+      "exportedMesh": true
+    },
+    {
+      "id": "HistoricBowlEnvelope",
+      "shapeValid": true,
+      "solidCount": 0,
+      "triangleCount": 0,
+      "exportedMesh": false
+    },
+    {
+      "id": "BowlBand_001",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 868,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_002",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 872,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_003",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 876,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_004",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 880,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_005",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 868,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_006",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 856,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_007",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_008",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 872,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_009",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 880,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_010",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 884,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_011",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 888,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_012",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 896,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_013",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 900,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_014",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 904,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_015",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 912,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_016",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 916,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_017",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 920,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_018",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 924,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_019",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 916,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_020",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 908,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_021",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 912,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_022",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 920,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_023",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 924,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_024",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 928,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_025",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 936,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_026",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 940,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_027",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 944,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_028",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 952,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_029",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 852,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_030",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 856,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_031",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 860,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_032",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_033",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_034",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_035",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_036",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 848,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_037",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 836,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_038",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 840,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_039",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 844,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_040",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 848,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_041",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 852,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_042",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 856,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_043",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 856,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_044",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 856,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_045",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 860,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_046",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 864,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_047",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 868,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_048",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 872,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_049",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 876,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_050",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 880,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_051",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 884,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_052",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 888,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_053",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 892,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_054",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 896,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_055",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 896,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_056",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 900,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_057",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 904,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_058",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 904,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_059",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 904,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_060",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 888,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_061",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 876,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_062",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 880,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_063",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 884,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_064",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 888,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_065",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 892,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_066",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 896,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_067",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 900,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_068",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 904,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_069",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 908,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_070",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 912,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_071",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 916,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_072",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 920,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_073",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 920,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_074",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 924,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_075",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 928,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_076",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 932,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_077",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 936,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_078",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 936,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_079",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 936,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlBand_080",
+      "shapeValid": true,
+      "solidCount": 2,
+      "triangleCount": 940,
+      "exportedMesh": true
+    },
+    {
+      "id": "BowlRim",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 1112,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L1",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L2",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L3",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L4",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L5",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L6",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "tower_L7",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "TowerRearWall",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "TowerWestCore",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "TowerEastCore",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "TowerRoof",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 12,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_01",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_02",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_03",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_04",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_05",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_06",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_07",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_08",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_09",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_10",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_11",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_12",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_13",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_14",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "PeristyleArch_15",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 280,
+      "exportedMesh": true
+    },
+    {
+      "id": "CauldronPedestal",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 2264,
+      "exportedMesh": true
+    },
+    {
+      "id": "Cauldron",
+      "shapeValid": true,
+      "solidCount": 1,
+      "triangleCount": 1004,
+      "exportedMesh": true
+    }
+  ],
+  "inputSHA256": "bcefea0c371541d6a63127f9985653d21a2f85b1c50d50e7d3c3029cd4bd094e",
+  "associativity": "Tower plate sizes/placements and roof elevation include native expressions; generated bowl/peristyle BReps require the supplied rebuild script after input edits. Construction-reference wire is omitted from IFC/GLB."
+}
