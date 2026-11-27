@@ -1,0 +1,5 @@
+metric,value,source_snapshot_date,source_url,retrieved_at_utc
+Corners with a curb ramp,3555.0,2026-11-23,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:27:11.747831+00:00
+Corners without a ramp,149.0,2026-11-23,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:27:11.747831+00:00
+Corners in the city inventory,3704.0,2026-11-23,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:27:11.747831+00:00
+Street miles near 9 of 20 listed venues,126.1,2026-11-23,https://la28-planning-hub.lovable.app/paralympics,2026-11-27T09:27:11.747831+00:00

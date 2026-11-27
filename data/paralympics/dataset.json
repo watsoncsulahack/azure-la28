@@ -1,0 +1,1105 @@
+{
+  "metadata": {
+    "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+    "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00",
+    "title": "Paralympics — LA28 Planning Hub",
+    "source_html_sha256": "2e7714fd69b62c0ea63dd3c84acb5c9ccab6f7f59433ce77827026a54eef9ca3",
+    "source_snapshot_date": "2026-11-23",
+    "streetsla_updated_date": "2025-02-05",
+    "scope": "Single-page snapshot; linked datasets and articles were not crawled.",
+    "caveats": [
+      "City of Los Angeles streets only. Venues in Inglewood, Long Beach, Pasadena, Carson, Anaheim, and other cities have little or no data here.",
+      "A corner marked as having a ramp is not a check of ADA compliance, slope, or condition.",
+      "Ramp points come from the city's 2017 sidewalk inventory, traced from 2014 aerial photos.",
+      "The venue list is the city's unofficial, subject-to-change LA28 list, not the current LA28 Games Plan.",
+      "The city is building a newer LiDAR sidewalk assessment for LA28 sites. It is not public yet."
+    ]
+  },
+  "venue_curb_ramps": [
+    {
+      "venue": "Gloria Molina Grand Park",
+      "street_miles": 29.2,
+      "corners_with_ramp": 771,
+      "corners_missing_ramp": 51,
+      "share_missing_percent": 6.2,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "LA Live",
+      "street_miles": 37.0,
+      "corners_with_ramp": 1186,
+      "corners_missing_ramp": 34,
+      "share_missing_percent": 2.8,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "Riviera Country Club",
+      "street_miles": 5.4,
+      "corners_with_ramp": 53,
+      "corners_missing_ramp": 19,
+      "share_missing_percent": 26.4,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "Dodger Stadium",
+      "street_miles": 8.1,
+      "corners_with_ramp": 196,
+      "corners_missing_ramp": 15,
+      "share_missing_percent": 7.1,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "LA Memorial Coliseum",
+      "street_miles": 15.0,
+      "corners_with_ramp": 535,
+      "corners_missing_ramp": 15,
+      "share_missing_percent": 2.7,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "Galen Center",
+      "street_miles": 9.6,
+      "corners_with_ramp": 328,
+      "corners_missing_ramp": 5,
+      "share_missing_percent": 1.5,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "Sepulveda Basin Sports Complex",
+      "street_miles": 14.5,
+      "corners_with_ramp": 235,
+      "corners_missing_ramp": 5,
+      "share_missing_percent": 2.1,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "USC Dedeaux Stadium",
+      "street_miles": 7.2,
+      "corners_with_ramp": 249,
+      "corners_missing_ramp": 4,
+      "share_missing_percent": 1.6,
+      "coverage_note": "",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "venue": "LA Stadium & Entertainment District",
+      "street_miles": 0.1,
+      "corners_with_ramp": 2,
+      "corners_missing_ramp": 1,
+      "share_missing_percent": 33.3,
+      "coverage_note": "Mostly outside City of LA data",
+      "source_snapshot_date": "2026-11-23",
+      "streetsla_updated_date": "2025-02-05",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "summary_metrics": [
+    {
+      "metric": "Corners with a curb ramp",
+      "value": 3555.0,
+      "source_snapshot_date": "2026-11-23",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "metric": "Corners without a ramp",
+      "value": 149.0,
+      "source_snapshot_date": "2026-11-23",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "metric": "Corners in the city inventory",
+      "value": 3704.0,
+      "source_snapshot_date": "2026-11-23",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "metric": "Street miles near 9 of 20 listed venues",
+      "value": 126.1,
+      "source_snapshot_date": "2026-11-23",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "access_barriers": [
+    {
+      "category": "City LA28 sites",
+      "location": "10985 Le Conte Ave",
+      "council_district": 5,
+      "logged_date": "2026-01-13",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2026-01-13 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "Burbank Blvd and Hayvenhurst Ave",
+      "council_district": 6,
+      "logged_date": "2026-02-06",
+      "curb_ramps_noted": 3,
+      "requests_noted": null,
+      "details": "Council District 6 · logged 2026-02-06 · 3 curb ramps noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "Expo Park: W 30th St and Hope St",
+      "council_district": 9,
+      "logged_date": "2026-05-01",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 9 · logged 2026-05-01 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "LA Live: 11th St and Figueroa St",
+      "council_district": 14,
+      "logged_date": "2026-05-29",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 14 · logged 2026-05-29 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "LA Live: Flower St and Olympic Blvd",
+      "council_district": 14,
+      "logged_date": "2026-05-29",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 14 · logged 2026-05-29 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "LA Live: L.A. Live Way and W Pico Blvd",
+      "council_district": 9,
+      "logged_date": "2026-05-29",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 9 · logged 2026-05-29 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "City LA28 sites",
+      "location": "North Hollywood Station at Cumpston St",
+      "council_district": 2,
+      "logged_date": "2026-02-22",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 2 · logged 2026-02-22 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "255 W 5th St",
+      "council_district": 15,
+      "logged_date": "2026-05-15",
+      "curb_ramps_noted": 1,
+      "requests_noted": null,
+      "details": "Council District 15 · logged 2026-05-15 · 1 curb ramp noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "3936 S Hill St",
+      "council_district": 9,
+      "logged_date": "2024-10-19",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 9 · logged 2024-10-19",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "500 Landfair Ave",
+      "council_district": 5,
+      "logged_date": "2025-10-30",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2025-10-30",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "554 W 43rd Pl",
+      "council_district": 9,
+      "logged_date": "2026-07-28",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 9 · logged 2026-07-28",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "628 S Mesa St",
+      "council_district": 15,
+      "logged_date": "2025-05-02",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 15 · logged 2025-05-02",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "669 Levering Ave",
+      "council_district": 5,
+      "logged_date": "2025-07-23",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2025-07-23",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "715 Gayley Ave",
+      "council_district": 5,
+      "logged_date": "2026-06-09",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2026-06-09",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "754 S Hope St",
+      "council_district": 14,
+      "logged_date": "2026-08-14",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 14 · logged 2026-08-14",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "900 Gayley Ave",
+      "council_district": 5,
+      "logged_date": "2025-11-08",
+      "curb_ramps_noted": null,
+      "requests_noted": 2,
+      "details": "Council District 5 · logged 2025-11-08 · 2 requests",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "Landfair Ave at Strathmore Dr",
+      "council_district": 5,
+      "logged_date": "2025-02-24",
+      "curb_ramps_noted": 2,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2025-02-24 · 2 curb ramps noted",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "Midvale Ave at Strathmore Dr",
+      "council_district": 5,
+      "logged_date": "2025-02-10",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 5 · logged 2025-02-10",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Access requests tagged LA28",
+      "location": "Stadium Way at Scott Ave",
+      "council_district": 1,
+      "logged_date": "2017-11-07",
+      "curb_ramps_noted": null,
+      "requests_noted": null,
+      "details": "Council District 1 · logged 2017-11-07",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "resources": [
+    {
+      "category": "Previous Games resources",
+      "publisher": "BBC",
+      "title": "BBC: Paralympics 'shame' — Metro still largely inaccessible",
+      "description": "Disability advocates call limited wheelchair Metro access a 'black spot' on Paris's Paralympic legacy despite accessible-bus investment.",
+      "url": "https://www.bbc.com/news/articles/cyrlr5m4rj0o",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "The Guardian",
+      "title": "Guardian: Paralympics diary notes Métro accessibility gaps",
+      "description": "Only a small share of Métro stops are wheelchair-accessible — daily navigation friction for disabled visitors during the Paralympics.",
+      "url": "https://www.theguardian.com/sport/article/2024/aug/31/paralympics-diary-fighter-jets-fizzy-water-and-politics-in-the-pool",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "BBC",
+      "title": "BBC: Wheelchair user blocked boarding Eurostar during Paralympics",
+      "description": "Ramp booking failure and inaccessible city options show last-mile and intercity barriers for disabled spectators.",
+      "url": "https://www.bbc.com/news/articles/cz73xy4djvno",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "BBC",
+      "title": "BBC: Grey-Thompson on venue access & transport weak spots",
+      "description": "Notes temporary venue overlays with awkward lifts/steps and persistent Metro inaccessibility for disabled spectators.",
+      "url": "https://www.bbc.com/sport/articles/crkm3kkm640o",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "Wemap / Paris 2024",
+      "title": "Paris 2024 Parc Urbain interactive map",
+      "description": "Wemap venue map for the Concorde urban park (BMX freestyle, skateboarding, breaking, 3x3 basketball). A wayfinding example, not street accessibility data. Opens in a browser only.",
+      "url": "https://livemap.getwemap.com/dom?emmid=27272",
+      "reviewed_date": "2026-11-22",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "Wemap",
+      "title": "Roland-Garros interactive spectator map",
+      "description": "Indoor and outdoor positioning, routes, service search, and AR at the Paris 2024 tennis and wheelchair tennis site. The case study covers wayfinding, not accessibility.",
+      "url": "https://news.getwemap.com/case-studies/roland-garros-interactive-maps-to-guide-spectators-on-and-off-the-court",
+      "reviewed_date": "2026-11-22",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "Previous Games resources",
+      "publisher": "Reuters",
+      "title": "Paris Metro Inaccessibility Puts Spotlight on Transport Barriers Ahead of Paralympics",
+      "description": "Severe lack of elevators across the century-old Paris subway network left wheelchair users and disabled visitors facing stark mobility barriers during the 2024 Games.",
+      "url": "https://www.reuters.com/sports/olympics/paris-metros-lack-accessibility-casts-shadow-over-paralympics-2024-08-27",
+      "reviewed_date": "2026-10-18",
+      "ai_fetched": true,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "State of California",
+      "title": "California LA28 public safety legislation",
+      "description": "State agreements to coordinate state, local, and out-of-state law enforcement for LA28.",
+      "url": "https://www.gov.ca.gov/2026/09/20/governor-newsom-signs-bills-as-los-angeles-readies-for-2028-olympic-and-paralympic-games/",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Official Games Plan",
+      "description": "Sports, venue plan, competition structure, and venue zones across the Games.",
+      "url": "https://la28.org/en/games-plan.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Official Venues",
+      "description": "Existing stadiums and arenas; competitions in Greater LA and other U.S. locations.",
+      "url": "https://la28.org/en/games-plan/venues.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 zones",
+      "description": "Zones across LA County, California, Oklahoma City, Columbus, Nashville, New York City, and St. Louis.",
+      "url": "https://la28.org/en/ticketing/zones.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Accessibility",
+      "description": "Accessible transportation, seating, routes, restrooms, communication services, and standards.",
+      "url": "https://la28.org/en/footer-links/accessibility-page.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Event Accessibility",
+      "description": "Accessible routes, entrances, restrooms, seating, transportation hubs, communication services, and spectator support.",
+      "url": "https://la28.org/en/footer-links/accessibility-page/event-accessibility.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Paralympic venue plan",
+      "description": "How accessibility and athlete experience shape Paralympic venue planning.",
+      "url": "https://la28.org/en/newsroom/la28-unveils-venue-plan-2028-paralympic-games.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Paralympic Games Plan",
+      "description": "Official Paralympic sports, schedule, and Games Plan for 2028.",
+      "url": "https://la28.org/en/games-plan/paralympics.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Paralympic competition schedule",
+      "description": "Comprehensive Paralympic competition schedule by event for August 2028.",
+      "url": "https://la28.org/en/newsroom/la28-reveals-comprehensive-paralympic-competition-schedule.html",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA Metro",
+      "title": "Metro lessons learned from Paris 2024",
+      "description": "Metro staff observations: fragmented Games apps, one source of truth for transit data, consistent wayfinding, and ADA signs duplicated on station pillars.",
+      "url": "https://metro.legistar.com/View.ashx?GUID=BDB72637-44BE-4D5E-A126-47AB2A17BBEB&ID=13388802&M=F",
+      "reviewed_date": "2026-11-22",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "City of Los Angeles (StreetsLA)",
+      "title": "StreetsLA: streets within 1 mile of LA28 venues",
+      "description": "City street segments and curb-ramp points near proposed LA28 venues, with ramp present or missing at each corner. City of Los Angeles streets only; marked subject to change.",
+      "url": "https://www.arcgis.com/home/item.html?id=9973563018bf4dc08517a09f2f7a56c5",
+      "reviewed_date": "2026-11-22",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "City of Los Angeles (Sidewalk Repair)",
+      "title": "Sidewalk Repair Program LA28 map service",
+      "description": "Access requests, access barrier sites flagged for LA28, missing ramps, and Olympic venue buffers from the City's Sidewalk Repair Program.",
+      "url": "https://maps.lacity.org/arcgis/rest/services/External/SRP_LA28/MapServer",
+      "reviewed_date": "2026-11-22",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "category": "LA28 & local resources",
+      "publisher": "LA28",
+      "title": "LA28 Volunteer Program",
+      "description": "Volunteer roles for venues, logistics, accessibility, EMS, athletes, and spectators.",
+      "url": "https://volunteer.la28.org/",
+      "reviewed_date": "2026-10-10",
+      "ai_fetched": false,
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "organizer_technologies": [
+    {
+      "step": 1,
+      "purpose": "Record the community",
+      "title": "National para-sport activity",
+      "description": "Before Paris, the French Paralympic and Sports Committee published what clubs and programs were already doing. That kind of report is the community baseline, not a Games-time app.",
+      "publisher": "Comité Paralympique et Sportif Français",
+      "url": "https://france-paralympique.fr/wp-content/uploads/2024/03/2022_activites_comite-paralympique-et-sportif-francais.pdf",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "step": 2,
+      "purpose": "Know who to reach",
+      "title": "One supporter database",
+      "description": "Paris 2024 kept a single record for people who joined through social media, the website, or a ticket. Surveys then fed sport-specific email and SMS journeys in five languages.",
+      "publisher": "Salesforce, Paris 2024 story",
+      "url": "https://www.salesforce.com/customer-stories/paris-2024/",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "step": 3,
+      "purpose": "Publish the Paralympics",
+      "title": "A public channel",
+      "description": "The International Paralympic Committee used TikTok for match clips, athlete live video, daily highlights, and short explainers of the 22 sports.",
+      "publisher": "International Paralympic Committee",
+      "url": "https://www.paralympic.org/paris-2024/news/ipc-teams-tiktok-paris-2024-paralympic-games",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "step": 4,
+      "purpose": "Follow the event live",
+      "title": "Access tools at the venue",
+      "description": "Spectators could use audio description in the official app, a low-vision helmet, tactile tablets, captions, and sign language. These sit on top of the channels above.",
+      "publisher": "sportanddev",
+      "url": "https://www.sportanddev.org/latest/news/paris-2024-paralympic-games-can-catalyse-access-assistive-technology",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "planning_notes": [
+    {
+      "section": "Venue conversion",
+      "sequence": 1,
+      "text": "Paris used 20 Paralympic competition venues alongside 41 Olympic competition venues",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Venue conversion",
+      "sequence": 2,
+      "text": "Some venues hosted different sports in the Olympic and Paralympic periods — rapid changes to seating, equipment, layouts, tech, and spectator facilities",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Venue conversion",
+      "sequence": 3,
+      "text": "Overnight conversions were extremely tight (example: ~17 hours between sports at Bercy Arena)",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Venue conversion",
+      "sequence": 4,
+      "text": "LA28 has published a Paralympic venue plan centered on accessibility and athlete experience",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Venue conversion",
+      "sequence": 5,
+      "text": "Confirm sports and sites on the official LA28 venues and Paralympic pages",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 1,
+      "text": "Step-free journeys from transit stations to seats, including sidewalks, ramps, shuttles, and drop-offs",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 2,
+      "text": "Accessible seating, restrooms, entrances, signage, and evacuation procedures at venues",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 3,
+      "text": "Digital platforms (tickets, apps, travel info) need WCAG-style accessibility",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 4,
+      "text": "Communication supports: ASL, captions, audio description, assistive listening",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 5,
+      "text": "Test venues and transportation with disabled users before public opening",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Accessibility across the Games",
+      "sequence": 6,
+      "text": "Accessibility improvements should remain after 2028 — not only for Games time",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Security & workforce",
+      "sequence": 1,
+      "text": "Paris mobilized ~12,000 private security agents during the Paralympic Games (vs ~23,000 during the Olympics)",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Security & workforce",
+      "sequence": 2,
+      "text": "Security plans must stay accessible for people with disabilities",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Security & workforce",
+      "sequence": 3,
+      "text": "Volunteers and staff need disability-awareness and assistance training",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Security & workforce",
+      "sequence": 4,
+      "text": "California is developing Olympic and Paralympic public-safety coordination agreements",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Security & workforce",
+      "sequence": 5,
+      "text": "Multi-city venues mean security coordination across jurisdictions",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Fieldwork questions",
+      "sequence": 1,
+      "text": "Which venue has the most corners without a ramp, and which has the highest share? Would the same fix work for both?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Fieldwork questions",
+      "sequence": 2,
+      "text": "Pick one city LA28 site above and map the walk from the nearest Metro station. Where would a wheelchair user have to detour?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Fieldwork questions",
+      "sequence": 3,
+      "text": "Walk or map Expo Park/USC station to the Coliseum and Pico station to LA Live. How many crossings are there, and does every corner have a ramp?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Fieldwork questions",
+      "sequence": 4,
+      "text": "Inglewood, Long Beach, and Pasadena venues have little data here. Which agency keeps their curb-ramp records, and is it public?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Fieldwork questions",
+      "sequence": 5,
+      "text": "A ramp can exist and still be too steep, cracked, or blocked. What would you check on site before calling a route step-free?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 1,
+      "text": "How long is the Olympic-to-Paralympic transition, and what changes at each venue?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 2,
+      "text": "Which transit routes will be fully step-free for Paralympic spectators and athletes?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 3,
+      "text": "How will staffing and security levels be set for the Paralympics?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 4,
+      "text": "How will accessible transportation capacity meet demand at each venue?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 5,
+      "text": "How will queues, screening, and entrances work for disabled visitors?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "sequence": 6,
+      "text": "How can accessibility improvements remain in host cities after 2028?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "links": [
+    {
+      "section": "",
+      "label": "Planning hub",
+      "url": "https://la28-planning-hub.lovable.app/",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Street access near venues",
+      "label": "StreetsLA: streets within 1 mile of LA28 venues",
+      "url": "https://www.arcgis.com/home/item.html?id=9973563018bf4dc08517a09f2f7a56c5",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Street access near venues",
+      "label": "Sidewalk Repair Program LA28 map service",
+      "url": "https://maps.lacity.org/arcgis/rest/services/External/SRP_LA28/MapServer",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Organizer technology map",
+      "label": "Comité Paralympique et Sportif Français",
+      "url": "https://france-paralympique.fr/wp-content/uploads/2024/03/2022_activites_comite-paralympique-et-sportif-francais.pdf",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Organizer technology map",
+      "label": "Salesforce, Paris 2024 story",
+      "url": "https://www.salesforce.com/customer-stories/paris-2024/",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Organizer technology map",
+      "label": "International Paralympic Committee",
+      "url": "https://www.paralympic.org/paris-2024/news/ipc-teams-tiktok-paris-2024-paralympic-games",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Organizer technology map",
+      "label": "sportanddev",
+      "url": "https://www.sportanddev.org/latest/news/paris-2024-paralympic-games-can-catalyse-access-assistive-technology",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Organizer technology map",
+      "label": "Open the library file",
+      "url": "https://library.olympics.com/digitalCollection/DigitalCollectionAttachmentDownloadHandler.ashx?documentId=3702240&parentDocumentId=3598869&skipCopyright=true&skipWatermark=true",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "label": "Accessibility",
+      "url": "https://la28-planning-hub.lovable.app/topics/accessibility",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "label": "Venues",
+      "url": "https://la28-planning-hub.lovable.app/topics/venues",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Research questions for LA28",
+      "label": "Where events happen",
+      "url": "https://la28-planning-hub.lovable.app/venues-map",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "BBC BBC: Paralympics 'shame' — Metro still largely inaccessible Disability advocates call limited wheelchair Metro access a 'black spot' on Paris's Paralympic legacy despite accessible-bus investment. Previous Games Reviewed 2026-10-10",
+      "url": "https://www.bbc.com/news/articles/cyrlr5m4rj0o",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "The Guardian Guardian: Paralympics diary notes Métro accessibility gaps Only a small share of Métro stops are wheelchair-accessible — daily navigation friction for disabled visitors during the Paralympics. Previous Games Reviewed 2026-10-10",
+      "url": "https://www.theguardian.com/sport/article/2024/aug/31/paralympics-diary-fighter-jets-fizzy-water-and-politics-in-the-pool",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "BBC BBC: Wheelchair user blocked boarding Eurostar during Paralympics Ramp booking failure and inaccessible city options show last-mile and intercity barriers for disabled spectators. Previous Games Reviewed 2026-10-10",
+      "url": "https://www.bbc.com/news/articles/cz73xy4djvno",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "BBC BBC: Grey-Thompson on venue access & transport weak spots Notes temporary venue overlays with awkward lifts/steps and persistent Metro inaccessibility for disabled spectators. Previous Games Reviewed 2026-10-10",
+      "url": "https://www.bbc.com/sport/articles/crkm3kkm640o",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "Wemap / Paris 2024 Paris 2024 Parc Urbain interactive map Wemap venue map for the Concorde urban park (BMX freestyle, skateboarding, breaking, 3x3 basketball). A wayfinding example, not street accessibility data. Opens in a browser only. Previous Games Reviewed 2026-11-22",
+      "url": "https://livemap.getwemap.com/dom?emmid=27272",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "Wemap Roland-Garros interactive spectator map Indoor and outdoor positioning, routes, service search, and AR at the Paris 2024 tennis and wheelchair tennis site. The case study covers wayfinding, not accessibility. Previous Games Reviewed 2026-11-22",
+      "url": "https://news.getwemap.com/case-studies/roland-garros-interactive-maps-to-guide-spectators-on-and-off-the-court",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "Previous Games resources",
+      "label": "Reuters Paris Metro Inaccessibility Puts Spotlight on Transport Barriers Ahead of Paralympics Severe lack of elevators across the century-old Paris subway network left wheelchair users and disabled visitors facing stark mobility barriers during the 2024 Games. Previous Games AI fetched Reviewed 2026-10-18",
+      "url": "https://www.reuters.com/sports/olympics/paris-metros-lack-accessibility-casts-shadow-over-paralympics-2024-08-27",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "State of California California LA28 public safety legislation State agreements to coordinate state, local, and out-of-state law enforcement for LA28. LA28 Reviewed 2026-10-10",
+      "url": "https://www.gov.ca.gov/2026/09/20/governor-newsom-signs-bills-as-los-angeles-readies-for-2028-olympic-and-paralympic-games/",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Official Games Plan Sports, venue plan, competition structure, and venue zones across the Games. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/games-plan.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Official Venues Existing stadiums and arenas; competitions in Greater LA and other U.S. locations. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/games-plan/venues.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 zones Zones across LA County, California, Oklahoma City, Columbus, Nashville, New York City, and St. Louis. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/ticketing/zones.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Accessibility Accessible transportation, seating, routes, restrooms, communication services, and standards. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/footer-links/accessibility-page.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Event Accessibility Accessible routes, entrances, restrooms, seating, transportation hubs, communication services, and spectator support. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/footer-links/accessibility-page/event-accessibility.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Paralympic venue plan How accessibility and athlete experience shape Paralympic venue planning. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/newsroom/la28-unveils-venue-plan-2028-paralympic-games.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Paralympic Games Plan Official Paralympic sports, schedule, and Games Plan for 2028. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/games-plan/paralympics.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Paralympic competition schedule Comprehensive Paralympic competition schedule by event for August 2028. LA28 Reviewed 2026-10-10",
+      "url": "https://la28.org/en/newsroom/la28-reveals-comprehensive-paralympic-competition-schedule.html",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA Metro Metro lessons learned from Paris 2024 Metro staff observations: fragmented Games apps, one source of truth for transit data, consistent wayfinding, and ADA signs duplicated on station pillars. LA28 Reviewed 2026-11-22",
+      "url": "https://metro.legistar.com/View.ashx?GUID=BDB72637-44BE-4D5E-A126-47AB2A17BBEB&ID=13388802&M=F",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "City of Los Angeles (StreetsLA) StreetsLA: streets within 1 mile of LA28 venues City street segments and curb-ramp points near proposed LA28 venues, with ramp present or missing at each corner. City of Los Angeles streets only; marked subject to change. LA28 Reviewed 2026-11-22",
+      "url": "https://www.arcgis.com/home/item.html?id=9973563018bf4dc08517a09f2f7a56c5",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "City of Los Angeles (Sidewalk Repair) Sidewalk Repair Program LA28 map service Access requests, access barrier sites flagged for LA28, missing ramps, and Olympic venue buffers from the City's Sidewalk Repair Program. LA28 Reviewed 2026-11-22",
+      "url": "https://maps.lacity.org/arcgis/rest/services/External/SRP_LA28/MapServer",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "section": "LA28 & local resources",
+      "label": "LA28 LA28 Volunteer Program Volunteer roles for venues, logistics, accessibility, EMS, athletes, and spectators. LA28 Reviewed 2026-10-10",
+      "url": "https://volunteer.la28.org/",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Venue conversion",
+      "text": "Venue conversion 01 Paris used 20 Paralympic competition venues alongside 41 Olympic competition venues 02 Some venues hosted different sports in the Olympic and Paralympic periods — rapid changes to seating, equipment, layouts, tech, and spectator facilities 03 Overnight conversions were extremely tight (example: ~17 hours between sports at Bercy Arena) 04 LA28 has published a Paralympic venue plan centered on accessibility and athlete experience 05 Confirm sports and sites on the official LA28 venues and Paralympic pages",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Accessibility across the Games",
+      "text": "Accessibility across the Games 01 Step-free journeys from transit stations to seats, including sidewalks, ramps, shuttles, and drop-offs 02 Accessible seating, restrooms, entrances, signage, and evacuation procedures at venues 03 Digital platforms (tickets, apps, travel info) need WCAG-style accessibility 04 Communication supports: ASL, captions, audio description, assistive listening 05 Test venues and transportation with disabled users before public opening 06 Accessibility improvements should remain after 2028 — not only for Games time",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Street access near venues",
+      "text": "Street access near venues Added at the request of a student team researching accessible passageways for disabled spectators. The City of Los Angeles records whether each street corner within about a mile of its LA28 venue list has a curb ramp. A missing ramp means a wheelchair user has to detour or roll into the street. Corners with a curb ramp 3,555 Corners without a ramp 149 Corners in the city inventory 3,704 Street miles near 9 of 20 listed venues 126.1 Curb ramps near LA28 venues on City of Los Angeles streets, most missing ramps first Venue Street miles With ramp Missing Share missing Gloria Molina Grand Park 29.2 771 51 6.2 % LA Live 37.0 1,186 34 2.8 % Riviera Country Club 5.4 53 19 26.4 % Dodger Stadium 8.1 196 15 7.1 % LA Memorial Coliseum 15.0 535 15 2.7 % Galen Center 9.6 328 5 1.5 % Sepulveda Basin Sports Complex 14.5 235 5 2.1 % USC Dedeaux Stadium 7.2 249 4 1.6 % LA Stadium & Entertainment District Mostly outside City of LA data 0.1 2 1 33.3 % Read this data carefully City of Los Angeles streets only. Venues in Inglewood, Long Beach, Pasadena, Carson, Anaheim, and other cities have little or no data here. A corner marked as having a ramp is not a check of ADA compliance, slope, or condition. Ramp points come from the city's 2017 sidewalk inventory, traced from 2014 aerial photos. The venue list is the city's unofficial, subject-to-change LA28 list, not the current LA28 Games Plan. The city is building a newer LiDAR sidewalk assessment for LA28 sites. It is not public yet. Snapshot from 2026-11-23 . StreetsLA last updated its venue dataset on 2025-02-05 . StreetsLA: streets within 1 mile of LA28 venues Sidewalk Repair Program LA28 map service",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Access barriers the city tagged for LA28",
+      "text": "Access barriers the city tagged for LA28 The city's Sidewalk Repair Program tags these 19 locations as LA28 access barriers. They are concrete starting points for a site visit or a route map. City LA28 sites Locations the city added to its own LA28 list, mostly next to venues and stations. 10985 Le Conte Ave Council District 5 · logged 2026-01-13 · 1 curb ramp noted Burbank Blvd and Hayvenhurst Ave Council District 6 · logged 2026-02-06 · 3 curb ramps noted Expo Park: W 30th St and Hope St Council District 9 · logged 2026-05-01 · 1 curb ramp noted LA Live: 11th St and Figueroa St Council District 14 · logged 2026-05-29 · 1 curb ramp noted LA Live: Flower St and Olympic Blvd Council District 14 · logged 2026-05-29 · 1 curb ramp noted LA Live: L.A. Live Way and W Pico Blvd Council District 9 · logged 2026-05-29 · 1 curb ramp noted North Hollywood Station at Cumpston St Council District 2 · logged 2026-02-22 · 1 curb ramp noted Access requests tagged LA28 Requests filed through MyLA311 under the city's Access Request Program that the city linked to LA28. 255 W 5th St Council District 15 · logged 2026-05-15 · 1 curb ramp noted 3936 S Hill St Council District 9 · logged 2024-10-19 500 Landfair Ave Council District 5 · logged 2025-10-30 554 W 43rd Pl Council District 9 · logged 2026-07-28 628 S Mesa St Council District 15 · logged 2025-05-02 669 Levering Ave Council District 5 · logged 2025-07-23 715 Gayley Ave Council District 5 · logged 2026-06-09 754 S Hope St Council District 14 · logged 2026-08-14 900 Gayley Ave Council District 5 · logged 2025-11-08 · 2 requests Landfair Ave at Strathmore Dr Council District 5 · logged 2025-02-24 · 2 curb ramps noted Midvale Ave at Strathmore Dr Council District 5 · logged 2025-02-10 Stadium Way at Scott Ave Council District 1 · logged 2017-11-07",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Fieldwork questions",
+      "text": "Fieldwork questions Which venue has the most corners without a ramp, and which has the highest share? Would the same fix work for both? Pick one city LA28 site above and map the walk from the nearest Metro station. Where would a wheelchair user have to detour? Walk or map Expo Park/USC station to the Coliseum and Pico station to LA Live. How many crossings are there, and does every corner have a ramp? Inglewood, Long Beach, and Pasadena venues have little data here. Which agency keeps their curb-ramp records, and is it public? A ramp can exist and still be too steep, cracked, or blocked. What would you check on site before calling a route step-free?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Security & workforce",
+      "text": "Security & workforce 01 Paris mobilized ~12,000 private security agents during the Paralympic Games (vs ~23,000 during the Olympics) 02 Security plans must stay accessible for people with disabilities 03 Volunteers and staff need disability-awareness and assistance training 04 California is developing Olympic and Paralympic public-safety coordination agreements 05 Multi-city venues mean security coordination across jurisdictions",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Organizer technology map",
+      "text": "Organizer technology map A teaching map of public systems Paris organizers used for community engagement and accessible spectating. The boxes are separate tools. They connect because each one answers a different question: who is already involved, who to message, where the Paralympics are published, and how a disabled spectator follows the action. 01 Record the community National para-sport activity Before Paris, the French Paralympic and Sports Committee published what clubs and programs were already doing. That kind of report is the community baseline, not a Games-time app. Comité Paralympique et Sportif Français 02 Know who to reach One supporter database Paris 2024 kept a single record for people who joined through social media, the website, or a ticket. Surveys then fed sport-specific email and SMS journeys in five languages. Salesforce, Paris 2024 story 03 Publish the Paralympics A public channel The International Paralympic Committee used TikTok for match clips, athlete live video, daily highlights, and short explainers of the 22 sports. International Paralympic Committee 04 Follow the event live Access tools at the venue Spectators could use audio description in the official app, a low-vision helmet, tactile tablets, captions, and sign language. These sit on top of the channels above. sportanddev A second student reference, an Olympic World Library file, did not open outside a browser cookie check, so this map does not describe its contents. Open the library file .",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Research questions for LA28",
+      "text": "Research questions for LA28 How long is the Olympic-to-Paralympic transition, and what changes at each venue? Which transit routes will be fully step-free for Paralympic spectators and athletes? How will staffing and security levels be set for the Paralympics? How will accessible transportation capacity meet demand at each venue? How will queues, screening, and entrances work for disabled visitors? How can accessibility improvements remain in host cities after 2028?",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "Previous Games resources",
+      "text": "Previous Games resources Paris 2024 / Paralympics coverage of issues and pressure points (transport failures, security strain, accessibility gaps, sustainability setbacks, and ops risks). BBC BBC: Paralympics 'shame' — Metro still largely inaccessible Disability advocates call limited wheelchair Metro access a 'black spot' on Paris's Paralympic legacy despite accessible-bus investment. Previous Games Reviewed 2026-10-10 The Guardian Guardian: Paralympics diary notes Métro accessibility gaps Only a small share of Métro stops are wheelchair-accessible — daily navigation friction for disabled visitors during the Paralympics. Previous Games Reviewed 2026-10-10 BBC BBC: Wheelchair user blocked boarding Eurostar during Paralympics Ramp booking failure and inaccessible city options show last-mile and intercity barriers for disabled spectators. Previous Games Reviewed 2026-10-10 BBC BBC: Grey-Thompson on venue access & transport weak spots Notes temporary venue overlays with awkward lifts/steps and persistent Metro inaccessibility for disabled spectators. Previous Games Reviewed 2026-10-10 Wemap / Paris 2024 Paris 2024 Parc Urbain interactive map Wemap venue map for the Concorde urban park (BMX freestyle, skateboarding, breaking, 3x3 basketball). A wayfinding example, not street accessibility data. Opens in a browser only. Previous Games Reviewed 2026-11-22 Wemap Roland-Garros interactive spectator map Indoor and outdoor positioning, routes, service search, and AR at the Paris 2024 tennis and wheelchair tennis site. The case study covers wayfinding, not accessibility. Previous Games Reviewed 2026-11-22 Reuters Paris Metro Inaccessibility Puts Spotlight on Transport Barriers Ahead of Paralympics Severe lack of elevators across the century-old Paris subway network left wheelchair users and disabled visitors facing stark mobility barriers during the 2024 Games. Previous Games AI fetched Reviewed 2026-10-18",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    },
+    {
+      "heading": "LA28 & local resources",
+      "text": "LA28 & local resources Official LA28, Metro, Caltrans, and California planning links. State of California California LA28 public safety legislation State agreements to coordinate state, local, and out-of-state law enforcement for LA28. LA28 Reviewed 2026-10-10 LA28 LA28 Official Games Plan Sports, venue plan, competition structure, and venue zones across the Games. LA28 Reviewed 2026-10-10 LA28 LA28 Official Venues Existing stadiums and arenas; competitions in Greater LA and other U.S. locations. LA28 Reviewed 2026-10-10 LA28 LA28 zones Zones across LA County, California, Oklahoma City, Columbus, Nashville, New York City, and St. Louis. LA28 Reviewed 2026-10-10 LA28 LA28 Accessibility Accessible transportation, seating, routes, restrooms, communication services, and standards. LA28 Reviewed 2026-10-10 LA28 LA28 Event Accessibility Accessible routes, entrances, restrooms, seating, transportation hubs, communication services, and spectator support. LA28 Reviewed 2026-10-10 LA28 LA28 Paralympic venue plan How accessibility and athlete experience shape Paralympic venue planning. LA28 Reviewed 2026-10-10 LA28 LA28 Paralympic Games Plan Official Paralympic sports, schedule, and Games Plan for 2028. LA28 Reviewed 2026-10-10 LA28 LA28 Paralympic competition schedule Comprehensive Paralympic competition schedule by event for August 2028. LA28 Reviewed 2026-10-10 LA Metro Metro lessons learned from Paris 2024 Metro staff observations: fragmented Games apps, one source of truth for transit data, consistent wayfinding, and ADA signs duplicated on station pillars. LA28 Reviewed 2026-11-22 City of Los Angeles (StreetsLA) StreetsLA: streets within 1 mile of LA28 venues City street segments and curb-ramp points near proposed LA28 venues, with ramp present or missing at each corner. City of Los Angeles streets only; marked subject to change. LA28 Reviewed 2026-11-22 City of Los Angeles (Sidewalk Repair) Sidewalk Repair Program LA28 map service Access requests, access barrier sites flagged for LA28, missing ramps, and Olympic venue buffers from the City's Sidewalk Repair Program. LA28 Reviewed 2026-11-22 LA28 LA28 Volunteer Program Volunteer roles for venues, logistics, accessibility, EMS, athletes, and spectators. LA28 Reviewed 2026-10-10",
+      "source_url": "https://la28-planning-hub.lovable.app/paralympics",
+      "retrieved_at_utc": "2026-11-27T09:27:11.747831+00:00"
+    }
+  ]
+}

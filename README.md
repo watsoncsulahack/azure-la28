@@ -17,11 +17,11 @@ All files are in [`data/paralympics/`](data/paralympics/).
 | `links.csv` | 31 | Every link in the main page, retaining repeated appearances |
 | `dataset.json` | — | All tables, 10 complete section texts, source metadata and caveats |
 | `page_text.txt` | — | Main page text in reading order |
-| `source.html` | — | Exact retrieved HTML snapshot |
+| `source.html` | — | Sanitized main-content HTML; scripts, framework metadata and unrelated attributes removed |
 
 CSV uses UTF-8, a header row, and decimal numbers without thousands separators. JSON contains typed numbers, booleans, and nulls. Missing optional counts are null in JSON and blank in CSV; they do **not** mean zero. Dates use ISO 8601; `retrieved_at_utc` is the scrape time. `source_snapshot_date` (2026-11-23) and `streetsla_updated_date` (2025-02-05) are dates stated on the webpage, not the scrape date. No coordinates were provided or inferred.
 
-Every table row has `source_url` and `retrieved_at_utc`. Metadata includes the SHA-256 of the original HTML. Resource `reviewed_date` and `ai_fetched` values are the website's labels, not independent verification by this scraper. The scrape covers this single page; it does not download linked articles or municipal GIS layers.
+Every table row has `source_url` and `retrieved_at_utc`. Metadata includes the SHA-256 of the original response HTML (before sanitization; it will differ from `source.html`). Resource `reviewed_date` and `ai_fetched` values are the website's labels, not independent verification by this scraper. The scrape covers this single page; it does not download linked articles or municipal GIS layers.
 
 ## Interpretation
 
