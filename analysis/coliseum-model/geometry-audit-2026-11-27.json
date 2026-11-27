@@ -1,0 +1,214 @@
+{
+  "title": "Initial source-to-geometry validation of Coliseum MVP 0.2.0",
+  "auditDate": "2026-11-27",
+  "repoHeadAtAudit": "a56ec755e188494fd935c0ac62bf9f817aedc9cd",
+  "sourceFileShas": {
+    "apps/coliseum-mvp/dist/data/venue.json": "ab42dfdfc6514f046f477f1a7bf506dde48af8ed",
+    "apps/coliseum-mvp/dist/data/validation.json": "db4b639cfec54623a0df656a540216d6980b3352",
+    "apps/coliseum-mvp/dist/model.js": "6eeef30b59907b5450415971d77759c708dd19b3",
+    "analysis/coliseum-model/requirements.csv": "d8b3a43de136e17ff20d079797a166b0bda1113d"
+  },
+  "method": "Independently convert official ft/in dimensions and compare to model input; inspect generator source and previously committed model validation output; compute plan-area and bowl-span diagnostics. No binary GLB or independent lidar/survey comparison performed.",
+  "inputNumericChecks": {
+    "total": 13,
+    "passing": 13,
+    "tolerance_m": 0.005,
+    "checks": [
+      {
+        "id": "M158",
+        "parameter": "bowlLength",
+        "reference_m": 316.3824,
+        "model_input_m": 316.3824,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "NPS 1984",
+        "scope": "historical approximate"
+      },
+      {
+        "id": "M159",
+        "parameter": "bowlWidth",
+        "reference_m": 224.9424,
+        "model_input_m": 224.9424,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "NPS 1984",
+        "scope": "historical approximate"
+      },
+      {
+        "id": "M011",
+        "parameter": "streetHeight",
+        "reference_m": 12.4206,
+        "model_input_m": 12.4206,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide reference"
+      },
+      {
+        "id": "M012",
+        "parameter": "rimHeight",
+        "reference_m": 35.2552,
+        "model_input_m": 35.2552,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide reference"
+      },
+      {
+        "id": "M013",
+        "parameter": "derivedStreetToLastRow",
+        "reference_m": 22.8346,
+        "model_input_m": 22.8346,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide reference"
+      },
+      {
+        "id": "M014",
+        "parameter": "towerAboveStreet",
+        "reference_m": 33.3248,
+        "model_input_m": 33.3248,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide reference"
+      },
+      {
+        "id": "M015",
+        "parameter": "cauldronAboveStreet",
+        "reference_m": 37.6428,
+        "model_input_m": 37.6428,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide reference"
+      },
+      {
+        "id": "M017",
+        "parameter": "fieldLength",
+        "reference_m": 170.688,
+        "model_input_m": 170.688,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide envelope"
+      },
+      {
+        "id": "M018",
+        "parameter": "fieldWidth",
+        "reference_m": 76.2,
+        "model_input_m": 76.2,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide maximum width only"
+      },
+      {
+        "id": "M020",
+        "parameter": "footballLength",
+        "reference_m": 109.728,
+        "model_input_m": 109.728,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide maximum"
+      },
+      {
+        "id": "M021",
+        "parameter": "footballWidth",
+        "reference_m": 48.768,
+        "model_input_m": 48.768,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide maximum"
+      },
+      {
+        "id": "M072",
+        "parameter": "westScreenWidth",
+        "reference_m": 45.7962,
+        "model_input_m": 45.7962,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide screen face"
+      },
+      {
+        "id": "M073",
+        "parameter": "westScreenHeight",
+        "reference_m": 12.1666,
+        "model_input_m": 12.1666,
+        "residual_m": 0,
+        "status": "NUMERIC_MATCH",
+        "source": "2024 Technical Guide",
+        "scope": "modern guide screen face"
+      }
+    ]
+  },
+  "existingBuildValidation": {
+    "reportedChecks": 12,
+    "reportedPassing": 12,
+    "independentlyReexecuted": false,
+    "independentPhysicalChecks": 0
+  },
+  "diagnostics": [
+    {
+      "id": "D1",
+      "severity": "REVIEW",
+      "name": "field plan area compared with guide",
+      "computed_m2": 10215.223,
+      "guide_m2": 12619.67,
+      "difference_m2": -2404.447,
+      "difference_percent": -19.053,
+      "interpretation": "The code constructs an ellipse for field-envelope while guide lists 135,837 square feet Playing Field. Documented guide area boundary is not established; not definitive mismatch on identical footprints."
+    },
+    {
+      "id": "D2",
+      "severity": "REVIEW",
+      "name": "bowl group span vs historic nominal",
+      "bowl_group_span_x_m": 297.7034,
+      "historic_nominal_length_m": 316.3824,
+      "difference_m": -18.679,
+      "generator_filters_check": true,
+      "interpretation": "Partial bowl group excludes east-end opening and differs from complete historical envelope; endpoints and component membership must be reconciled before tolerance checking."
+    },
+    {
+      "id": "D3",
+      "severity": "ESTIMATED",
+      "name": "80 visual terraced bands",
+      "visual_band_increment_m": 0.44069,
+      "interpretation": "Uniform bands are not measured seats or real stair risers; must not be used as physical access geometry."
+    },
+    {
+      "id": "D4",
+      "severity": "ESTIMATED",
+      "name": "exterior-to-rim schematic stairs",
+      "horizontal_run_m": 37.2,
+      "vertical_rise_m": 22.8346,
+      "risers": 109,
+      "nominal_riser_m": 0.20949,
+      "interpretation": "Generated navigation connector has no surveyed path, locations, landings or code compliance verification."
+    },
+    {
+      "id": "D5",
+      "severity": "UNVERIFIED",
+      "name": "SR-3D-10 physical tolerance",
+      "target_m": 0.3,
+      "independent_physical_checks": 0,
+      "georeferenced": false,
+      "interpretation": "No georeferenced model, independent point-cloud residuals, agreed control points, or error distribution. The tolerance remains unverified."
+    }
+  ],
+  "interpretation": {
+    "overall": "PASS source parameter transcription; physical geometry verification PENDING; field and bowl shape review OPEN.",
+    "readyForSimulation": false,
+    "nextSteps": [
+      "register model to current survey control and reconcile vertical datum",
+      "obtain current lidar surface and compare to modeled surfaces including incomplete-coverage mask",
+      "reconcile field playing area footprint and NPS historical versus current bowl extent",
+      "replace estimated seating and stair geometry with measured survey/as-built topology",
+      "compute per-feature and sample-weighted residuals against independent observations"
+    ]
+  }
+}
