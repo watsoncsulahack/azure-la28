@@ -1,0 +1,46 @@
+{
+  "mvpVersion": "0.3.0",
+  "auditDate": "2026-11-27",
+  "status": "EVIDENCE_OVERLAY_INTEGRATED__GEOMETRIC_ACCURACY_NOT_IMPROVED_OR_CERTIFIED",
+  "baseGeometryVersion": "0.2.0",
+  "inputGeometryParametersChanged": false,
+  "baseProceduralStadiumGeneratorChanged": false,
+  "rawLidarPointCloudReadDuringThisIteration": false,
+  "terrainDEMUsedAsGeometry": false,
+  "historicalCountyPolygonUsedAsGeometry": false,
+  "physicalAcceptability": "NOT_VALIDATED",
+  "provisionalAccuracyTargetMeters": 0.3,
+  "accuracyMetricBefore": {
+    "source": "prior candidate pose analysis",
+    "conditionalBowlVerticalRMSEM": 7.248504189799699,
+    "physicalAcceptance": false
+  },
+  "accuracyMetricAfter": {
+    "conditionalBowlVerticalRMSEM": null,
+    "reason": "Same base geometry and provisional transform; no new point-to-mesh residual recomputed. Do not infer improvement.",
+    "physicalAcceptance": false
+  },
+  "geographicEvidence": {
+    "streetCenterlines": 10,
+    "curbRampInventoryPoints": 20,
+    "historicStadiumPolygonBoundingRectangles": 1,
+    "newNavigableSurfaces": 0,
+    "registration": "UNAPPROVED candidate horizontal pose; elevation is display reference only",
+    "independentControlPoints": 0
+  },
+  "checks": {
+    "sourceRecordSelection": "20 curb ramps + 10 street line features from existing committed source extracts",
+    "dataVersion": "MATCH",
+    "overlayRuntime": "PASS with minimal THREE mock; real Three.js / mobile browser untested",
+    "javascriptParsing": "PASS in V8 with import statements removed for static syntax verification",
+    "nodeProjectTests": "NOT_EXECUTED in this session; repository not clonable in the execution container",
+    "glbRegeneration": "NOT_PERFORMED; existing 0.2.0 GLB remains the base asset",
+    "geolocationRegistration": "PROVISIONAL_ONLY"
+  },
+  "knownBlockers": [
+    "USGS raw LAZ, ~8.11m stadium-area points, was acquired in earlier workspace but not checked into GitHub or available for physical geometry remeshing.",
+    "County outline within 2020 distribution is sourced to 2008 stereo imagery, not a modern renovated shape.",
+    "Current transform is based on unverified courtyard-to-field correspondence and has no withheld surveyed ground control.",
+    "Ramp and street centerlines have no surveyed accessible elevation and cannot be promoted to routes."
+  ]
+}

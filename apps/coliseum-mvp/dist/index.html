@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#15232c">
-  <title>Coliseum — Explorer 0.2</title>
+  <title>Coliseum — Explorer 0.3</title>
   <meta name="description" content="Explore the Coliseum with touch joystick navigation and an overhead map.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315232c'/%3E%3Cellipse cx='32' cy='32' rx='23' ry='16' fill='none' stroke='%23e5b763' stroke-width='5'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./style.css?v=0.2.0">
+  <link rel="stylesheet" href="./style.css?v=0.3.0">
   <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -15,7 +15,7 @@
   <div id="viewport" tabindex="0" aria-label="Coliseum explorer. Use the movement joystick and swipe to look. In overhead map, drag to pan and pinch to zoom."></div>
   <header class="topbar">
     <a class="brand" href="./" aria-label="Coliseum home"><span class="brand-mark">C</span><span>COLISEUM<small>LOS ANGELES MEMORIAL</small></span></a>
-    <span class="version">MVP 0.2</span>
+    <span class="version">MVP 0.3</span>
     <button id="help-open" class="round-button" aria-label="Help and model information">?</button>
   </header>
   <nav class="mode-tabs" aria-label="View perspective">
@@ -30,6 +30,7 @@
   <div id="map-entry" hidden><button id="explore-point">Explore here</button><button id="cancel-point" aria-label="Cancel selected point">×</button></div>
   <div class="quick-actions" aria-label="Exploration controls">
     <button id="places-open">Places</button>
+    <button id="gis-button" aria-pressed="true" title="Toggle provisional GIS evidence">GIS ON</button>
     <button id="speed-button" aria-label="Movement speed. Switch to fast." aria-pressed="false"><span id="speed-label">Explore</span><small>Speed</small></button>
     <div id="map-zoom" hidden><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button></div>
     <button id="grounds-view" hidden>Grounds</button>
@@ -61,15 +62,15 @@
     <details class="tower-places"><summary>South tower terraces</summary><div id="tower-destinations" class="destinations"></div></details>
   </dialog>
   <dialog id="help-dialog" class="sheet">
-    <div class="dialog-heading"><div><span class="eyebrow">COLISEUM · MVP 0.2</span><h2>Find your way around.</h2></div><button data-close="help-dialog" class="round-button" aria-label="Close information">×</button></div>
+    <div class="dialog-heading"><div><span class="eyebrow">COLISEUM · MVP 0.3</span><h2>Find your way around.</h2></div><button data-close="help-dialog" class="round-button" aria-label="Close information">×</button></div>
     <p><strong>First-person:</strong> move with your left thumb on the joystick. Swipe anywhere on the scene with your right thumb to look around. Choose Fast to cover more ground. Desktop also supports WASD and Shift.</p>
     <p><strong>Overhead map:</strong> drag to pan and pinch to zoom. Tap a named place to jump there, or tap a walking surface and choose Explore here. The map is orthographic and north-up.</p>
-    <p>Use Places to jump between the field, stands, peristyle, grounds and tower terraces. Modeled stair connections link the east field and plaza, and exterior grounds with the upper rim.</p>
-    <details class="model-notes"><summary>About this model</summary><p>The model uses published dimensions and estimated details. New exterior paths, aisle steps and stair locations are schematic. Tower floor heights are estimates. These are exploration previews; physical routes and 0.30 m accuracy remain unverified. Temporary LA28 installations and detailed interiors are outside this version.</p></details>
-    <div class="dialog-links"><button id="export-model">Download GLB</button><a href="./coliseum-mvp-source.zip?v=0.2.0" download>Source package</a><a href="./data/venue.json?v=0.2.0" download>Model inputs</a><a href="./data/manifest.json?v=0.2.0" download>Evidence manifest</a><a href="./data/validation.json?v=0.2.0" download>Validation report</a></div>
-    <div class="settings"><label><input type="checkbox" id="seats-toggle" checked> Show seating</label><label><input type="checkbox" id="labels-toggle" checked> Show map places</label></div>
+    <p><strong>0.3 GIS evidence:</strong> GIS ON overlays 10 source road centerline segments and 20 historic curb-ramp inventory points. They are provisionally placed and do not establish accessible routes, grades, or physical building geometry.</p><p>Use Places to jump between the field, stands, peristyle, grounds and tower terraces. Modeled stair connections link the east field and plaza, and exterior grounds with the upper rim.</p>
+    <details class="model-notes"><summary>About this model</summary><p>The model uses published dimensions and estimated details. The stadium shell is still based on the 0.2 generator. GIS evidence is horizontally approximate and vertically displayed at a schematic street reference. Real-world route usability and any physical tolerance remain unverified. Temporary LA28 installations and detailed interiors are outside this version.</p></details>
+    <div class="dialog-links"><button id="export-model">Download base GLB (0.2)</button><a href="./data/geospatial-evidence.json?v=0.3.0" download>GIS evidence JSON</a><a href="https://github.com/watsoncsulahack/azure-la28/tree/feature/coliseum-mvp-0.3.0-evidence-overlay/apps/coliseum-mvp">Source code</a><a href="./data/venue.json?v=0.3.0" download>Model inputs</a><a href="./data/manifest.json?v=0.3.0" download>Evidence manifest</a><a href="./data/validation.json?v=0.3.0" download>Validation report</a></div>
+    <div class="settings"><label><input type="checkbox" id="seats-toggle" checked> Show seating</label><label><input type="checkbox" id="labels-toggle" checked> Show map places</label><label><input type="checkbox" id="gis-toggle" checked> GIS observations (provisional)</label></div>
   </dialog>
 </main>
-<script type="module" src="./app.js?v=0.2.0"></script>
+<script type="module" src="./app.js?v=0.3.0"></script>
 </body>
 </html>

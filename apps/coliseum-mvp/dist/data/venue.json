@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "id": "los-angeles-memorial-coliseum",
-  "revision": "0.2.0",
+  "revision": "0.3.0",
   "createdDate": "2026-11-27",
   "configuration": "Post-2019 permanent stadium; 2024 operational references; football configuration; later changes unverified",
   "coordinates": {
@@ -121,7 +121,7 @@
       "configuration": "operational-reference",
       "originalMeasurement": "250 ft",
       "sourceUrl": "https://lacoliseum.com/wp-content/uploads/2024/12/Coliseum_Technical_Guide_Draft2024.pdf#page=21",
-      "notes": "Source presents 250 ft \u2013 222 ft; station locations are not supplied.",
+      "notes": "Source presents 250 ft – 222 ft; station locations are not supplied.",
       "datumOrScope": ""
     },
     "footballLength": {
@@ -408,7 +408,7 @@
       "components": [
         "tower"
       ],
-      "description": "Tower footprint, fa\u00e7ade, balcony depths and individual floor heights are estimates. Seven level identities come from the official layouts. Overall top uses the guide height with an ambiguous top endpoint."
+      "description": "Tower footprint, façade, balcony depths and individual floor heights are estimates. Seven level identities come from the official layouts. Overall top uses the guide height with an ambiguous top endpoint."
     },
     {
       "id": "A005",
@@ -461,5 +461,12 @@
     "movement": "touch joystick plus independent swipe look",
     "thirdPerson": "north-up orthographic overhead map",
     "connections": "schematic field-to-plaza and exterior-to-rim stairs; estimated bowl aisle steps"
+  },
+  "baseGeometryVersion": "0.2.0",
+  "evidenceOverlay": {
+    "file": "geospatial-evidence.json",
+    "rendering": "non-navigable markers and lines",
+    "alignment": "provisional only",
+    "geometryReshapedFromLidar": false
   }
 }

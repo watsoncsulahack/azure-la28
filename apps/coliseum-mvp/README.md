@@ -1,3 +1,29 @@
+# Coliseum MVP 0.3.0 — Evidence-integrated exploration
+
+The interactive Coliseum viewer has been advanced to **0.3.0** with actual GIS centerlines and curb-ramp inventory markers. The structure and terrain of the stadium **remain the 0.2.0 procedural approximation**: no independent LiDAR-derived mesh reconstruction was possible from the committed source metadata alone.
+
+- **10 LA28-area street centerline features** from the repository's extracted GIS dataset.
+- **20 historic curb-ramp inventory points** in the study area (2017 record creation). A point's `HASRAMP=Yes` is not a field survey or an accessible path certification.
+- GIS overlays are positioned using the **provisional 2008 courtyard-based candidate registration** and a local linearization into EPSG:6340. The annotation Y coordinate is a nominal display elevation, not a physical elevation measurement.
+- Toggle **GIS ON/OFF** in the viewer. GIS lines and points are **not part of the collision or navigation model**.
+- New versioned `dist/data/geospatial-evidence.json` includes source object IDs, reference blob SHAs, candidate registration parameters, original coordinate values and known limitations.
+
+## Reproduction
+
+```sh
+python -m http.server 3000 --directory apps/coliseum-mvp/dist
+npm --prefix apps/coliseum-mvp run check
+npm --prefix apps/coliseum-mvp run check:v03
+```
+
+The native USGS 2023–24 LAZ point clouds (29.1 million full-tile points, approximately 8.11 million in the study area) were acquired in the earlier processing workspace and deliberately excluded from GitHub because of their size. Their summary metrics and provenance were saved, but **the individual points required to reconstruct a new bowl/tower surface are unavailable to this revision**. Do not interpret the displayed GIS evidence as a fitted model. The 0.2.0 GLB remains the base-geometry export; no falsely named 0.3 GLB is supplied.
+
+Suggested next geometry iteration: recover the acquired LAZ files or regenerate a compact, documented bowl/tower surface sample from the recorded acquisition pipeline; inspect raw class-1 first returns; resolve field/bowl boundaries and survey control; then fit and verify a new component-level mesh using withheld data. Do not change the bowl based solely on the conditional 7.25 m vertical RMSE statistic.
+
+---
+
+## Prior implementation — 0.2.0
+
 # Coliseum 3D MVP 0.2
 
 A dimension-anchored Three.js model of the Los Angeles Memorial Coliseum with touch-first exploration. Three.js 0.170.0 is vendored locally. No installation or bundling is required.
