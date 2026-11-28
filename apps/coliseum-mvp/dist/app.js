@@ -1,10 +1,11 @@
 import * as THREE from './vendor/three.module.js';
 import {OrbitControls} from './vendor/OrbitControls.js';
-import {buildVenue,checkModel} from './model.js?v=0.2.0';
-import {moveAgent,findSurface,movementVector,EXPLORE_SPEED,FAST_SPEED} from './navigation.js?v=0.2.0';
-import {attachJoystick} from './joystick.js?v=0.2.0';
-import {createMapCamera,resizeMapCamera} from './cameras.js?v=0.2.0';
-import {attachLookControls} from './touch-look.js?v=0.2.0';
+import {buildVenue,checkModel} from './model.js?v=0.3.0';
+import {moveAgent,findSurface,movementVector,EXPLORE_SPEED,FAST_SPEED} from './navigation.js?v=0.3.0';
+import {attachJoystick} from './joystick.js?v=0.3.0';
+import {createMapCamera,resizeMapCamera} from './cameras.js?v=0.3.0';
+import {attachLookControls} from './touch-look.js?v=0.3.0';
+import {buildEvidenceOverlay} from './geospatial-overlay.js?v=0.3.0';
 
 const $=s=>document.querySelector(s);
 let toastTimer;
@@ -12,7 +13,7 @@ function toast(message){$('#toast').textContent=message;$('#toast').classList.ad
 function download(data,name,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),30000);}
 
 async function main(){
-  const spec=await fetch('./data/venue.json?v=0.2.0').then(r=>{if(!r.ok)throw Error('Model inputs could not be loaded.');return r.json();});
+  const spec=await fetch('./data/venue.json?v=0.3.0').then(r=>{if(!r.ok)throw Error('Model inputs could not be loaded.');return r.json();});
   const viewport=$('#viewport'),touchDevice=matchMedia('(pointer:coarse)').matches,motionQuery=matchMedia('(prefers-reduced-motion:reduce)');
   let renderer;
   try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch{throw Error('This viewer requires WebGL and hardware acceleration.');}
@@ -31,6 +32,11 @@ async function main(){
   mapControls.touches.ONE=THREE.TOUCH.PAN;mapControls.touches.TWO=THREE.TOUCH.DOLLY_PAN;
   mapControls.mouseButtons.LEFT=THREE.MOUSE.PAN;mapControls.mouseButtons.MIDDLE=THREE.MOUSE.DOLLY;mapControls.mouseButtons.RIGHT=THREE.MOUSE.PAN;
   const model=buildVenue(spec);scene.add(model.root);
+  // GIS evidence is a visual-only layer. It is intentionally excluded from walkables/colliders.
+  const evidence=await fetch('./data/geospatial-evidence.json?v=0.3.0').then(r=>{if(!r.ok)throw Error('Geospatial evidence not available');return r.json();});
+  const overlay=buildEvidenceOverlay(spec,evidence);
+  scene.add(overlay.group);
+  overlay.group.visible=true;
   scene.add(new THREE.HemisphereLight('#eaf4ff','#8a8779',2.4));
   const sun=new THREE.DirectionalLight('#fff4db',3.3);sun.position.set(-190,330,-210);sun.castShadow=true;
   sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-300;sun.shadow.camera.right=300;sun.shadow.camera.top=250;sun.shadow.camera.bottom=-250;sun.shadow.camera.near=30;sun.shadow.camera.far=800;sun.shadow.normalBias=.12;sun.shadow.bias=-.00012;scene.add(sun);
@@ -112,6 +118,12 @@ async function main(){
     dialog.addEventListener('close',()=>viewport.focus({preventScroll:true}));
   }
   $('#seats-toggle').addEventListener('change',e=>{model.components.seats.visible=e.target.checked;renderer.shadowMap.needsUpdate=true;});
+  const setGisVisible=visible=>{overlay.group.visible=visible;$('#gis-toggle').checked=visible;
+    $('#gis-button').setAttribute('aria-pressed',String(visible));
+    $('#gis-button').textContent=visible?'GIS ON':'GIS OFF';
+    toast(visible?'Provisional GIS evidence visible — not verified pedestrian geometry.':'GIS context hidden.');};
+  $('#gis-toggle').addEventListener('change',e=>setGisVisible(e.target.checked));
+  $('#gis-button').addEventListener('click',()=>setGisVisible(!overlay.group.visible));
   $('#labels-toggle').addEventListener('change',e=>labels=e.target.checked);
   const canvas=renderer.domElement;
   lookControl=attachLookControls(canvas,{enabled:()=>mode==='first',onStart:()=>viewport.focus({preventScroll:true}),onDelta:(dx,dy)=>{yaw-=dx*.0045;pitch=THREE.MathUtils.clamp(pitch-dy*.0035,-1.2,1.2);}});
@@ -154,8 +166,9 @@ async function main(){
   $('#export-model').addEventListener('click',async()=>{
     const button=$('#export-model');button.disabled=true;toast('Preparing the model download…');
     try{
-      const r=await fetch(`./coliseum-${spec.revision}.glb`);if(!r.ok)throw Error('Download unavailable');
-      download(await r.arrayBuffer(),`coliseum-${spec.revision}.glb`,'model/gltf-binary');
+      const r=await fetch('./coliseum-0.2.0.glb');if(!r.ok)throw Error('Base GLB unavailable');
+      download(await r.arrayBuffer(),'coliseum-0.2.0-base-geometry.glb','model/gltf-binary');
+      toast('Downloaded original base GLB. GIS evidence is separately downloadable as JSON.');
     }catch(error){console.error(error);toast('The download could not start. Please try again.');}
     finally{button.disabled=false;}
   });
@@ -165,7 +178,9 @@ async function main(){
     node.style.left=`${(v.x*.5+.5)*w}px`;node.style.top=`${(-v.y*.5+.5)*h}px`;
   }
   window.addEventListener('resize',resize);resize();teleport('field');
-  const report=checkModel(model);window.coliseumModel={revision:spec.revision,report,get cameraType(){return mode==='map'?'OrthographicCamera':'PerspectiveCamera';}};
+  const report=checkModel(model);window.coliseumModel={revision:spec.revision,report,evidenceManifest:evidence.manifest,
+    overlaySummary:{streetSegments:overlay.streets,curbRamps:overlay.curbRamps,navMeshesAdded:0},
+    get cameraType(){return mode==='map'?'OrthographicCamera':'PerspectiveCamera';}};
   $('#loading').remove();
   const clock=new THREE.Clock();
   let locationElapsed=0;

@@ -1,10 +1,11 @@
 {
   "name": "coliseum-model-mvp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
     "check": "node scripts/check-model.mjs && node scripts/check-navigation.mjs",
-    "check:evidence": "node scripts/audit-evidence.mjs"
+    "check:evidence": "node scripts/audit-evidence.mjs",
+    "check:v03": "node scripts/check-geospatial.mjs"
   }
 }

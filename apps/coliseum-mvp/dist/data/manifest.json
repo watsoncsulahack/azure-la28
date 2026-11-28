@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "id": "los-angeles-memorial-coliseum",
-  "revision": "0.2.0",
+  "revision": "0.3.0",
   "createdDate": "2026-11-27",
   "configuration": "Post-2019 permanent stadium; 2024 operational references; football configuration; later changes unverified",
   "coordinates": {
@@ -463,5 +463,13 @@
     "connections": "schematic field-to-plaza and exterior-to-rim stairs; estimated bowl aisle steps"
   },
   "researchUrl": "https://github.com/watsoncsulahack/azure-la28/tree/main/research/coliseum-dimensions",
-  "referenceDrawingInspected": "S01 PDF p.5 site plan visually inspected; no metric registration or traced outline."
+  "referenceDrawingInspected": "S01 PDF p.5 site plan visually inspected; no metric registration or traced outline.",
+  "baseGeometryVersion": "0.2.0",
+  "geospatialEvidence": {
+    "path": "./geospatial-evidence.json",
+    "streetCenterlines": 10,
+    "curbRampInventory": 20,
+    "lidarNativeAOIPoints": 8111643,
+    "geometricAdoption": "PROVISIONAL VISUAL ONLY; stadium shell remains 0.2.0"
+  }
 }
