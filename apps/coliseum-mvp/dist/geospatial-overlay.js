@@ -35,6 +35,18 @@ export function buildEvidenceOverlay(spec, evidence) {
       lines++;
     }
   }
+  // LARIAC2/2008 envelope is a bounding rectangle, NOT a building footprint.
+  if (evidence.referenceFootprintBounds?.localCorners?.length === 4) {
+    const corners = evidence.referenceFootprintBounds.localCorners;
+    const outline = corners.concat([corners[0]]).map(([x,z])=>new THREE.Vector3(x,streetY+.25,z));
+    const boundary = new THREE.Line(new THREE.BufferGeometry().setFromPoints(outline),
+      new THREE.LineDashedMaterial({color:'#d25b83',dashSize:8,gapSize:4}));
+    boundary.name='historic-2008-stadium-polygon-bounding-rectangle';
+    boundary.userData={sourceType:'2008 building polygon AABB (not footprint)',sourceId:evidence.referenceFootprintBounds.sourceObjectId,
+      navigable:false,approvedForGeometry:false};
+    boundary.computeLineDistances();
+    parent.add(boundary);
+  }
   let points = 0;
   for (const f of evidence.curbRamps || []) {
     const [x,z] = f.localXZ;

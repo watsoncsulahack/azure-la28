@@ -68,7 +68,8 @@
     ],
     "records": {
       "streetSegments": 10,
-      "curbRamps": 20
+      "curbRamps": 20,
+      "legacyStadiumBoundingRectangles": 1
     }
   },
   "streetSegments": [
@@ -554,5 +555,36 @@
         -302.042
       ]
     }
-  ]
+  ],
+  "referenceFootprintBounds": {
+    "sourceObjectId": 1325059,
+    "vintage": 2008,
+    "source": "County LARIAC2 stereophotogrammetric record",
+    "meaning": "axis-aligned UTM bounding rectangle enclosing historic/legacy stadium polygon; NOT actual architectural outline or current stadium survey",
+    "utmBBox": [
+      380911.4449252869,
+      3764342.8954033135,
+      381232.0547918906,
+      3764575.1709534116
+    ],
+    "localCorners": [
+      [
+        -172.721,
+        119.915
+      ],
+      [
+        147.864,
+        115.927
+      ],
+      [
+        144.975,
+        -116.331
+      ],
+      [
+        -175.61,
+        -112.343
+      ]
+    ],
+    "approvedForGeometry": false
+  }
 }
