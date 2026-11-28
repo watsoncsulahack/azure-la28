@@ -1,0 +1,8 @@
+{
+  "status": "NATIVE_LAZ_NOT_ACQUIRED",
+  "source": "TNM API lists two current native LAZ tiles; usgs-lpc-products.json preserves exact URLs",
+  "blocker": "Full native-tile transfer did not complete after more than 6 minutes; a bounded header request returned HTTP 429 Too Many Requests. Stopped pending transfer and made no further requests to that host.",
+  "header_probe_status": 429,
+  "probe_utc": "2026-11-28T00:05:53.979195+00:00",
+  "fallback_completed": "All-depth EPT extract: 283 LAZ octree nodes and 8,111,630 AOI points. Native vertical-CRS confirmation remains unavailable."
+}

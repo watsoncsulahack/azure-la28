@@ -1,0 +1,14 @@
+[
+  {
+    "extract": "curb_ramps_aoi.geojson",
+    "features": 20,
+    "geometry_and_attributes_identical_to_original": true,
+    "original_feature_population": 3704
+  },
+  {
+    "extract": "street_segments_aoi.geojson",
+    "features": 10,
+    "geometry_and_attributes_identical_to_original": true,
+    "original_feature_population": 1418
+  }
+]

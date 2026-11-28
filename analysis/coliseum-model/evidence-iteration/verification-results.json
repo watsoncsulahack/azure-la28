@@ -1,0 +1,65 @@
+{
+  "recorded_utc": "2026-11-28T00:13:47.189556+00:00",
+  "base_commit": "a56ec755e188494fd935c0ac62bf9f817aedc9cd",
+  "geospatial_unittest": {
+    "command": ".venv/bin/python -m unittest discover research/coliseum-geospatial/tests",
+    "tests": 9,
+    "passing": 9
+  },
+  "source_controls": {
+    "checks": 13,
+    "passing": 13
+  },
+  "model_generator": {
+    "checks": 12,
+    "passing": 12
+  },
+  "navigation_suite": "passed",
+  "existing_glb_import": "passed",
+  "fresh_glb_export": {
+    "bytes": 16339776,
+    "sha256": "efd56271cfeafd178eb6a65969ba9d9ac231ffe660de084c1ebdc8c88fde0244",
+    "byte_identical_to_baseline": true
+  },
+  "cad_existing_snapshot": "reopened; 112 valid shapes; original DXF/IFC/GLB validation passed",
+  "cad_scratch_rebuild": "112 native shapes, 111 IFC components, 11 DXF dimensions; schema/EXPRESS, axes and units passed",
+  "preserved_inputs_and_artifacts": [
+    {
+      "path": "apps/coliseum-mvp/dist/data/venue.json",
+      "sha256": "bcefea0c371541d6a63127f9985653d21a2f85b1c50d50e7d3c3029cd4bd094e",
+      "unchanged_from_main": true
+    },
+    {
+      "path": "analysis/coliseum-model/requirements.csv",
+      "sha256": "b4ded4273d4e8a7b8afc378ea199b21002f350dd8fceab3d284e264293a69629",
+      "unchanged_from_main": true
+    },
+    {
+      "path": "research/coliseum-cad/inputs/venue.json",
+      "sha256": "bcefea0c371541d6a63127f9985653d21a2f85b1c50d50e7d3c3029cd4bd094e",
+      "unchanged_from_main": true
+    },
+    {
+      "path": "research/coliseum-cad/models/coliseum-reference-R001.FCStd",
+      "sha256": "32ebbc268e9567da2d819235205af7ace1ee031d44805e7442da41e3d72f0c94",
+      "unchanged_from_main": true
+    },
+    {
+      "path": "research/coliseum-cad/models/coliseum-reference-R001.ifc",
+      "sha256": "1318a9f27a40895ad806d37428e0fc255c8282253ba82cc80f49e4dd5cc28628",
+      "unchanged_from_main": true
+    },
+    {
+      "path": "research/coliseum-cad/models/coliseum-reference-R001.glb",
+      "sha256": "9f97d3b7e3dcfdc14d9f70d42907ba1d951fce60ee6f10a4e85342c7cf1b0684",
+      "unchanged_from_main": true
+    }
+  ],
+  "physical_acceptance": "NOT_VALIDATED",
+  "limitations": [
+    "No accepted horizontal/vertical site control",
+    "Native LAZ blocked by incomplete transfer/HTTP429",
+    "Conditional observed-height diagnostics are not full model positional accuracy",
+    "No browser/phone runtime testing in this evidence iteration"
+  ]
+}

@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node scripts/check-model.mjs && node scripts/check-navigation.mjs"
+    "check": "node scripts/check-model.mjs && node scripts/check-navigation.mjs",
+    "check:evidence": "node scripts/audit-evidence.mjs"
   }
 }

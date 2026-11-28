@@ -1,6 +1,6 @@
 # Coliseum geospatial evidence pack
 
-**Research status: 2026-11-27.** This directory provides a reproducible acquisition plan, an approximate study-area polygon, and documented source candidates. **No new LiDAR point cloud, elevation raster, or county building-footprint extract has yet been downloaded or incorporated into this branch.** The source links are research leads and should be independently verified at download time.
+**Current status: 2026-11-27 (Los Angeles).** The [executed evidence iteration](evidence/README.md) has acquired and inspected 8,111,630 EPT points, 145 county polygon features and a USGS 1 m terrain tile/crop. It records source checksums, mixed feature vintages, conditional residuals and acquisition exceptions. The model is still physically unverified. The original proposal and historical acquisition report below describe the earlier PR workflow; their failed downloads are superseded by the separate executed inventory, not retroactively claimed as successful.
 
 The principal priority is geometric and topological accuracy, **not appearance**. Continue to use [the existing Coliseum dimensions register](../coliseum-dimensions/README.md) for sourced field/street heights and architectural documentation. A draft venue technical guide and older design sheets do not certify a modern as-built survey.
 

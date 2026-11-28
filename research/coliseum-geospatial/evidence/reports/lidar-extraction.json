@@ -1,0 +1,27 @@
+{
+  "points": 8111630,
+  "columns": [
+    "easting_3857",
+    "northing_3857",
+    "z_source_m",
+    "classification",
+    "return_number",
+    "las_withheld",
+    "ept_ClassFlags"
+  ],
+  "bounds": [
+    [
+      -13168238.6,
+      4030265.73,
+      40.569999999999936
+    ],
+    [
+      -13167303.52,
+      4031084.93,
+      119.40999999999985
+    ]
+  ],
+  "node_count": 283,
+  "all_intersecting_nodes_downloaded": true,
+  "vertical_datum": "EPT has no vertical CRS; original project reports NAVD88/GEOID18. Confirm against native delivery before absolute-height acceptance."
+}

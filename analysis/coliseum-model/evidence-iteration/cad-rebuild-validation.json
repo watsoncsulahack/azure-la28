@@ -1,0 +1,193 @@
+{
+  "revision": "R001",
+  "date": "2026-11-27",
+  "status": "source-consistency checks passed; physical venue accuracy unverified",
+  "dxf": {
+    "auditErrors": 0,
+    "nativeDimensions": [
+      {
+        "id": "D001",
+        "sourceId": "M158",
+        "actualM": 316.3824,
+        "referenceM": 316.3824,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D002",
+        "sourceId": "M159",
+        "actualM": 224.9424,
+        "referenceM": 224.9424,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D003",
+        "sourceId": "M017",
+        "actualM": 170.688,
+        "referenceM": 170.688,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D004",
+        "sourceId": "M018",
+        "actualM": 76.2,
+        "referenceM": 76.2,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D005",
+        "sourceId": "M020",
+        "actualM": 109.728,
+        "referenceM": 109.728,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D006",
+        "sourceId": "M021",
+        "actualM": 48.768,
+        "referenceM": 48.768,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D007",
+        "sourceId": "M012",
+        "actualM": 35.2552,
+        "referenceM": 35.2552,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D008",
+        "sourceId": "M011",
+        "actualM": 12.4206,
+        "referenceM": 12.4206,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D009",
+        "sourceId": "M013",
+        "actualM": 22.834600000000002,
+        "referenceM": 22.8346,
+        "errorM": 3.552713678800501e-15,
+        "pass": true
+      },
+      {
+        "id": "D010",
+        "sourceId": "M015",
+        "actualM": 37.6428,
+        "referenceM": 37.6428,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "D011",
+        "sourceId": "M014",
+        "actualM": 33.3248,
+        "referenceM": 33.3248,
+        "errorM": 0.0,
+        "pass": true
+      }
+    ],
+    "modelUnits": "meters"
+  },
+  "freecad": {
+    "reopened": true,
+    "validShapes": 112,
+    "exportedMeshComponents": 111,
+    "sourceDimensionChecks": [
+      {
+        "id": "fieldLength",
+        "sourceId": "M017",
+        "actualM": 170.688,
+        "referenceM": 170.688,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "fieldWidth",
+        "sourceId": "M018",
+        "actualM": 76.2,
+        "referenceM": 76.2,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "footballLength",
+        "sourceId": "M020",
+        "actualM": 109.728,
+        "referenceM": 109.728,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "footballWidth",
+        "sourceId": "M021",
+        "actualM": 48.768,
+        "referenceM": 48.768,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "lastRow",
+        "sourceId": "M012",
+        "actualM": 35.255200000100004,
+        "referenceM": 35.2552,
+        "errorM": 1.000017846308765e-10,
+        "pass": true
+      },
+      {
+        "id": "towerAboveStreet",
+        "sourceId": "M014",
+        "actualM": 33.3248,
+        "referenceM": 33.3248,
+        "errorM": 0.0,
+        "pass": true
+      },
+      {
+        "id": "cauldronAboveStreet",
+        "sourceId": "M015",
+        "actualM": 37.64280000000001,
+        "referenceM": 37.6428,
+        "errorM": 7.105427357601002e-15,
+        "pass": true
+      }
+    ]
+  },
+  "ifc": {
+    "schema": "IFC4",
+    "schemaAndExpressValidationStatements": 0,
+    "components": 111,
+    "storeys": 7,
+    "unitScaleToMetres": 1,
+    "maximumWorldBoundsDifferenceFromNativeCADM": 0.02454395199627868
+  },
+  "glb": {
+    "source": "reopened FCStd tessellation",
+    "components": 111,
+    "sourceFileSHA256": "32430499c8ac545ccc05b4d08be74b1698080959392ff270ec30f0bf875d1dc7",
+    "maxCoordinateRoundtripErrorM": 7.628428107864238e-06,
+    "unitsAndAxisTransformVerified": true
+  },
+  "pdf": {
+    "pages": 4,
+    "paper": "A2 landscape",
+    "previewsVisuallyInspected": true
+  },
+  "physicalAccuracy": {
+    "targetM": 0.3,
+    "independentSiteMeasurements": 0,
+    "verified": false
+  },
+  "representationNotes": [
+    "CAD construction-reference ellipse stays in FCStd/DXF and is omitted from IFC/GLB",
+    "IFC uses tessellated reference proxies, not certified structural assemblies",
+    "Native tower plates have expressions; bowl/peristyle BReps require rebuild script",
+    "No STEP or DWG file generated"
+  ]
+}

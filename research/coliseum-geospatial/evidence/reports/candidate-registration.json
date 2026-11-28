@@ -1,0 +1,57 @@
+{
+  "status": "PROVISIONAL_DIAGNOSTIC_ONLY",
+  "approved_for_model": false,
+  "horizontal_crs": "EPSG:6340 NAD83(2011) / UTM zone 11N",
+  "vertical_reference": "EPT Z presumed unchanged NAVD88/GEOID18 from original project; native check recorded separately.",
+  "horizontal_method": "Center and major axis of minimum rotated rectangle of county courtyard OBJECTID 1282840. 2008 stereo-derived boundary; correspondence to current chosen model origin is unverified.",
+  "vertical_method": "Median usable first-return Z in west half of local field-interior box (x \u221235 to 0 m; north \u221212 to 12 m). East half withheld. These field returns are class 1, not class 2. No height-based rejection.",
+  "origin_epsg6340_m": [
+    381085.6439885952,
+    3764460.6524837716
+  ],
+  "origin_lon_lat_approx": [
+    -118.2878499592606,
+    34.01404248464797
+  ],
+  "grid_rotation_radians": -0.012437652158637362,
+  "grid_rotation_degrees": -0.7126249757416987,
+  "grid_rotation_is_true_bearing": false,
+  "field_reference_z_m": 42.549999999999955,
+  "horizontal_transform_operation": "Inverse of Popular Visualisation Pseudo-Mercator + Inverse of NAD83(2011) to WGS 84 (1) + UTM zone 11N",
+  "horizontal_transform_nominal_accuracy_m": 2.0,
+  "datum_limit": "PROJ operation reports 2 m nominal accuracy for EPT/WGS84 to NAD83(2011). This is not site-measured uncertainty. No vertical coordinate transformation performed.",
+  "scale": 1,
+  "threejs_to_utm_matrix_row_major": [
+    [
+      0.9999226534014937,
+      0,
+      -0.012437331486954525,
+      381085.6439885952
+    ],
+    [
+      -0.012437331486954525,
+      0,
+      -0.9999226534014937,
+      3764460.6524837716
+    ],
+    [
+      0,
+      1,
+      0,
+      42.549999999999955
+    ],
+    [
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  "cad_to_utm": "E=E0+cos(theta)*x-sin(theta)*y; N=N0+sin(theta)*x+cos(theta)*y; H=H0+z",
+  "uncertainty": {
+    "horizontal_m": null,
+    "vertical_registration_m": null,
+    "model_origin_correspondence_m": null
+  },
+  "required_control": "Current surveyed field corners/centerline, perimeter points and a NAVD88 benchmark, with withheld controls. No accepted external site control available."
+}

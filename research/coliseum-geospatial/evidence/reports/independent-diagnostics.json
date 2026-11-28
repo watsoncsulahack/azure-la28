@@ -1,0 +1,50 @@
+{
+  "source": "USGS CA_LosAngeles_1_B23 EPT all-depth AOI extraction",
+  "aoi_points_all_returns_including_noise": 8111630,
+  "classification_counts": {
+    "1": 4520495,
+    "2": 3534191,
+    "7": 55264,
+    "18": 1680
+  },
+  "withheld_points_excluded": 56944,
+  "classification_assessment": "Only classes 1,2,7,18 occur here. Roofs, seats, walls and vegetation are not semantically classified. Local classification accuracy not independently measured.",
+  "stadium_reference_polygon_objectid": 1325059,
+  "stadium_reference_vintage": 2008,
+  "stadium_polygon_area_m2": 48242.70083991487,
+  "stadium_all_return_points": 775211,
+  "stadium_all_return_density_per_m2": 16.068980104832953,
+  "stadium_usable_first_return_density_per_m2": 14.8697520559727,
+  "field_calibration_points": 12971,
+  "field_holdout_vertical_residual_m": {
+    "count": 12716,
+    "mean_m": 0.006868512110720397,
+    "rmse_m": 0.027339856567929883,
+    "median_signed_m": 0.009999999999990905,
+    "median_absolute_m": 0.01999999999998181,
+    "p95_absolute_m": 0.049999999999954525,
+    "maximum_absolute_m": 0.09999999999990905,
+    "min_signed_m": -0.09999999999990905,
+    "max_signed_m": 0.07999999999992724
+  },
+  "field_holdout_scope": "Usable first returns in east interior half-box (class 1, unclassified); conditional on presumed EPT vertical datum and candidate pose. No height-based rejection. Not an independent absolute-elevation check or full field-shape validation.",
+  "bowl_conditional_vertical_residual_m": {
+    "count": 28558,
+    "mean_m": -6.413936384200565,
+    "rmse_m": 7.248504189799699,
+    "median_signed_m": -6.6081199999999285,
+    "median_absolute_m": 6.646220000000035,
+    "p95_absolute_m": 10.931308000000056,
+    "maximum_absolute_m": 22.255200000000002,
+    "min_signed_m": -22.255200000000002,
+    "max_signed_m": 13.322390000000016
+  },
+  "bowl_grid_cells": 29073,
+  "bowl_observed_cells_at_least_3_first_returns": 28558,
+  "bowl_missing_cells": 515,
+  "bowl_observed_fraction": 0.9822859698001583,
+  "bowl_metric_scope": "Observed first-return cell median minus generated terrace top at cell center; vertical difference only, not nearest point-to-mesh/3D positional error. Returns may hit seats/people/fixtures. Candidate horizontal pose not accepted. No geometry acceptance decision.",
+  "occlusion": "2D occupancy does not observe under-stand interiors, door clearances, stair risers or hidden surfaces. An occupied cell is not complete 3D coverage.",
+  "independent_physical_acceptance_checks": 0,
+  "ready_for_accessibility_or_crowd_simulation": false
+}
