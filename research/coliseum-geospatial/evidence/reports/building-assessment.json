@@ -1,0 +1,52 @@
+{
+  "feature_count": 145,
+  "vintage_counts": {
+    "2008": 101,
+    "2014": 5,
+    "2017": 6,
+    "2020": 33
+  },
+  "code_counts": {
+    "Building": 143,
+    "Courtyard": 2
+  },
+  "stadium": {
+    "objectid": 1325059,
+    "properties": {
+      "OBJECTID": 1325059,
+      "CODE": "Building",
+      "BLD_ID": "474901827615",
+      "HEIGHT": 114.65,
+      "ELEV": 295.94,
+      "SOURCE": "LARIAC2",
+      "DATE_": "2008",
+      "STATUS": "Unchanged",
+      "OLD_BLD_ID": null,
+      "AREA": 519516.761378999,
+      "Shape__Area": 70423.6171875,
+      "Shape__Length": 1809.14913737186
+    },
+    "bounds_epsg6340": [
+      380911.4449252869,
+      3764342.8954033135,
+      381232.0547918906,
+      3764575.1709534116
+    ],
+    "projected_polygon_area_m2": 48242.70083991487,
+    "interior_rings": 1,
+    "limitation": "Stadium record DATE_=2008 SOURCE=LARIAC2 STATUS=Unchanged. Does not certify the post-2019 tower or current bowl boundary."
+  },
+  "courtyard": {
+    "objectid": 1282840,
+    "area_m2": 12472.42844571277,
+    "mrr_spans_m": [
+      80.11147549042062,
+      181.91616965910123
+    ],
+    "difference_from_guide_area_m2": -147.24179876723065,
+    "boundary_equivalence_to_2024_playing_field": false,
+    "boundary_equivalence_to_model_field": false
+  },
+  "height_and_elevation_units": "Unverified in retrieved service field metadata. Values retained without conversion or use as control.",
+  "outline_interpretation": "Item describes stereo imagery roof-line capture; polygons are not automatically wall footprints."
+}

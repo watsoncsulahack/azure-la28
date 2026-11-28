@@ -1,0 +1,123 @@
+{
+  "recorded_utc": "2026-11-28T01:09:38.706471+00:00",
+  "status": "ACQUIRED_AND_INSPECTED",
+  "complete_tiles": 2,
+  "required_tiles": 2,
+  "tiles": [
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+      "url": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+      "expected_bytes": 64160267,
+      "complete_source": true,
+      "complete_bytes": 64160267,
+      "sha256": "04fbf708b94c843b17f962f475617ff7d0535b0bc64a8da768e11d03fde12de9",
+      "partial_path": "work/native-prefix-backup/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz.part",
+      "partial_bytes_not_counted_as_download": 4194304,
+      "partial_sha256": "fc328b0cfb645a30b44d66652c7907309fb561c420e655544b5ab07da9d60b88"
+    },
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+      "url": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+      "expected_bytes": 63589240,
+      "complete_source": true,
+      "complete_bytes": 63589240,
+      "sha256": "1c91034cda5a3cd11213602e504635b86ea296c38af9d5929c6acefba5866c5e",
+      "partial_path": null,
+      "partial_bytes_not_counted_as_download": 0,
+      "partial_sha256": null
+    }
+  ],
+  "last_attempt": {
+    "status": "COMPLETE",
+    "completed_utc": "2026-11-28T01:07:22.811860+00:00",
+    "tiles": 2,
+    "bytes": 127749507,
+    "fully_decoded_points": 29118711,
+    "aoi_points": 8111643,
+    "inspection": "Both source files completely decoded and CRS read from embedded EVLRs. A local len(chunk.points) API error was corrected to len(chunk); complete data were preserved and checks rerun."
+  },
+  "tile_metadata": [
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038000376400",
+      "metadata_url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.xml",
+      "sha256": "efd5b79c98ee694b980c97fed23476ec70cacc31ef9aa666b3f4b629a774bc6e",
+      "publication_date": "20250613",
+      "acquisition_start": "20230108",
+      "acquisition_end": "20240107",
+      "horizontal_reference": "NAD83(2011) / UTM zone 11N",
+      "vertical_datum": "North American Vertical Datum 1988",
+      "vertical_units": "meter",
+      "reported_altitude_resolution": "1.0",
+      "reported_vertical_accuracy": "N/A"
+    },
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038100376400",
+      "metadata_url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.xml",
+      "sha256": "a5d22bdc5fe8e61c867e8364a0727bb994825ae3b3f84025416bd99aac070f31",
+      "publication_date": "20250613",
+      "acquisition_start": "20230108",
+      "acquisition_end": "20240107",
+      "horizontal_reference": "NAD83(2011) / UTM zone 11N",
+      "vertical_datum": "North American Vertical Datum 1988",
+      "vertical_units": "meter",
+      "reported_altitude_resolution": "1.0",
+      "reported_vertical_accuracy": "N/A"
+    }
+  ],
+  "binary_crs_and_classification_checks": "See native-extraction.json only if produced by successful complete native decoding; per-tile XML is source-reported metadata.",
+  "initial_resume_failure": {
+    "http_status": 429,
+    "response_utc": "2026-11-28T00:24:53Z",
+    "retry_after_header": null
+  },
+  "cooldown_retry": {
+    "scheduled_utc": "2026-11-28T00:30:03Z",
+    "result": "HTTP 429 during prefix request"
+  },
+  "alternate_distribution_checks": {
+    "NOAA": "Catalog 80259 directs native bulk download to the same USGS RockyWeb host; checked S3 native mirror prefix contains zero objects.",
+    "ScienceBase": "Both exact tile catalog JSON requests returned HTTP 403; no access workaround attempted.",
+    "USGS_tile_XML": "Both vendorMetaUrl XML records actually downloaded from thor-f5.er.usgs.gov."
+  },
+  "geometry_changed": false,
+  "physical_acceptance": "NOT_VALIDATED",
+  "checksum_scope": "Local SHA-256 of received bytes, with catalog byte-size and complete native decoding checks. No independently published checksum was supplied by the catalog.",
+  "native_inspection": {
+    "fully_decoded_points": 29118711,
+    "aoi_points": 8111643,
+    "aoi_classification_counts": {
+      "1": 4520504,
+      "2": 3534195,
+      "7": 55264,
+      "18": 1680
+    },
+    "aoi_withheld_points": 56944,
+    "tile_coordinate_references": [
+      {
+        "horizontal_epsg": 6340,
+        "vertical_epsg": 5703,
+        "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+        "version": "1.4",
+        "point_format": 6,
+        "scales": [
+          0.01,
+          0.01,
+          0.01
+        ]
+      },
+      {
+        "horizontal_epsg": 6340,
+        "vertical_epsg": 5703,
+        "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+        "version": "1.4",
+        "point_format": 6,
+        "scales": [
+          0.01,
+          0.01,
+          0.01
+        ]
+      }
+    ]
+  },
+  "encoding_comparison_report": "reports/native-ept-consistency.json"
+}

@@ -57,6 +57,8 @@ Bowl profiles, inner outline, rows and seat spacing, tower footprint and floor h
 
 ## Validation limits
 
+The [executed evidence audit](../../analysis/coliseum-model/evidence-iteration/README.md) adds acquired LiDAR/county/DEM diagnostics and per-mesh traceability. `npm run check:evidence` rebuilds the mesh/literal inventory. Validation now explicitly lists the unresolved historic bowl span (M158) and variable field-width control (M019); neither is passed or silently omitted. The candidate geographic transform remains outside the app. Source geometry and original requirements are preserved.
+
 Node checks exercise actual pointer event controllers with simultaneous independent touches, joystick release/cancel, speed/diagonal normalization, fast collision sweeps, navigation surface agreement with meshes, continuous stair/bowl traversal at both speeds and orthographic camera math at portrait/landscape viewport sizes. GLB is reimported to check component identities, seating instances and meter scale.
 
 Browser rendering and physical phone gestures have not been directly tested in this chat: its managed browser-control tool is unavailable. No mobile frame-rate claim is made. Collision volumes are simplified, seats and trees are decorative, under-stand interiors are incomplete, and this model does not establish a real-world accessible route.

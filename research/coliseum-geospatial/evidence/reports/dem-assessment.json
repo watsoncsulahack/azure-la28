@@ -1,0 +1,34 @@
+{
+  "resolution_m": [
+    1.0,
+    1.0
+  ],
+  "crs": "EPSG:26911",
+  "same_survey_as_lidar": true,
+  "field_dem_minus_lidar_m": {
+    "count": 424,
+    "mean_m": 11.253377662154914,
+    "rmse_m": 11.253461860904238,
+    "median_signed_m": 11.251646499633807,
+    "median_absolute_m": 11.251646499633807,
+    "p95_absolute_m": 11.3284362640381,
+    "maximum_absolute_m": 11.366152038574228,
+    "min_signed_m": 11.145941162109466,
+    "max_signed_m": 11.366152038574228
+  },
+  "exterior_class2_dem_minus_lidar_m": {
+    "count": 6388,
+    "mean_m": -0.0011785051444599375,
+    "rmse_m": 0.06957738740270528,
+    "median_signed_m": -0.0004063415526616154,
+    "median_absolute_m": 0.008535003662018426,
+    "p95_absolute_m": 0.04382761383059224,
+    "maximum_absolute_m": 4.178272247314453,
+    "min_signed_m": -4.178272247314453,
+    "max_signed_m": 1.0777165222168605
+  },
+  "field_status": "DO_NOT_USE_DEM_AS_FIELD_ELEVATION_CONTROL",
+  "interpretation": "A large field-only difference can result from ground-class exclusion and bare-earth interpolation across the stadium excavation. This is an engineering inference, not a verified production-history explanation. Do not apply a global vertical offset from the field residual.",
+  "scope": "Nearest DEM cells at field patch and exterior class-2 first returns. This checks derivative consistency only.",
+  "not_suitable_for": "Bare-earth interpolation cannot supply seats, ramps, concourses, curb edges, treads or under-stand floors."
+}

@@ -1,0 +1,47 @@
+{
+  "type": "FeatureCollection",
+  "name": "Los Angeles Memorial Coliseum study AOI (approximate, not surveyed)",
+  "bbox": [
+    -118.2923,
+    34.0109,
+    -118.2839,
+    34.017
+  ],
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Coliseum study crop",
+        "status": "Approximate study area; not a surveyed venue boundary",
+        "crs": "EPSG:4326"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.2923,
+              34.0109
+            ],
+            [
+              -118.2839,
+              34.0109
+            ],
+            [
+              -118.2839,
+              34.017
+            ],
+            [
+              -118.2923,
+              34.017
+            ],
+            [
+              -118.2923,
+              34.0109
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

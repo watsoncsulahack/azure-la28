@@ -5,6 +5,29 @@
   "targetPhysicalToleranceM": 0.3,
   "scope": "Generated geometry checked against chosen published controls. These are source-consistency checks, not independent measurements of the venue.",
   "physicalAccuracy": "UNVERIFIED: the full model is not certified within 0.30 m of the physical venue.",
+  "physicalAcceptance": {
+    "status": "NOT_VALIDATED",
+    "targetStatus": "provisional engineering target",
+    "requirementId": "SR-3D-10",
+    "featureTolerancesApproved": false,
+    "note": "Implementation tolerances below test generator arithmetic, not physical positional accuracy."
+  },
+  "notValidatedChecks": [
+    {
+      "id": "historic-provisional-envelope-length",
+      "measurementId": "M158",
+      "actual": 297.703369140625,
+      "expected": 316.3824,
+      "status": "BOUNDARY_UNRESOLVED",
+      "reason": "Partial bowl group excludes the east opening; historic approximate overall ellipse endpoints are not equivalent. No pass/fail tolerance assigned."
+    },
+    {
+      "id": "field-varying-width",
+      "measurementId": "M019",
+      "status": "BOUNDARY_UNRESOLVED",
+      "reason": "Guide minimum 222 ft has no established station or corresponding modeled boundary."
+    }
+  ],
   "checks": [
     {
       "id": "field-envelope-length",

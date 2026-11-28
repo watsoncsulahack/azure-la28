@@ -1,0 +1,40 @@
+[
+  {
+    "file": "USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+    "bytes": 64160267,
+    "sha256": "04fbf708b94c843b17f962f475617ff7d0535b0bc64a8da768e11d03fde12de9",
+    "point_count_declared": 14070854,
+    "fully_decoded_points": 14070854,
+    "fully_decoded": true,
+    "version": "1.4",
+    "point_format": 6,
+    "horizontal_epsg": 6340,
+    "vertical_epsg": 5703,
+    "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+    "scales": [
+      0.01,
+      0.01,
+      0.01
+    ],
+    "crs_wkt": "COMPOUNDCRS[\"NAD83(2011) / UTM zone 11N + NAVD88 height - Geoid18 (m)\",PROJCRS[\"NAD83(2011) / UTM zone 11N\",BASEGEOGCRS[\"NAD83(2011)\",DATUM[\"NAD83 (National Spatial Reference System 2011)\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",6318]],CONVERSION[\"UTM zone 11N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-117,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"x\",east,ORDER[1],LENGTHUNIT[\"meter\",1]],AXIS[\"y\",north,ORDER[2],LENGTHUNIT[\"meter\",1]],ID[\"EPSG\",6340]],VERTCRS[\"NAVD88 height - Geoid18 (m)\",VDATUM[\"North American Vertical Datum 1988\"],CS[vertical,1],AXIS[\"up\",up,LENGTHUNIT[\"meter\",1]],GEOIDMODEL[\"GEOID18\"],ID[\"EPSG\",5703]]]"
+  },
+  {
+    "file": "USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+    "bytes": 63589240,
+    "sha256": "1c91034cda5a3cd11213602e504635b86ea296c38af9d5929c6acefba5866c5e",
+    "point_count_declared": 15047857,
+    "fully_decoded_points": 15047857,
+    "fully_decoded": true,
+    "version": "1.4",
+    "point_format": 6,
+    "horizontal_epsg": 6340,
+    "vertical_epsg": 5703,
+    "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+    "scales": [
+      0.01,
+      0.01,
+      0.01
+    ],
+    "crs_wkt": "COMPOUNDCRS[\"NAD83(2011) / UTM zone 11N + NAVD88 height - Geoid18 (m)\",PROJCRS[\"NAD83(2011) / UTM zone 11N\",BASEGEOGCRS[\"NAD83(2011)\",DATUM[\"NAD83 (National Spatial Reference System 2011)\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",6318]],CONVERSION[\"UTM zone 11N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-117,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"x\",east,ORDER[1],LENGTHUNIT[\"meter\",1]],AXIS[\"y\",north,ORDER[2],LENGTHUNIT[\"meter\",1]],ID[\"EPSG\",6340]],VERTCRS[\"NAVD88 height - Geoid18 (m)\",VDATUM[\"North American Vertical Datum 1988\"],CS[vertical,1],AXIS[\"up\",up,LENGTHUNIT[\"meter\",1]],GEOIDMODEL[\"GEOID18\"],ID[\"EPSG\",5703]]]"
+  }
+]

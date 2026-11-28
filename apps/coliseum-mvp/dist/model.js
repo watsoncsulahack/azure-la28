@@ -271,13 +271,20 @@ export function checkModel(model) {
     ['tower-above-street','M014',allBounds.tower.max[1]-a.street.y,p.towerAboveStreet],
     ['cauldron-above-street','M015',allBounds.peristyle.max[1]-a.street.y,p.cauldronAboveStreet],
     ['peristyle-arch-count','M016',c.peristyle.children.filter(n=>/^arch-\d+$/.test(n.name)).length,15],
-    ['historic-provisional-envelope-length','M156',allBounds.bowl.max[0]-allBounds.bowl.min[0],p.bowlLength],
     ['west-screen-width','M072',span(c.displays.getObjectByName('west-display-face'),'z'),p.westScreenWidth],
     ['west-screen-height','M073',span(c.displays.getObjectByName('west-display-face'),'y'),p.westScreenHeight]
-  ].filter(c=>!c[0].startsWith('historic-provisional'));
+  ];
   return {revision:spec.revision,generatorVersion:GENERATOR_VERSION,units:'meters',targetPhysicalToleranceM:.30,
     scope:'Generated geometry checked against chosen published controls. These are source-consistency checks, not independent measurements of the venue.',
     physicalAccuracy:'UNVERIFIED: the full model is not certified within 0.30 m of the physical venue.',
+    physicalAcceptance:{status:'NOT_VALIDATED',targetStatus:'provisional engineering target',
+      requirementId:'SR-3D-10',featureTolerancesApproved:false,
+      note:'Implementation tolerances below test generator arithmetic, not physical positional accuracy.'},
+    notValidatedChecks:[{id:'historic-provisional-envelope-length',measurementId:'M158',
+      actual:allBounds.bowl.max[0]-allBounds.bowl.min[0],expected:p.bowlLength,status:'BOUNDARY_UNRESOLVED',
+      reason:'Partial bowl group excludes the east opening; historic approximate overall ellipse endpoints are not equivalent. No pass/fail tolerance assigned.'},
+      {id:'field-varying-width',measurementId:'M019',status:'BOUNDARY_UNRESOLVED',
+        reason:'Guide minimum 222 ft has no established station or corresponding modeled boundary.'}],
     checks:checks.map(([id,measurementId,actual,expected])=>({id,measurementId,actual,expected,error:Math.abs(actual-expected),implementationTolerance:id==='peristyle-arch-count'?0:.005,pass:Math.abs(actual-expected)<.005})),
     componentBounds:allBounds,estimatedGeometry:spec.assumptions,independentPhysicalChecks:0};
 }

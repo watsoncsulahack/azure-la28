@@ -36,3 +36,5 @@ Retired IDs: UR-3D-02, UR-3D-03, UR-3D-04, SR-3D-05, SR-3D-08, SR-3D-09. Public 
 | SR-3D-18 | Distinguish source evidence, reconstruction accuracy targets and construction tolerances in engineering files. | Prevent approximate reconstruction geometry from becoming a construction specification. | 2026-11-27 | Implemented in drawing notes, control register and standards guide |
 
 Engineering files: [CAD R001](../../research/coliseum-cad/README.md). Application source: [MVP 0.2](../../apps/coliseum-mvp/README.md). Earlier wayfinding requirements remain separate in [their original register](../coliseum-wayfinding/requirements-analysis.md).
+
+Evidence iteration: [physical validation and source coverage](evidence-iteration/README.md). [CR-3D-001](evidence-iteration/SR-3D-10-change-proposal.md) proposes feature-specific acceptance and treats 0.30 m as provisional. It is pending approval; the original requirement rows above and in `requirements.csv` remain unchanged.

@@ -1,0 +1,10 @@
+derived/
+pdal_2016.json
+pdal_2023.json
+__pycache__/
+*.laz
+*.las
+*.tif
+*.tiff
+*.gpkg
+*.gdb/
