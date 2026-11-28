@@ -1,0 +1,558 @@
+{
+  "schemaVersion": "0.3.0",
+  "manifest": {
+    "schemaVersion": "0.3.0",
+    "revision": "0.3.0",
+    "surveyVintage": "2023-2024",
+    "stage": "EVIDENCE_OVERLAY_ONLY",
+    "geoAlignmentStatus": "PROVISIONAL_DIAGNOSTIC_ONLY",
+    "approvedForPhysicalNavigation": false,
+    "approvedForGeometryFitting": false,
+    "coordinates": {
+      "model": "X east schematic, Y up, Z south, meters",
+      "registrationSource": "candidate-registration.json",
+      "horizontalEPSG": "6340",
+      "verticalEPSG": "5703",
+      "method": "First order local tangent approximation to NAD83(2011)/UTM Zone 11N at candidate origin. Orientation from courtyard MRR of 2008. GIS overlay dimensions/placement NOT independently accepted.",
+      "originUTM": [
+        381085.6439885952,
+        3764460.6524837716
+      ],
+      "fieldHeightNAVD88_m": 42.549999999999955,
+      "rotationRad": -0.012437652158637362,
+      "originLonLat": [
+        -118.2878499592606,
+        34.01404248464797
+      ],
+      "affineMPerDegree": {
+        "dE_dlon": 92341.43317444249,
+        "dN_dlon": -1161.2636037170887,
+        "dE_dlat": 1394.5169164799152,
+        "dN_dlat": 110888.83779011665
+      },
+      "maxValidatedPositionErrorM": null
+    },
+    "provenance": {
+      "sourcePaths": [
+        "research/coliseum-geospatial/data/curb_ramps_aoi.geojson",
+        "research/coliseum-geospatial/data/street_segments_aoi.geojson",
+        "research/coliseum-geospatial/evidence/reports/candidate-registration.json",
+        "research/coliseum-geospatial/evidence/reports/independent-diagnostics.json",
+        "research/coliseum-geospatial/evidence/reports/building-assessment.json"
+      ],
+      "sourceBlobShas": {
+        "research/coliseum-geospatial/data/curb_ramps_aoi.geojson": "03249b6b316c8a52b7667da6873fd90788f20270",
+        "research/coliseum-geospatial/data/street_segments_aoi.geojson": "cccfd9758b5f7903ba5be676d92f454eeba0ff62",
+        "research/coliseum-geospatial/evidence/reports/candidate-registration.json": "427ae9a0e8a6244bc79d691dcb690de8c834cc5c",
+        "research/coliseum-geospatial/evidence/reports/independent-diagnostics.json": "cd69d845531077467d174e968d62081e0354f97d",
+        "research/coliseum-geospatial/evidence/reports/building-assessment.json": "d292c0c568cbd084801cfdda899c56ab67374c77"
+      },
+      "stadiumBuildingVintage": "2008",
+      "lidarDataset": "CA_LosAngeles_1_B23",
+      "nativeTilesAcquired": "previous session local raw cache, absent from GitHub",
+      "lidarCroppedNativePointCount": 8111643
+    },
+    "numerics": {
+      "projectedStadiumPolygonAreaM2": 48242.70083991487,
+      "oldCourtyardAreaM2": 12472.42844571277,
+      "bowlVerticalRMSEUnderCandidatePoseM": 7.248504189799699,
+      "fieldFlatnessHoldoutRMSEM": 0.027339856567929883
+    },
+    "warnings": [
+      "GIS street segments are road CENTERLINES, not sidewalks, and contain no vertical profiles.",
+      "Curb ramp records were created in 2017 and are not inspected real-time access observations.",
+      "The reference origin/bearing is based on a 2008 county courtyard and is not surveyed control.",
+      "LiDAR DEM at field position is about 11.25 m above direct field returns; do not elevate field to DEM.",
+      "LiDAR data are not embedded in this bundle; no LiDAR-based reshaping of stadium shell occurs.",
+      "Base model 0.2.0 shell, stair geometry and routes are schematic; physical accuracy target remains unverified."
+    ],
+    "records": {
+      "streetSegments": 10,
+      "curbRamps": 20
+    }
+  },
+  "streetSegments": [
+    {
+      "sourceId": 503,
+      "name": "MARTIN LUTHER KING, JR BL",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 74,
+      "localPaths": [
+        [
+          [
+            471.411,
+            321.105
+          ],
+          [
+            126.861,
+            324.518
+          ],
+          [
+            56.39,
+            328.898
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 541,
+      "name": "MARTIN LUTHER KING, JR BL",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 74,
+      "localPaths": [
+        [
+          [
+            56.39,
+            328.898
+          ],
+          [
+            -209.543,
+            345.209
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 585,
+      "name": "MARTIN LUTHER KING, JR BL",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 72,
+      "localPaths": [
+        [
+          [
+            -209.543,
+            345.209
+          ],
+          [
+            -275.055,
+            349.283
+          ],
+          [
+            -289.1,
+            349.842
+          ],
+          [
+            -341.845,
+            351.943
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 989,
+      "name": "HOOVER ST",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            56.39,
+            328.898
+          ],
+          [
+            56.615,
+            389.375
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1185,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.639,
+            -9.739
+          ],
+          [
+            -341.693,
+            90.822
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1163,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.477,
+            -309.136
+          ],
+          [
+            -341.558,
+            -160.093
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1146,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.414,
+            -456.827
+          ],
+          [
+            -341.477,
+            -309.136
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1260,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.693,
+            90.822
+          ],
+          [
+            -341.77,
+            155.973
+          ],
+          [
+            -341.795,
+            216.584
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1242,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.558,
+            -160.093
+          ],
+          [
+            -341.639,
+            -9.739
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    },
+    {
+      "sourceId": 1213,
+      "name": "VERMONT AV",
+      "venue": "LA MEMORIAL COLISEUM",
+      "surface": "Asphalt",
+      "claimedWidthRaw": 56,
+      "localPaths": [
+        [
+          [
+            -341.795,
+            216.584
+          ],
+          [
+            -341.845,
+            342.803
+          ],
+          [
+            -341.845,
+            351.943
+          ]
+        ]
+      ],
+      "sourceGeometryType": "LineString"
+    }
+  ],
+  "curbRamps": [
+    {
+      "sourceId": 1032,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.28737016157,
+        34.0109441477231
+      ],
+      "localXZ": [
+        44.261,
+        343.604
+      ]
+    },
+    {
+      "sourceId": 1041,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.287097178242,
+        34.0109559859529
+      ],
+      "localXZ": [
+        69.471,
+        342.295
+      ]
+    },
+    {
+      "sourceId": 1053,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.2914355878,
+        34.0109889324303
+      ],
+      "localXZ": [
+        -331.175,
+        338.586
+      ]
+    },
+    {
+      "sourceId": 1064,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.290027565722,
+        34.0110553516488
+      ],
+      "localXZ": [
+        -201.145,
+        331.238
+      ]
+    },
+    {
+      "sourceId": 1066,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.29023847646,
+        34.0110466526118
+      ],
+      "localXZ": [
+        -220.622,
+        332.2
+      ]
+    },
+    {
+      "sourceId": 1068,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291692572154,
+        34.0110331898279
+      ],
+      "localXZ": [
+        -354.906,
+        333.675
+      ]
+    },
+    {
+      "sourceId": 1072,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.287364729225,
+        34.011198305968
+      ],
+      "localXZ": [
+        44.767,
+        315.419
+      ]
+    },
+    {
+      "sourceId": 1079,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.287114439349,
+        34.0112178082743
+      ],
+      "localXZ": [
+        67.881,
+        313.259
+      ]
+    },
+    {
+      "sourceId": 1102,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.29169189754,
+        34.0119856108657
+      ],
+      "localXZ": [
+        -354.829,
+        228.054
+      ]
+    },
+    {
+      "sourceId": 1110,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291691523084,
+        34.0121963202305
+      ],
+      "localXZ": [
+        -354.792,
+        204.686
+      ]
+    },
+    {
+      "sourceId": 1124,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291710299712,
+        34.013132646788
+      ],
+      "localXZ": [
+        -356.511,
+        100.85
+      ]
+    },
+    {
+      "sourceId": 1127,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291680385691,
+        34.0133018997298
+      ],
+      "localXZ": [
+        -353.746,
+        82.08
+      ]
+    },
+    {
+      "sourceId": 1145,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.29167640504,
+        34.0140596301584
+      ],
+      "localXZ": [
+        -353.367,
+        -1.95
+      ]
+    },
+    {
+      "sourceId": 1156,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291690776117,
+        34.0142245306396
+      ],
+      "localXZ": [
+        -354.692,
+        -20.237
+      ]
+    },
+    {
+      "sourceId": 1179,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291430245926,
+        34.015361354103
+      ],
+      "localXZ": [
+        -330.615,
+        -146.305
+      ]
+    },
+    {
+      "sourceId": 1180,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291687110874,
+        34.0154067927405
+      ],
+      "localXZ": [
+        -354.335,
+        -151.347
+      ]
+    },
+    {
+      "sourceId": 1184,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291414728215,
+        34.0155013431793
+      ],
+      "localXZ": [
+        -329.18,
+        -161.829
+      ]
+    },
+    {
+      "sourceId": 1185,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291685594067,
+        34.015577802352
+      ],
+      "localXZ": [
+        -354.193,
+        -170.312
+      ]
+    },
+    {
+      "sourceId": 1227,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291683880723,
+        34.0169033315665
+      ],
+      "localXZ": [
+        -354.014,
+        -317.31
+      ]
+    },
+    {
+      "sourceId": 1221,
+      "hasRamp": "Yes",
+      "createdYear": 2017,
+      "lonLat": [
+        -118.291683344034,
+        34.016765655785
+      ],
+      "localXZ": [
+        -353.967,
+        -302.042
+      ]
+    }
+  ]
+}
