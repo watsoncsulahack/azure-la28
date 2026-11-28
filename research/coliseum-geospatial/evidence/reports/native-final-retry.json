@@ -1,0 +1,9 @@
+{
+  "status": "COMPLETE",
+  "completed_utc": "2026-11-28T01:07:22.811860+00:00",
+  "tiles": 2,
+  "bytes": 127749507,
+  "fully_decoded_points": 29118711,
+  "aoi_points": 8111643,
+  "inspection": "Both source files completely decoded and CRS read from embedded EVLRs. A local len(chunk.points) API error was corrected to len(chunk); complete data were preserved and checks rerun."
+}

@@ -49,6 +49,13 @@ def main():
     acquire.dump(AUDIT/'municipal-extract-verification.json',municipal)
     blockers=json.loads((ROOT/'reports/native-acquisition-blocker.json').read_text())
     inv['native_acquisition_exception']=blockers
+    followup=ROOT/'reports/native-retry-status.json'
+    if followup.exists():
+        current=json.loads(followup.read_text())
+        inv['native_acquisition_current_status']={
+            'status':current['status'],'complete_tiles':current['complete_tiles'],
+            'required_tiles':current['required_tiles'],'report':'reports/native-retry-status.json',
+            'note':'The older native_acquisition_exception is retained as historical provenance.'}
     inv['coverage_note']='AOI bounds describe the crop filter. Each raw EPT node may extend beyond it; exact node keys/bounds are in reports/lidar-selection.json. County complete intersecting features are not clipped.'
     acquire.dump(ROOT/'source-inventory.json',inv)
     diag=json.loads((ROOT/'reports/independent-diagnostics.json').read_text())
@@ -64,6 +71,12 @@ def main():
       ('G-08','P1','STALE_BOUNDARY_CONTROL','County stadium polygon','Principal stadium and courtyard DATE_=2008; dataset includes 33 features from 2020','County feature OBJECTID 1325059 / 1282840','Roof-line representation; no current tower control or verified HEIGHT/ELEV units','Use as historical spatial context; compare current scan/as-built footprint and retain per-feature epochs'),
       ('G-09','P1','ACQUISITION_BLOCKED','Native LAZ confirmation','Two current native tiles identified; incomplete transfer and HTTP 429 probe','USGS TNM exact URLs / native-acquisition-blocker.json','EPT succeeded; native delivery WKT not inspected','Retry once host permits; verify original WKT/vertical datum and tile classifications; preserve throttling exception'),
       ('G-10','P0','NOT_READY_FOR_PHYSICAL_SIMULATION','Model completeness and acceptance','No complete feature accepted for SR-3D-10; original requirement unchanged','Requirements; source/mesh traceability; independent diagnostics','No feature-specific approved tolerance; under-stand/topology/clearance observations missing','Approve CR-3D-001 and scope; obtain use-critical evidence; keep permanent and event-time overlays separate')]
+    if followup.exists() and current['status']=='ACQUIRED_AND_INSPECTED':
+        discrepancy=[('G-09','P1','RESOLVED_NATIVE_ACQUISITION','Native LAZ confirmation',
+            'Both complete tiles acquired: 127749507 bytes; 29118711 decoded points; embedded EPSG:6340/5703 NAVD88-Geoid18 confirmed',
+            'Native source bytes, native-extraction.json and native-retry-status.json',
+            'Original HTTP429 blocker retained as historical provenance; same-survey native/EPT agreement is encoding consistency only',
+            'Preserve raw source files and checksums; use native coordinates for subsequent analysis; model registration remains provisional')if row[0]=='G-09'else row for row in discrepancy]
     with (AUDIT/'discrepancy-register.csv').open('w',newline='')as f:
         w=csv.writer(f,lineterminator='\n');w.writerow(['id','priority','status','component','observation','evidence','limitation','recommended_action']);w.writerows(discrepancy)
     products=[]

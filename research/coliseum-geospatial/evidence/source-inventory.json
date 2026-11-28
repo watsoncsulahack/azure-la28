@@ -3260,6 +3260,66 @@
       "note": "Cached initial retrieval; file mtime is an acquisition-time proxy; headers unavailable."
     },
     {
+      "path": "raw/native/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+      "bytes": 64160267,
+      "sha256": "04fbf708b94c843b17f962f475617ff7d0535b0bc64a8da768e11d03fde12de9",
+      "url": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+      "expected_bytes": 64160267,
+      "initial_partial_bytes": 0,
+      "started_utc": "2026-11-28T00:40:05.244027+00:00",
+      "validator": "\"684b20c6-3d3020b\"",
+      "status": "COMPLETE_TRANSFER; native decoding/CRS checks required in acquire.py native",
+      "phase": "data transfer",
+      "http_status": 200,
+      "etag": "\"684b20c6-3d3020b\"",
+      "last_modified": "Thu, 12 Jun 2025 18:47:34 GMT",
+      "http_date": "Sat, 28 Nov 2026 00:40:07 GMT",
+      "content_range": null,
+      "retrieved_utc": "2026-11-28T00:55:37.440642+00:00"
+    },
+    {
+      "path": "raw/native/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+      "bytes": 63589240,
+      "sha256": "1c91034cda5a3cd11213602e504635b86ea296c38af9d5929c6acefba5866c5e",
+      "url": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+      "expected_bytes": 63589240,
+      "initial_partial_bytes": 0,
+      "started_utc": "2026-11-28T00:55:57.479990+00:00",
+      "validator": "\"684b271e-3ca4b78\"",
+      "status": "COMPLETE_TRANSFER; native decoding/CRS checks required in acquire.py native",
+      "phase": "data transfer",
+      "http_status": 200,
+      "etag": "\"684b271e-3ca4b78\"",
+      "last_modified": "Thu, 12 Jun 2025 19:14:38 GMT",
+      "http_date": "Sat, 28 Nov 2026 00:55:57 GMT",
+      "content_range": null,
+      "retrieved_utc": "2026-11-28T01:06:44.339046+00:00"
+    },
+    {
+      "path": "raw/native-metadata/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.xml",
+      "bytes": 13126,
+      "sha256": "efd5b79c98ee694b980c97fed23476ec70cacc31ef9aa666b3f4b629a774bc6e",
+      "url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.xml",
+      "retrieved_utc": "2026-11-28T00:31:43.644404+00:00",
+      "http_status": 200,
+      "etag": "\"3346-63792ba550e8a\"",
+      "http_date": "Sat, 28 Nov 2026 00:31:43 GMT",
+      "last_modified": "Sun, 15 Jun 2025 02:06:31 GMT",
+      "content_type": "application/xml"
+    },
+    {
+      "path": "raw/native-metadata/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.xml",
+      "bytes": 13126,
+      "sha256": "a5d22bdc5fe8e61c867e8364a0727bb994825ae3b3f84025416bd99aac070f31",
+      "url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.xml",
+      "retrieved_utc": "2026-11-28T00:31:43.342717+00:00",
+      "http_status": 200,
+      "etag": "\"3346-637929eb9fc55\"",
+      "http_date": "Sat, 28 Nov 2026 00:31:43 GMT",
+      "last_modified": "Sun, 15 Jun 2025 01:58:48 GMT",
+      "content_type": "application/xml"
+    },
+    {
       "path": "raw/noaa-dem.html",
       "bytes": 124721,
       "sha256": "d9b28b174c8e6f5ae3fcd079f7b8035c2847896f70149df202be331360d441e2",
@@ -3267,6 +3327,42 @@
       "retrieved_utc": null,
       "file_mtime_utc": "2026-11-27T23:57:31.151694+00:00",
       "note": "Cached initial retrieval; file mtime is an acquisition-time proxy; headers unavailable."
+    },
+    {
+      "path": "raw/noaa-lidar-index.html",
+      "bytes": 2200869,
+      "sha256": "87244248158ee534e6ea7109599350cd52eed721d6b4eb89b096c59000c5788b",
+      "url": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/laz/index.html",
+      "retrieved_utc": "2026-11-28T00:22:35.864388+00:00",
+      "http_status": 200,
+      "etag": "\"bc1cd502b342ff7c0415cc2a0ccebfef\"",
+      "http_date": "Sat, 28 Nov 2026 00:22:36 GMT",
+      "last_modified": "Fri, 27 Nov 2026 09:12:08 GMT",
+      "content_type": "text/html"
+    },
+    {
+      "path": "raw/noaa-native-mirror-list.xml",
+      "bytes": 272,
+      "sha256": "90f1e6607a69fa29c58e41e2be13138cfad939b64c0b847b5960901c4e3e352b",
+      "url": "https://noaa-nos-coastal-lidar-pds.s3.amazonaws.com/?list-type=2&prefix=laz/geoid18/14677/&max-keys=1",
+      "retrieved_utc": "2026-11-28T00:26:02.758693+00:00",
+      "http_status": 200,
+      "etag": null,
+      "http_date": "Sat, 28 Nov 2026 00:26:03 GMT",
+      "last_modified": null,
+      "content_type": "application/xml"
+    },
+    {
+      "path": "raw/noaa-points-full.html",
+      "bytes": 97749,
+      "sha256": "44ee734ffea7483ff522fec6109c7be4e79a3bed59b8425fa7c22c464b1f8fac",
+      "url": "https://www.fisheries.noaa.gov/inport/item/80259/full-list",
+      "retrieved_utc": "2026-11-28T00:23:38.230364+00:00",
+      "http_status": 200,
+      "etag": null,
+      "http_date": "Sat, 28 Nov 2026 00:23:38 GMT",
+      "last_modified": null,
+      "content_type": "text/html;charset=UTF-8"
     },
     {
       "path": "raw/nps1984.pdf",
@@ -3314,7 +3410,25 @@
       "note": "Cached initial retrieval; file mtime is an acquisition-time proxy; headers unavailable."
     }
   ],
-  "failed_acquisitions": [],
+  "failed_acquisitions": [
+    {
+      "url": "https://www.sciencebase.gov/catalog/item/684e2aa7d4be0235a8ae1fed?format=json",
+      "error": "<HTTPError 403: 'Forbidden'>",
+      "attempts": 3,
+      "http_status": 403,
+      "partial_bytes_discarded": 0,
+      "attempted_utc": "2026-11-28T00:30:37.254304+00:00"
+    },
+    {
+      "url": "https://www.sciencebase.gov/catalog/item/684e28d8d4be0235a8ae1981?format=json",
+      "error": "<HTTPError 403: 'Forbidden'>",
+      "attempts": 3,
+      "http_status": 403,
+      "partial_bytes_discarded": 0,
+      "attempted_utc": "2026-11-28T00:30:37.133663+00:00"
+    }
+  ],
+  "incomplete_transfers_not_counted_as_sources": [],
   "storage": "raw/ is a local immutable cache, intentionally excluded from Git. Reacquire with acquire.py; verify hashes before reuse.",
   "license": {
     "USGS": "US federal public-domain elevation data; attribution and source metadata retained.",
@@ -3328,6 +3442,13 @@
     "header_probe_status": 429,
     "probe_utc": "2026-11-28T00:05:53.979195+00:00",
     "fallback_completed": "All-depth EPT extract: 283 LAZ octree nodes and 8,111,630 AOI points. Native vertical-CRS confirmation remains unavailable."
+  },
+  "native_acquisition_current_status": {
+    "status": "ACQUIRED_AND_INSPECTED",
+    "complete_tiles": 2,
+    "required_tiles": 2,
+    "report": "reports/native-retry-status.json",
+    "note": "The older native_acquisition_exception is retained as historical provenance."
   },
   "coverage_note": "AOI bounds describe the crop filter. Each raw EPT node may extend beyond it; exact node keys/bounds are in reports/lidar-selection.json. County complete intersecting features are not clipped."
 }

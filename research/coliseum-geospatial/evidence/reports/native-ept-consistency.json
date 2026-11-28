@@ -1,0 +1,58 @@
+{
+  "purpose": "Encoding/distribution consistency for the same USGS acquisition; not independent physical validation of survey or model.",
+  "native_aoi_points": 8111643,
+  "ept_aoi_points": 8111630,
+  "sample_seed": 699,
+  "sample_points": 50000,
+  "sample_scope": "Uniform random native AOI points, classes 1/2, withheld excluded. At most 50,000; all EPT points used for 3D nearest-neighbor association.",
+  "horizontal_crs": "EPSG:6340",
+  "ept_to_native_operation": "Inverse of Popular Visualisation Pseudo-Mercator + Inverse of NAD83(2011) to WGS 84 (1) + UTM zone 11N",
+  "operation_nominal_accuracy_m": 2.0,
+  "vertical_coordinate_transform_applied": false,
+  "nearest_3d_distance_m": {
+    "count": 50000,
+    "rmse_m": 0.0033766588604863448,
+    "median_signed_m": 0.003303711711280943,
+    "median_absolute_m": 0.003303711711280943,
+    "p95_absolute_m": 0.004955348172707717,
+    "maximum_absolute_m": 0.005838294413665286
+  },
+  "horizontal_distance_m": {
+    "count": 50000,
+    "rmse_m": 0.0033766588604863448,
+    "median_signed_m": 0.003303711711280943,
+    "median_absolute_m": 0.003303711711280943,
+    "p95_absolute_m": 0.004955348172707717,
+    "maximum_absolute_m": 0.005838294413665286
+  },
+  "native_minus_ept_z_m": {
+    "count": 50000,
+    "rmse_m": 7.572980344591154e-14,
+    "median_signed_m": 3.552713678800501e-14,
+    "median_absolute_m": 5.684341886080802e-14,
+    "p95_absolute_m": 1.3500311979441904e-13,
+    "maximum_absolute_m": 1.4921397450962104e-13
+  },
+  "within_0_02m_fraction": 1.0,
+  "within_0_05m_fraction": 1.0,
+  "comparison_threshold_scope": "0.02/0.05 m describe correspondence at source coordinate quantization; they are not feature acceptance tolerances.",
+  "classification_equal_fraction": 1.0,
+  "physical_accuracy_verified": false,
+  "geographic_model_registration_approved": false,
+  "limitations": [
+    "Same underlying acquisition is not independent validation.",
+    "Nearest coordinates are inferred point associations; not source point-ID matches.",
+    "Absolute horizontal/vertical survey accuracy and model-origin correspondence remain separate."
+  ],
+  "crop_boundary_check": {
+    "band_width_projected_m": 0.1,
+    "matching_distance_m": 0.02,
+    "native_boundary_points_checked": 3580,
+    "ept_boundary_points_checked": 3592,
+    "native_points_without_ept_match": 59,
+    "ept_points_without_native_match": 46,
+    "net_unmatched_native_minus_ept": 13,
+    "total_count_native_minus_ept": 13,
+    "interpretation": "Near-boundary nearest-coordinate associations check whether crop/quantization differences account for the count delta. Source point IDs are not available in the derived arrays."
+  }
+}

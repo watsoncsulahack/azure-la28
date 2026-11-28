@@ -1,0 +1,6 @@
+{
+  "status": "INCOMPLETE",
+  "started_utc": "2026-11-28T00:40:05.000608+00:00",
+  "attempted_utc": "2026-11-28T00:55:37.924894+00:00",
+  "error": "AttributeError('points is not a valid dimension')"
+}

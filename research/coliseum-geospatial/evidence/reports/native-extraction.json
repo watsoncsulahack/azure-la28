@@ -1,0 +1,131 @@
+{
+  "tiles": [
+    {
+      "item": {
+        "title": "USGS Lidar Point Cloud CA_LosAngeles_B23 11SLT038000376400",
+        "moreInfo": "Lidar (Light detection and ranging) discrete-return point cloud data are available in the American Society for Photogrammetry and Remote Sensing (ASPRS) LAS format. The LAS format is a standardized binary format for storing 3-dimensional point cloud data and point attributes along with header information and variable length records specific to the data. Millions of data points are stored as a 3-dimensional data cloud as a series of x (longitude), y (latitude) and z (elevation) points. A few older projects in this collection are in ASCII format. Please refer to http://www.asprs.org/Committee-General/LASer-LAS-File-Format-Exchange-Activities.html for additional information. This data set is a LAZ (compressed LAS) format file containing [...]",
+        "sourceId": "684e2aa7d4be0235a8ae1fed",
+        "sourceName": "ScienceBase",
+        "sourceOriginId": null,
+        "sourceOriginName": "gda",
+        "metaUrl": "https://www.sciencebase.gov/catalog/item/684e2aa7d4be0235a8ae1fed",
+        "vendorMetaUrl": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.xml",
+        "publicationDate": "2025-06-13",
+        "lastUpdated": "2025-06-15T01:45:44.612-06:00",
+        "dateCreated": "2025-06-14T20:06:31.237-06:00",
+        "sizeInBytes": 64160267,
+        "extent": "Varies",
+        "format": "LAZ",
+        "downloadURL": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+        "downloadURLRaster": null,
+        "previewGraphicURL": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/browse/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.jpg",
+        "downloadLazURL": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz",
+        "urls": {
+          "LAZ": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz"
+        },
+        "datasets": [],
+        "boundingBox": {
+          "minX": -118.2996790287,
+          "maxX": -118.2887146273,
+          "minY": 34.0097653127,
+          "maxY": 34.0188957633
+        },
+        "bestFitIndex": 0.0,
+        "body": "Lidar (Light detection and ranging) discrete-return point cloud data are available in the American Society for Photogrammetry and Remote Sensing (ASPRS) LAS format. The LAS format is a standardized binary format for storing 3-dimensional point cloud data and point attributes along with header information and variable length records specific to the data. Millions of data points are stored as a 3-dimensional data cloud as a series of x (longitude), y (latitude) and z (elevation) points. A few older projects in this collection are in ASCII format. Please refer to http://www.asprs.org/Committee-General/LASer-LAS-File-Format-Exchange-Activities.html for additional information. This data set is a LAZ (compressed LAS) format file containing lidar point cloud data. Compression to an LAZ file was done with the LAStools 'laszip' program and can be unzipped with the same free program (laszip.org).",
+        "processingUrl": "processingUrl",
+        "modificationInfo": "2025-06-14"
+      },
+      "crs_wkt": "COMPOUNDCRS[\"NAD83(2011) / UTM zone 11N + NAVD88 height - Geoid18 (m)\",PROJCRS[\"NAD83(2011) / UTM zone 11N\",BASEGEOGCRS[\"NAD83(2011)\",DATUM[\"NAD83 (National Spatial Reference System 2011)\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",6318]],CONVERSION[\"UTM zone 11N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-117,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"x\",east,ORDER[1],LENGTHUNIT[\"meter\",1]],AXIS[\"y\",north,ORDER[2],LENGTHUNIT[\"meter\",1]],ID[\"EPSG\",6340]],VERTCRS[\"NAVD88 height - Geoid18 (m)\",VDATUM[\"North American Vertical Datum 1988\"],CS[vertical,1],AXIS[\"up\",up,LENGTHUNIT[\"meter\",1]],GEOIDMODEL[\"GEOID18\"],ID[\"EPSG\",5703]]]",
+      "point_count": 14070854,
+      "horizontal_epsg": 6340,
+      "vertical_epsg": 5703,
+      "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "creation_date": "2024-09-08",
+      "version": "1.4",
+      "point_format": 6,
+      "fully_decoded_point_count": 14070854
+    },
+    {
+      "item": {
+        "title": "USGS Lidar Point Cloud CA_LosAngeles_B23 11SLT038100376400",
+        "moreInfo": "Lidar (Light detection and ranging) discrete-return point cloud data are available in the American Society for Photogrammetry and Remote Sensing (ASPRS) LAS format. The LAS format is a standardized binary format for storing 3-dimensional point cloud data and point attributes along with header information and variable length records specific to the data. Millions of data points are stored as a 3-dimensional data cloud as a series of x (longitude), y (latitude) and z (elevation) points. A few older projects in this collection are in ASCII format. Please refer to http://www.asprs.org/Committee-General/LASer-LAS-File-Format-Exchange-Activities.html for additional information. This data set is a LAZ (compressed LAS) format file containing [...]",
+        "sourceId": "684e28d8d4be0235a8ae1981",
+        "sourceName": "ScienceBase",
+        "sourceOriginId": null,
+        "sourceOriginName": "gda",
+        "metaUrl": "https://www.sciencebase.gov/catalog/item/684e28d8d4be0235a8ae1981",
+        "vendorMetaUrl": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.xml",
+        "publicationDate": "2025-06-13",
+        "lastUpdated": "2025-06-15T01:03:39.463-06:00",
+        "dateCreated": "2025-06-14T19:58:48.087-06:00",
+        "sizeInBytes": 63589240,
+        "extent": "Varies",
+        "format": "LAZ",
+        "downloadURL": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+        "downloadURLRaster": null,
+        "previewGraphicURL": "https://prd-tnm.s3.amazonaws.com/StagedProducts/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/browse/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.jpg",
+        "downloadLazURL": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz",
+        "urls": {
+          "LAZ": "https://rockyweb.usgs.gov/vdelivery/Datasets/Staged/Elevation/LPC/Projects/CA_LosAngeles_B23/CA_LosAngeles_1_B23/LAZ/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.laz"
+        },
+        "datasets": [],
+        "boundingBox": {
+          "minX": -118.2888507847,
+          "maxX": -118.2778874667,
+          "minY": 34.0098792442,
+          "maxY": 34.0190087803
+        },
+        "bestFitIndex": 0.0,
+        "body": "Lidar (Light detection and ranging) discrete-return point cloud data are available in the American Society for Photogrammetry and Remote Sensing (ASPRS) LAS format. The LAS format is a standardized binary format for storing 3-dimensional point cloud data and point attributes along with header information and variable length records specific to the data. Millions of data points are stored as a 3-dimensional data cloud as a series of x (longitude), y (latitude) and z (elevation) points. A few older projects in this collection are in ASCII format. Please refer to http://www.asprs.org/Committee-General/LASer-LAS-File-Format-Exchange-Activities.html for additional information. This data set is a LAZ (compressed LAS) format file containing lidar point cloud data. Compression to an LAZ file was done with the LAStools 'laszip' program and can be unzipped with the same free program (laszip.org).",
+        "processingUrl": "processingUrl",
+        "modificationInfo": "2025-06-14"
+      },
+      "crs_wkt": "COMPOUNDCRS[\"NAD83(2011) / UTM zone 11N + NAVD88 height - Geoid18 (m)\",PROJCRS[\"NAD83(2011) / UTM zone 11N\",BASEGEOGCRS[\"NAD83(2011)\",DATUM[\"NAD83 (National Spatial Reference System 2011)\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",6318]],CONVERSION[\"UTM zone 11N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",-117,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"meter\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"x\",east,ORDER[1],LENGTHUNIT[\"meter\",1]],AXIS[\"y\",north,ORDER[2],LENGTHUNIT[\"meter\",1]],ID[\"EPSG\",6340]],VERTCRS[\"NAVD88 height - Geoid18 (m)\",VDATUM[\"North American Vertical Datum 1988\"],CS[vertical,1],AXIS[\"up\",up,LENGTHUNIT[\"meter\",1]],GEOIDMODEL[\"GEOID18\"],ID[\"EPSG\",5703]]]",
+      "point_count": 15047857,
+      "horizontal_epsg": 6340,
+      "vertical_epsg": 5703,
+      "vertical_crs_name": "NAVD88 height - Geoid18 (m)",
+      "scales": [
+        0.01,
+        0.01,
+        0.01
+      ],
+      "offsets": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "creation_date": "2025-01-29",
+      "version": "1.4",
+      "point_format": 6,
+      "fully_decoded_point_count": 15047857
+    }
+  ],
+  "aoi_epsg4326": [
+    -118.2923,
+    34.0109,
+    -118.2839,
+    34.017
+  ],
+  "points": 8111643,
+  "columns": [
+    "source_x",
+    "source_y",
+    "source_z",
+    "classification",
+    "return_number",
+    "overlap",
+    "withheld"
+  ],
+  "vertical_reference": "Read native WKT and original project report; do not infer vertical datum from plausible Z values."
+}

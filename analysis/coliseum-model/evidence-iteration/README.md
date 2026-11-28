@@ -2,6 +2,8 @@
 
 **Readiness: suitable as an exploration prototype and research baseline; not validated for physical, accessibility or crowd simulations.** The 0.30 m target is provisional. No complete physical feature has been accepted against it.
 
+**Native acquisition follow-up:** both original LAZ tiles are now fully downloaded and decoded (29,118,711 points), and their embedded EPSG:6340 / EPSG:5703 NAVD88-Geoid18 CRS is verified. See the [follow-up record](../../../research/coliseum-geospatial/evidence/NATIVE_LAZ_FOLLOWUP.md). The initial milestone findings below remain a historical snapshot; native acquisition/CRS confirmation is resolved, while model registration and physical acceptance remain open.
+
 This iteration starts from `main` **a56ec755e188494fd935c0ac62bf9f817aedc9cd**, integrates the reviewed contents of PRs [#1](https://github.com/watsoncsulahack/azure-la28/pull/1) and [#2](https://github.com/watsoncsulahack/azure-la28/pull/2) on the engineering branch, and executes acquisition and analysis. The original PRs are not remotely merged by this work. Their old acquisition/audit reports remain historical records.
 
 | Deliverable | Result |

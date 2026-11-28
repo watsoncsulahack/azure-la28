@@ -2,6 +2,8 @@
 
 Audit date: 2026-11-27 in Los Angeles (some UTC acquisitions extend into November 28). Baseline: `a56ec755e188494fd935c0ac62bf9f817aedc9cd`. App geometry revision remains **0.2.0**; CAD remains **R001**.
 
+**Native-file follow-up:** the earlier native-download exception is resolved. Both original tiles are acquired, completely decoded and identified as EPSG:6340 / EPSG:5703 (NAVD88 / Geoid18). A 50,000-point comparison confirms native/EPT encoding consistency; it does not validate physical model accuracy. See [the follow-up](../../../research/coliseum-geospatial/evidence/NATIVE_LAZ_FOLLOWUP.md). The paragraphs below describe the original audit state.
+
 ## Separate conclusions
 
 | Validation category | Outcome | What it establishes |

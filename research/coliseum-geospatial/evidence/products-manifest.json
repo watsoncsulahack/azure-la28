@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-11-28T00:13:50.034271+00:00",
+  "created_utc": "2026-11-28T01:11:12.693908+00:00",
   "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
   "packages": {
     "numpy": "2.3.5",
@@ -11,9 +11,9 @@
     "lazrs": "0.8.2",
     "matplotlib": "3.10.8"
   },
-  "raw_objects_verified": 303,
-  "raw_bytes_verified": 1018579123,
-  "source_inventory_sha256": "c853408e3ad3c904719da600777f8fd461bb3c3a703d99125ebd4e7138abf1ea",
+  "raw_objects_verified": 310,
+  "raw_bytes_verified": 1148653772,
+  "source_inventory_sha256": "bb4d82cca078c6fae5b2b8c06f76988de07accc9996d8faf0474f6efd71f0e87",
   "ept_raw_node_hashes_verified": 283,
   "transformations": [
     "All-depth EPT traversal and XY bounding-box crop; source Z unchanged; classification/return/withheld flags retained",
@@ -37,6 +37,11 @@
       "path": "research/coliseum-geospatial/evidence/derived/lidar-aoi.npz",
       "bytes": 77798178,
       "sha256": "196ef59563c1a56d31ea455bcdfd75a7bd2af22b03219af8e8887323cf7fc035"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/derived/native-aoi.npz",
+      "bytes": 77489080,
+      "sha256": "52b1d9d61eb561cb5524135e03fda50621cdf9aa4d11f8f65f3e50e4cc217336"
     },
     {
       "path": "research/coliseum-geospatial/evidence/reports/building-assessment.json",
@@ -79,6 +84,41 @@
       "sha256": "9b4026125ac0d78d7f0e301a3665bfc53543863c62772669aeafbd22cf861570"
     },
     {
+      "path": "research/coliseum-geospatial/evidence/reports/native-binary-headers.json",
+      "bytes": 3447,
+      "sha256": "0a91eee3c55f0ed06eac5500a8f7a4773194a0562d9e02d9f0da26d36561b416"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-ept-consistency.json",
+      "bytes": 2670,
+      "sha256": "599bec5694c979b086437ce6ea0b7b44047fbd6a21e205485e66bc3ea0f00fd8"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-extraction.json",
+      "bytes": 10882,
+      "sha256": "3ab89ea2c83137c22bd8bf66018f87f086b45d6b648ce71128722c601246d1c8"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-final-retry.json",
+      "bytes": 381,
+      "sha256": "95e303f7623d3a39f4f01c1579bfd220899625b87e98ada612026888fe963e50"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-first-transfer-result.json",
+      "bytes": 201,
+      "sha256": "3cdcc4fbf3d02be22117ab5ffbddf6d7b815ee17b0007186db01d7a7666739eb"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-metadata-assessment.json",
+      "bytes": 3158,
+      "sha256": "3ccaabc7b63d63626a9c7e1e1e983ed85da84edd906679b80d3dd12f6ba0b021"
+    },
+    {
+      "path": "research/coliseum-geospatial/evidence/reports/native-retry-status.json",
+      "bytes": 5196,
+      "sha256": "f7f9f29e3a4f1ce927d9c4903361b104706a68a55b68f445097d787b40626022"
+    },
+    {
       "path": "research/coliseum-geospatial/evidence/reports/surface-diagnostics.png",
       "bytes": 636955,
       "sha256": "e52db60b9b860d3ef7d6b7b418d527f61403afbaaa11ef48824cca50fc221cfd"
@@ -105,8 +145,8 @@
     },
     {
       "path": "analysis/coliseum-model/evidence-iteration/discrepancy-register.csv",
-      "bytes": 3834,
-      "sha256": "072a5e2c940a6c75e31ef576a84eab5b644d852c6235c403583acba8a495cb24"
+      "bytes": 3993,
+      "sha256": "bc514b455aa8ffacda3c5f103d9900ce476b7cfd031e83e987b64c7b974cef64"
     },
     {
       "path": "analysis/coliseum-model/evidence-iteration/generator-constants.csv",

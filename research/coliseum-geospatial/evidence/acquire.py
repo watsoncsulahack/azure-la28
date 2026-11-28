@@ -207,27 +207,59 @@ def dem():
              'limitation': '1 m bare earth, derived from same lidar survey; not independent validation of that survey.'})
 
 
+def native_metadata(selected):
+    import xml.etree.ElementTree as ET
+    rows=[]
+    for item in selected:
+        url=item['vendorMetaUrl']
+        path=fetch('native-metadata/'+url.split('/')[-1],url)
+        xml=ET.parse(path)
+        value=lambda key:xml.findtext('.//'+key)
+        rows.append({'tile':path.stem,'metadata_url':url,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+            'publication_date':value('pubdate'),'acquisition_start':value('begdate'),'acquisition_end':value('enddate'),
+            'horizontal_reference':value('gridsysn'),'vertical_datum':value('altdatum'),
+            'vertical_units':value('altunits'),'reported_altitude_resolution':value('altres'),
+            'reported_vertical_accuracy':value('vertaccr')})
+    report=REPORTS/'native-metadata-assessment.json'
+    previous=json.loads(report.read_text())if report.exists()else{}
+    dump(report,{**previous,'tiles':rows,
+        'interpretation':'Per-tile source metadata, not decoded native-file CRS or measured site accuracy. XML altitude resolution 1.0 m and partial LAS coordinate scale 0.01 m are distinct metadata; neither establishes site accuracy.'})
+
+
 def native():
     import laspy
     import numpy as np
     from pyproj import Transformer
+    from native_transfer import fetch_native
     catalog = json.loads(fetch('usgs-lpc-products.json', URLS['usgs-lpc-products.json']).read_text())
     selected = [i for i in catalog['items'] if 'CA_LosAngeles_B23' in i['title']]
     if len(selected) != 2:
         raise ValueError('Expected two current native tiles; review changed catalog')
-    arrays, headers = [], []
+    native_metadata(selected)
+    downloads=[]
     for item in selected:
-        path = fetch('native/'+item['downloadURL'].split('/')[-1], item['downloadURL'])
+        path=fetch_native(RAW/'native'/item['downloadURL'].split('/')[-1],
+                          item['downloadURL'],int(item['sizeInBytes']))
+        downloads.append((item,path))
+    arrays, headers = [], []
+    for item,path in downloads:
         with laspy.open(path) as src:
             crs = src.header.parse_crs()
             if crs is None:
                 raise ValueError('Native LAS has no CRS')
-            t = Transformer.from_crs(crs, 4326, always_xy=True)
+            horizontal = crs.sub_crs_list[0] if crs.is_compound else crs
+            vertical = crs.sub_crs_list[1] if crs.is_compound else None
+            t = Transformer.from_crs(horizontal, 4326, always_xy=True)
             headers.append({'item': item, 'crs_wkt': crs.to_wkt(), 'point_count': src.header.point_count,
+                            'horizontal_epsg': horizontal.to_epsg(),
+                            'vertical_epsg': vertical.to_epsg()if vertical else None,
+                            'vertical_crs_name': vertical.name if vertical else None,
                             'scales': src.header.scales.tolist(), 'offsets': src.header.offsets.tolist(),
                             'creation_date': str(src.header.creation_date), 'version': str(src.header.version),
                             'point_format': src.header.point_format.id})
+            decoded = 0
             for cloud in src.chunk_iterator(1000000):
+                decoded += len(cloud)
                 x, y, z = np.asarray(cloud.x), np.asarray(cloud.y), np.asarray(cloud.z)
                 lon, lat = t.transform(x, y)
                 mask = (lon >= AOI[0]) & (lon <= AOI[2]) & (lat >= AOI[1]) & (lat <= AOI[3])
@@ -235,6 +267,9 @@ def native():
                 arrays.append(np.column_stack((x[mask], y[mask], z[mask], np.asarray(cloud.classification)[mask],
                     np.asarray(cloud.return_number)[mask], np.asarray(cloud.overlap)[mask],
                     np.asarray(cloud.withheld)[mask])))
+            if decoded != src.header.point_count:
+                raise ValueError(f'Native LAZ decoded count mismatch: {path.name}')
+            headers[-1]['fully_decoded_point_count'] = decoded
         print('Native tile read:', path.name, flush=True)
     points = np.concatenate(arrays)
     DERIVED.mkdir(parents=True, exist_ok=True)
@@ -247,7 +282,7 @@ def native():
 def inventory():
     rows = []
     for path in sorted(RAW.rglob('*')):
-        if not path.is_file() or path.name.endswith('.receipt.json'):
+        if not path.is_file() or path.name.endswith('.receipt.json') or path.suffix=='.part':
             continue
         receipt = path.with_suffix(path.suffix+'.receipt.json')
         if not receipt.exists():
@@ -256,7 +291,9 @@ def inventory():
         rows.append({'path': str(path.relative_to(ROOT)), 'bytes': path.stat().st_size,
                      'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), **meta})
     failures=[json.loads(p.read_text()) for p in RAW.rglob('*.receipt.json') if 'error' in json.loads(p.read_text())]
+    partials=[json.loads(p.read_text())for p in RAW.rglob('*.part.receipt.json')]
     dump(ROOT/'source-inventory.json', {'aoi_epsg4326': AOI, 'files': rows,'failed_acquisitions':failures,
+         'incomplete_transfers_not_counted_as_sources':partials,
          'storage': 'raw/ is a local immutable cache, intentionally excluded from Git. Reacquire with acquire.py; verify hashes before reuse.',
          'license': {'USGS': 'US federal public-domain elevation data; attribution and source metadata retained.',
              'county': 'LARIAC / County of Los Angeles / Pictometry / EagleView; county terms and item license apply; no engineering/survey suitability warranty.',

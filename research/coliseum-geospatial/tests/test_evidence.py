@@ -40,6 +40,17 @@ class EvidenceTests(unittest.TestCase):
                     acquire.buildings()
             self.assertFalse((p/'out/buildings.geojson').exists())
 
+    def test_inventory_separates_partial_bytes_from_completed_sources(self):
+        with tempfile.TemporaryDirectory()as directory:
+            root=Path(directory);raw=root/'raw';raw.mkdir()
+            (raw/'tile.laz.part').write_bytes(b'LASF')
+            (raw/'tile.laz.part.receipt.json').write_text('{"status":"INCOMPLETE","url":"https://example.invalid/tile.laz"}')
+            with patch.object(acquire,'ROOT',root),patch.object(acquire,'RAW',raw):
+                acquire.inventory()
+            inventory=json.loads((root/'source-inventory.json').read_text())
+            self.assertEqual(inventory['files'],[])
+            self.assertEqual(len(inventory['incomplete_transfers_not_counted_as_sources']),1)
+
     def test_candidate_pose_is_explicitly_unapproved_and_right_handed(self):
         p=ROOT/'reports/candidate-registration.json'
         data=json.loads(p.read_text());m=np.array(data['threejs_to_utm_matrix_row_major'])

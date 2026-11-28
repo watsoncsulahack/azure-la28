@@ -1,0 +1,65 @@
+{
+  "tiles": [
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038000376400",
+      "metadata_url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.xml",
+      "sha256": "efd5b79c98ee694b980c97fed23476ec70cacc31ef9aa666b3f4b629a774bc6e",
+      "publication_date": "20250613",
+      "acquisition_start": "20230108",
+      "acquisition_end": "20240107",
+      "horizontal_reference": "NAD83(2011) / UTM zone 11N",
+      "vertical_datum": "North American Vertical Datum 1988",
+      "vertical_units": "meter",
+      "reported_altitude_resolution": "1.0",
+      "reported_vertical_accuracy": "N/A"
+    },
+    {
+      "tile": "USGS_LPC_CA_LosAngeles_B23_11SLT038100376400",
+      "metadata_url": "https://thor-f5.er.usgs.gov/ngtoc/metadata/waf/elevation/lidar_point_cloud/laz/CA_LosAngeles_1_B23/USGS_LPC_CA_LosAngeles_B23_11SLT038100376400.xml",
+      "sha256": "a5d22bdc5fe8e61c867e8364a0727bb994825ae3b3f84025416bd99aac070f31",
+      "publication_date": "20250613",
+      "acquisition_start": "20230108",
+      "acquisition_end": "20240107",
+      "horizontal_reference": "NAD83(2011) / UTM zone 11N",
+      "vertical_datum": "North American Vertical Datum 1988",
+      "vertical_units": "meter",
+      "reported_altitude_resolution": "1.0",
+      "reported_vertical_accuracy": "N/A"
+    }
+  ],
+  "interpretation": "Per-tile source metadata, not decoded native-file CRS or measured site accuracy. XML altitude resolution 1.0 m and partial LAS coordinate scale 0.01 m are distinct metadata; neither establishes site accuracy.",
+  "preserved_initial_partial_files": [
+    {
+      "path": "work/native-prefix-backup/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz.part.headers.txt",
+      "bytes": 242,
+      "sha256": "a3fa4343e3c2977c564fec64d973c61d242624d2e56ddb6a18c4d39c2cddc6a2"
+    },
+    {
+      "path": "work/native-prefix-backup/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz.part",
+      "bytes": 4194304,
+      "sha256": "fc328b0cfb645a30b44d66652c7907309fb561c420e655544b5ab07da9d60b88"
+    },
+    {
+      "path": "work/native-prefix-backup/USGS_LPC_CA_LosAngeles_B23_11SLT038000376400.laz.part.receipt.json",
+      "bytes": 752,
+      "sha256": "d78d98ddfb72585172711c3f2ce56b33d53011a0a6b21322e6cf2b053eecc794"
+    }
+  ],
+  "recorded_utc": "2026-11-28T00:33:12.375077+00:00",
+  "fresh_transfer_prefix_verification": {
+    "matched_bytes": 4194304,
+    "preserved_prefix_sha256": "fc328b0cfb645a30b44d66652c7907309fb561c420e655544b5ab07da9d60b88",
+    "matches_fresh_full_request": true,
+    "checked_utc": "2026-11-28T00:43:04.774865+00:00",
+    "complete_file_verified": false
+  },
+  "native_binary_confirmation": {
+    "status": "COMPLETE",
+    "reference": "native-binary-headers.json",
+    "horizontal_epsg": 6340,
+    "vertical_epsg": 5703,
+    "vertical_name": "NAVD88 height - Geoid18 (m)",
+    "fully_decoded_points": 29118711
+  },
+  "historical_next_attempt_plan": "Full sequential native transfer with a 30-minute per-file budget after cooldown. Earlier partial prefix preserved separately because range requests were throttled."
+}
